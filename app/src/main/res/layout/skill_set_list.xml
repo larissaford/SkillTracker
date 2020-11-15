@@ -37,12 +37,12 @@
                 android:layout_marginStart="8dp"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBottom_toTopOf="@+id/bought_on"
+                app:layout_constraintBottom_toTopOf="@+id/created_on"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/skill_set_name" />
 
             <TextView
-                android:id="@+id/bought_on"
+                android:id="@+id/created_on"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -55,13 +55,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <TextView
-                android:id="@+id/date_bought"
+                android:id="@+id/date_created"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBaseline_toBaselineOf="@+id/bought_on"
-                app:layout_constraintStart_toEndOf="@+id/bought_on" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/created_on"
+                app:layout_constraintStart_toEndOf="@+id/created_on" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

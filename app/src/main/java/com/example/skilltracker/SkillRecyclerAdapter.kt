@@ -33,7 +33,7 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val SkillSetName = itemView.findViewById<TextView?>(R.id.skill_set_name)
         val skillsetDescription = itemView.findViewById<TextView?>(R.id.description)
-        val dateBoughtOn = itemView.findViewById<TextView?>(R.id.date_bought)
+        val dateCreated = itemView.findViewById<TextView?>(R.id.date_created)
         }
 
     /**
@@ -58,7 +58,7 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
         val SkillSet = orders[position]
         holder.SkillSetName?.text = SkillSet.name
         holder.skillsetDescription?.text = SkillSet.description
-        holder.dateBoughtOn?.text = SkillSet.dateCreated.toLocalDate().toString()
+        holder.dateCreated?.text = SkillSet.dateCreated.toLocalDate().toString()
         }
 
     /**

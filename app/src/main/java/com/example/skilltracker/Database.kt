@@ -35,22 +35,22 @@ interface SkillDao {
  */
 @Database(entities = [SkillSet::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)
-abstract class OrdersDatabase : RoomDatabase() {
+abstract class SkillsDatabase : RoomDatabase() {
     abstract fun orderDao(): SkillDao
 
     companion object {
         @Volatile
-        private var INSTANCE: OrdersDatabase? = null
+        private var INSTANCE: SkillsDatabase? = null
 
-        fun getInstance(context: Application): OrdersDatabase {
+        fun getInstance(context: Application): SkillsDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null){
                 return tempInstance
             }
 
-            synchronized(OrdersDatabase::class){
+            synchronized(SkillsDatabase::class){
                 val instance = Room.databaseBuilder(
-                    context.applicationContext, OrdersDatabase::class.java,
+                    context.applicationContext, SkillsDatabase::class.java,
                     "skills_database"
                 ).build()
 
@@ -96,7 +96,7 @@ class SkillsRepository(app: Application){
     private var skillsDao: SkillDao
 
     init{
-        val database: OrdersDatabase = OrdersDatabase.getInstance(app)
+        val database: SkillsDatabase = SkillsDatabase.getInstance(app)
         skillsDao = database.orderDao()
         allSkillSets = skillsDao.getAll()
     }

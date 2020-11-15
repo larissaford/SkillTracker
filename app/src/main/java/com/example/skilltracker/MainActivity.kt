@@ -1,5 +1,6 @@
 package com.example.skilltracker
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -32,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            val currentFragment = getCurrentFragment() as SkillSetFragment
+            currentFragment.onFABClicked(view)
         }
     }
 
@@ -52,4 +55,17 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    fun getCurrentFragment(): Fragment?{
+        val navFrag = supportFragmentManager.findFragmentById(R.id.myNavHostFragment)
+        return navFrag?.childFragmentManager?.fragments?.get(0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        for (fragment in supportFragmentManager.fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
 }
