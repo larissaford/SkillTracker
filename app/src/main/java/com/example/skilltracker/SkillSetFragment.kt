@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skilltracker.databinding.FragmentSkillSetBinding
 
 /**
@@ -23,7 +26,18 @@ class SkillSetFragment : Fragment() {
         val binding: FragmentSkillSetBinding =  DataBindingUtil.inflate(
             inflater, R.layout.fragment_skill_set, container, false)
 
+        val vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        vm.insertSkillSet(SkillSet())
+        binding.skillSetList.layoutManager = LinearLayoutManager(context)
 
+        // fill the recycler view with most recent data from the database
+        vm.getSkillSet().observe(viewLifecycleOwner, Observer {
+            binding.skillSetList.adapter = context?.let { vm.getSkillSet().value?.let { it1 ->
+                SkillRecyclerAdapter(it,
+                    it1
+                )
+            } }
+        })
 
         return binding.root
     }
