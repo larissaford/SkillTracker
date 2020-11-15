@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_root"
     app:startDestination="@id/skillSetFragment">
-
     <fragment
         android:id="@+id/skillSetFragment"
         android:name="com.example.skilltracker.SkillSetFragment"
+        tools:layout="@layout/fragment_skill_set"
         android:label="My Skill Sets" />
 </navigation>
