@@ -11,7 +11,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.skilltracker.databinding.ActivityMainBinding
@@ -34,10 +36,26 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
+        //NavigationUI.setupActionBarWithNavController(this, navController)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+            //To-Do: make it so you don't need to say "... as certainFragment"
             val currentFragment = getCurrentFragment() as SkillSetFragment
             currentFragment.onFABClicked(view)
         }
+    }
+
+    /**
+     * sets up the nav Controller and the back button in the app bar.
+     * @return Boolean
+     */
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        //return NavigationUI.navigateUp(drawerLayout, navController)
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
