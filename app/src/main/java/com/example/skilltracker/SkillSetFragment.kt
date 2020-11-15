@@ -56,6 +56,7 @@ class SkillSetFragment : Fragment() {
 
     fun onFABClicked(view: View) {
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            //clear the database for testing
             //vm.nuke()
             val skillSet = SkillSet()
             vm.insertSkillSet(SkillSet())
