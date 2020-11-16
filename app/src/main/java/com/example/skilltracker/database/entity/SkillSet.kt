@@ -23,7 +23,7 @@ data class SkillSet(
 ): Parcelable {
     @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var skillSetId: Long = 0L
 
     constructor(): this("add name", "add description", LocalDateTime.now())
 

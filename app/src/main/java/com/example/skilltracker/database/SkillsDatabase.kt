@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 /**
  * adding the synchronized keyword to the database makes it work with Coroutines
  */
-@Database(entities = [SkillSet::class], version = 1, exportSchema = false)
+@Database(entities = [SkillSet::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class SkillsDatabase : RoomDatabase() {
     abstract fun skillDao(): SkillDao
@@ -34,7 +34,9 @@ abstract class SkillsDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext, SkillsDatabase::class.java,
                     "skills_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 return instance

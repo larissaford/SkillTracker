@@ -37,7 +37,7 @@ class SkillSetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
-        //vm.nuke()
+//        vm.nuke()
         //vm.insertSkillSet(SkillSet())
         binding.skillSetList.layoutManager = LinearLayoutManager(context)
 

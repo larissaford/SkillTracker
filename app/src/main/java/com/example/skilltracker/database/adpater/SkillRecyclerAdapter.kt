@@ -77,7 +77,7 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
  */
 private class SkillSetDiffCallBack : DiffUtil.ItemCallback<SkillSet>() {
     override fun areItemsTheSame(oldItem: SkillSet, newItem: SkillSet): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.skillSetId == newItem.skillSetId
     }
 
     override fun areContentsTheSame(oldItem: SkillSet, newItem: SkillSet): Boolean {
