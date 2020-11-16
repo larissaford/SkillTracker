@@ -1,15 +1,16 @@
-package com.example.skilltracker
+package com.example.skilltracker.database.adpater
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.skilltracker.R
+import com.example.skilltracker.database.entity.SkillSet
+
 
 /**
  * This is the adaptor to take the views and put them into the layout, and then take the data and
