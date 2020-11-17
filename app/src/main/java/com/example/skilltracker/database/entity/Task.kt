@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 data class Task (
     @PrimaryKey
     val taskId: Long?,
-    @ColumnInfo(name="taks_name")
+    @ColumnInfo(name="task_name")
     val taskName: String,
     @ColumnInfo(name="task_description")
     val taskDescription: String,
