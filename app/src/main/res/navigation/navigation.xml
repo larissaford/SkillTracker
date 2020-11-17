@@ -8,5 +8,14 @@
         android:id="@+id/skillSetFragment"
         android:name="com.example.skilltracker.SkillSetFragment"
         tools:layout="@layout/fragment_skill_set"
-        android:label="My Skill Sets" />
+        android:label="My Skill Sets" >
+        <action
+            android:id="@+id/action_skillSetFragment_to_newSkillSetFragment"
+            app:destination="@id/newSkillSetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newSkillSetFragment"
+        android:name="com.example.skilltracker.NewSkillSetFragment"
+        android:label="New Skill Set"
+        tools:layout="@layout/fragment_new_skill_set" />
 </navigation>

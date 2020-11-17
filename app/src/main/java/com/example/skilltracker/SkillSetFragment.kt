@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
 import com.example.skilltracker.database.entity.SkillSet
@@ -61,7 +62,8 @@ class SkillSetFragment : Fragment() {
             //clear the database for testing
             //vm.nuke()
             val skillSet = SkillSet()
-            vm.insertSkillSet(SkillSet())
+            //vm.insertSkillSet(SkillSet())
+            view.findNavController().navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment())
         }
     }
 }
