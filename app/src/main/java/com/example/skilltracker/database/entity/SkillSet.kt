@@ -1,4 +1,4 @@
-package com.example.skilltracker
+package com.example.skilltracker.database.entity
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -14,7 +14,8 @@ import org.threeten.bp.LocalDateTime
  */
 
 
-@Parcelize @Entity
+@Parcelize
+@Entity
 data class SkillSet(
     var name: String,
     var description: String,
@@ -22,7 +23,7 @@ data class SkillSet(
 ): Parcelable {
     @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var skillSetId: Long = 0L
 
     constructor(): this("add name", "add description", LocalDateTime.now())
 
