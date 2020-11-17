@@ -43,16 +43,16 @@ interface SkillDao {
      * Return Join data between Skillset and Skill tables from database
      * @return LiveData with list of SkillSet with related Skill
      */
-    @Query("SELECT * FROM SkillSet")
     @Transaction
+    @Query("SELECT * FROM SkillSet")
     fun getAllSkillSetWithSkills(): LiveData<List<SkillSetWithSkills>>
 
     /**
      * Return Join data between Skill and Task tables from database
      * @return LiveData with list of Skill with related Tasks
      */
-    @Query("SELECT * FROM Skill")
     @Transaction
+    @Query("SELECT * FROM Skill")
     fun getAllSkillWithTasks(): LiveData<List<SkillWithTasks>>
 
     /* INSERTS */
