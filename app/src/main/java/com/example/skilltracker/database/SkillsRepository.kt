@@ -56,13 +56,13 @@ class SkillsRepository(app: Application){
         skillsDao.insert(task)
     }
 
-    suspend fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills){
-        skillsDao.insert(skillSetWithSkills)
-    }
-
-    suspend fun insertSkillsWithTasks(skillWithTasks: SkillWithTasks){
-        skillsDao.insert(skillWithTasks)
-    }
+//    suspend fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills){
+//        skillsDao.insert(skillSetWithSkills)
+//    }
+//
+//    suspend fun insertSkillsWithTasks(skillWithTasks: SkillWithTasks){
+//        skillsDao.insert(skillWithTasks)
+//    }
 
     /* DELETES */
     suspend fun nukeTable() = skillsDao.nukeTable()
