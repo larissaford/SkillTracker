@@ -23,4 +23,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="missing_field_error_warning">
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">@dimen/missing_field_error_text_size</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
 </resources>
