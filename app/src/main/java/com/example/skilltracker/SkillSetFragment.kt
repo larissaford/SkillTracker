@@ -17,6 +17,7 @@ import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentSkillSetBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -39,9 +40,11 @@ class SkillSetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Ensure the FAB is visible
+        val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
+        fab.visibility = View.VISIBLE
+
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
-//        vm.nuke()
-        //vm.insertSkillSet(SkillSet())
         binding.skillSetList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
@@ -59,15 +62,23 @@ class SkillSetFragment : Fragment() {
         }*/
     }
 
+    /**
+     * Navigates to the NewSkillSetFragment and makes the FAB invisible
+     * @param view: The view displayed when the FAB was clicked
+     */
     fun onFABClicked(view: View) {
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            //clear the database for testing
-            //vm.nuke()
-            val skillSet = SkillSet()
-            //vm.insertSkillSet(SkillSet())
+            // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
             navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment())
+
+            // Set the fab visibility to false so it does not display while the user is creating a new skill set
+            val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
+            fab.visibility = View.INVISIBLE
+
+            //clear the database for testing
+            //vm.nuke()
         }
     }
 }

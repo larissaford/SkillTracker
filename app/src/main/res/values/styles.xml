@@ -16,4 +16,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="new_skill_set_body_labels">
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

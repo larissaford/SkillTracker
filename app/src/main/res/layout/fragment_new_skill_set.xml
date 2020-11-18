@@ -10,14 +10,61 @@
         android:id="@+id/new_skill_set_fragment_layout">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/new_skillSet_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="New Skill Set"
+            android:labelFor="@id/new_skillSet_name_input"
+            android:text="@string/name_semicolon"
+            app:layout_constraintBaseline_toBaselineOf="@+id/new_skillSet_name_input"
+            app:layout_constraintEnd_toEndOf="@+id/new_skillSet_description"
+            style="@style/new_skill_set_body_labels" />
+
+        <EditText
+            android:id="@+id/new_skillSet_name_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/new_skillSet_body_padding"
+            android:layout_marginTop="@dimen/new_skillSet_top_padding"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/new_skillSet_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/new_skillSet_description"
+            style="@style/new_skill_set_body_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/new_skillSet_body_padding"
+            android:labelFor="@id/new_skillSet_description_input"
+            android:text="@string/description_semicolon"
+            app:layout_constraintBaseline_toBaselineOf="@+id/new_skillSet_description_input"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/new_skillSet_description_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/new_skillSet_body_padding"
+            android:layout_marginTop="@dimen/new_skillSet_body_padding"
+            android:ems="10"
+            android:gravity="start|top"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintStart_toEndOf="@+id/new_skillSet_description"
+            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_name_input" />
+
+        <Button
+            android:id="@+id/create_new_skillSet_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
+            android:text="@string/create_skill_set"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_description_input" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

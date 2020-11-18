@@ -12,4 +12,10 @@
     <string name="created_on">Created On:</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="skillset_fragment_label">My Skill Sets</string>
+
+    <!-- New skill set strings -->
+    <string name="name_semicolon">Name:</string>
+    <string name="description_semicolon">Description:</string>
+    <string name="new_skill_set">New Skill Set</string>
+    <string name="create_skill_set">Create Skill Set</string>
 </resources>
