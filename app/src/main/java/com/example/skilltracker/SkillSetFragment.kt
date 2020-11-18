@@ -74,8 +74,7 @@ class SkillSetFragment : Fragment() {
             navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment())
 
             // Set the fab visibility to false so it does not display while the user is creating a new skill set
-            val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
-            fab.visibility = View.INVISIBLE
+            (activity as MainActivity).hideFAB()
 
             //clear the database for testing
             //vm.nuke()

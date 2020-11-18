@@ -13,9 +13,12 @@
     <string name="title_activity_main2">MainActivity</string>
     <string name="skillset_fragment_label">My Skill Sets</string>
 
-    <!-- New skill set strings -->
+    <!-- New skill set/skill/task strings -->
     <string name="name_semicolon">Name:</string>
     <string name="description_semicolon">Description:</string>
     <string name="new_skill_set">New Skill Set</string>
     <string name="create_skill_set">Create Skill Set</string>
+    <string name="name_can_not_be_blank">Name can not be blank</string>
+    <string name="description_can_not_be_blank">Description can not be blank</string>
+    <string name="create_skill">Create Skill</string>
 </resources>

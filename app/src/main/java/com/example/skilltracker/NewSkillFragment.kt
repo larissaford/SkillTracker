@@ -7,19 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
-import com.example.skilltracker.databinding.FragmentNewSkillSetBinding
+import com.example.skilltracker.databinding.FragmentNewSkillBinding
 
 /**
- * Used to create a new Skill Set
+ * Used to create a new Skill
  * @property binding The binding variable for this fragment
- * @property vm The view model for skill sets
+ * @property vm The view model for skills
  */
-class NewSkillSetFragment : Fragment() {
-    private lateinit var binding: FragmentNewSkillSetBinding
+class NewSkillFragment : Fragment() {
+    private lateinit var binding: FragmentNewSkillBinding
     private lateinit var vm: SkillsViewModel
 
     /**
@@ -33,12 +31,11 @@ class NewSkillSetFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_new_skill_set, container, false
+            inflater, R.layout.fragment_new_skill, container, false
         )
 
-        binding.createNewSkillSetButton.setOnClickListener {
-            // Add the new skill set to the database if it is valid
-            if (addNewSkillSet()) {
+        binding.createNewSkillButton.setOnClickListener {
+            if (addNewSkill()) {
                 // Navigate back to the SkillSet fragment
                 val navController = this.findNavController()
                 navController.navigateUp()
@@ -63,47 +60,28 @@ class NewSkillSetFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        // To-Do: Use the right view model
+        //vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
     }
 
     /**
-     * Adds a new skill set to the database
+     * Adds a new skill to the database
      */
-    private fun addNewSkillSet(): Boolean {
-        val name: String = binding.newSkillSetNameInput.text.toString()
-        val description: String = binding.newSkillSetDescriptionInput.text.toString()
-        var validName: Boolean = false
-        var validDescritpion: Boolean = false
+    private fun addNewSkill(): Boolean {
+        val name: String = binding.newSkillNameInput.text.toString()
 
-        // Ensure a name was provided
+        // Ensure a name was provided for the skill
         if (name == null || name == "") {
-            val toast = Toast.makeText(context, "Please give the new skill set a name", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
-            binding.newSkillSetMissingName.visibility = View.VISIBLE
+            binding.newSkillMissingName.visibility = View.VISIBLE
+            return false
         }
         else {
-            validName = true
-            binding.newSkillSetMissingName.visibility = View.INVISIBLE
-        }
-
-        // Ensure a description was provided
-        if (description == null || description == "") {
-            val toast = Toast.makeText(context, "Please give the new skill set a description", Toast.LENGTH_SHORT)
-            toast.show()
-            binding.newSkillSetMissingDescription.visibility = View.VISIBLE
-        }
-        else {
-            validDescritpion = true
-            binding.newSkillSetMissingDescription.visibility = View.INVISIBLE
-        }
-
-        // If name and description are provided, add the skill set to the database
-        if (validName && validDescritpion) {
-            val skillSet = SkillSet(name, description)
-            vm.insertSkillSet(skillSet)
+            //val skill = Skill(name)
+            //vm.insertSkill(skill)
+            binding.newSkillMissingName.visibility = View.INVISIBLE
             return true
         }
-
-        return false
     }
 }

@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/new_skill_set_fragment_layout">
+        android:id="@+id/new_skill_set_fragment_constraint_layout">
 
         <TextView
             android:id="@+id/new_skillSet_name"
@@ -63,6 +63,26 @@
             android:text="@string/create_skill_set"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_description_input" />
+
+        <TextView
+            android:id="@+id/new_skillSet_missing_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_can_not_be_blank"
+            app:layout_constraintEnd_toEndOf="@+id/new_skillSet_name_input"
+            app:layout_constraintStart_toStartOf="@+id/new_skillSet_name_input"
+            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_name_input"
+            style="@style/missing_field_error_warning" />
+
+        <TextView
+            android:id="@+id/new_skillSet_missing_description"
+            style="@style/missing_field_error_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description_can_not_be_blank"
+            app:layout_constraintEnd_toEndOf="@+id/new_skillSet_description_input"
+            app:layout_constraintStart_toStartOf="@+id/new_skillSet_description_input"
             app:layout_constraintTop_toBottomOf="@+id/new_skillSet_description_input" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

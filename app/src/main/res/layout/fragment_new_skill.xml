@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".NewSkillFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/new_skill_fragment_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/new_skill_name"
+            style="@style/new_skill_set_body_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/new_skill_name_input"
+            android:text="@string/name_semicolon"
+            app:layout_constraintBaseline_toBaselineOf="@+id/new_skill_name_input"
+            app:layout_constraintEnd_toStartOf="@+id/new_skill_name_input"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/new_skill_name_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/new_skillSet_top_padding"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/new_skill_name"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:id="@+id/new_skill_missing_name"
+            style="@style/missing_field_error_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_can_not_be_blank"
+            app:layout_constraintEnd_toEndOf="@+id/new_skill_name_input"
+            app:layout_constraintStart_toStartOf="@+id/new_skill_name_input"
+            app:layout_constraintTop_toBottomOf="@+id/new_skill_name_input" />
+
+        <Button
+            android:id="@+id/create_new_skill_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
+            android:text="@string/create_skill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/new_skill_missing_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

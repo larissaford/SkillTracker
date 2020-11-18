@@ -12,10 +12,26 @@
         <action
             android:id="@+id/action_skillSetFragment_to_newSkillSetFragment"
             app:destination="@id/newSkillSetFragment" />
+        <action
+            android:id="@+id/action_skillSetFragment_to_skillFragment"
+            app:destination="@id/skillFragment" />
     </fragment>
     <fragment
         android:id="@+id/newSkillSetFragment"
         android:name="com.example.skilltracker.NewSkillSetFragment"
         android:label="New Skill Set"
         tools:layout="@layout/fragment_new_skill_set" />
+    <fragment
+        android:id="@+id/skillFragment"
+        android:name="com.example.skilltracker.SkillFragment"
+        android:label="My Skills" >
+        <action
+            android:id="@+id/action_skillFragment_to_newSkillFragment"
+            app:destination="@id/newSkillFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newSkillFragment"
+        android:name="com.example.skilltracker.NewSkillFragment"
+        android:label="New Skill"
+        tools:layout="@layout/fragment_new_skill" />
 </navigation>

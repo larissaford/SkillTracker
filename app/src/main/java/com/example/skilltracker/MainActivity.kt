@@ -1,5 +1,6 @@
 package com.example.skilltracker
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -84,5 +87,34 @@ class MainActivity : AppCompatActivity() {
         for (fragment in supportFragmentManager.fragments) {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    /**
+     * Closes the user's keyboard if it is currently open
+     * @param activity The activity that is being interacted with
+     * @param fragment The fragment the user is viewing
+     */
+    fun closeKeyboardFromFragment(activity: Activity, fragment: Fragment) {
+        Timber.i("Hiding keyboard")
+        val imm: InputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view: View = fragment.view?.rootView as View
+
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    /**
+     * Sets the FAB's visibility to visible
+     */
+    fun showFAB() {
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.visibility = View.VISIBLE
+    }
+
+    /**
+     * Sets the FAB's visibility to invisible
+     */
+    fun hideFAB() {
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.visibility = View.INVISIBLE
     }
 }
