@@ -56,13 +56,31 @@ class SkillsRepository(app: Application){
         skillsDao.insert(task)
     }
 
-//    suspend fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills){
-//        skillsDao.insert(skillSetWithSkills)
-//    }
-//
-//    suspend fun insertSkillsWithTasks(skillWithTasks: SkillWithTasks){
-//        skillsDao.insert(skillWithTasks)
-//    }
+    suspend fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills){
+        // get skillset id
+        val skillSetId = skillSetWithSkills.skillSet.skillSetId
+        // use array initialization to create rows
+        val join = Array(skillSetWithSkills.skills.size) { it ->
+                SkillSetSkillCrossRef(
+                    skillSetId,
+                    skillSetWithSkills.skills[it].skillId
+            )
+        }
+        skillsDao.insert(*join)
+    }
+
+    suspend fun insertSkillsWithTasks(skillWithTasks: SkillWithTasks){
+        // get skill id for all rows
+        val skillSetId = skillWithTasks.skill.skillId
+        // use array initialization to create join rows
+        val join = Array(skillWithTasks.tasks.size) { it ->
+            SkillTaskCrossRef(
+                skillSetId,
+                skillWithTasks.tasks[it].taskId
+            )
+        }
+        skillsDao.insert(*join)
+    }
 
     /* DELETES */
     suspend fun nukeTable() = skillsDao.nukeTable()

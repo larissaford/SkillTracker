@@ -77,19 +77,19 @@ interface SkillDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg task: Task)
 
-//    /**
-//     * Insert join data between Skillset and Skill into database
-//     * @param skillSetWithSkills join data be added to SkillSetSkillCrossRef table
-//     */
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insert(vararg skillSetWithSkills: SkillSetWithSkills)
+    /**
+     * Insert join data between Skillset and Skill into database
+     * @param join data be added to SkillSetSkillCrossRef table
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(vararg join: SkillSetSkillCrossRef)
 
-//    /**
-//     * Insert SkillSet data into database
-//     * @param skillWithTasks join data to be added to SkillTaskCrossRef table
-//     */
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insert(vararg skillWithTasks: SkillWithTasks)
+    /**
+     * Insert SkillSet data into database
+     * @param join data to be added to SkillTaskCrossRef table
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(vararg join: SkillTaskCrossRef)
 
     /* DELETES */
     /**
