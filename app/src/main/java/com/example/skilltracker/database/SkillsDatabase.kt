@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
  * adding the synchronized keyword to the database makes it work with Coroutines
  */
 @Database(entities = [SkillSet::class, SkillSetSkillCrossRef::class, Skill::class,
-    SkillTaskCrossRef::class, Task::class], version = 3, exportSchema = false)
+    SkillTaskCrossRef::class, Task::class], version = 5, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class SkillsDatabase : RoomDatabase() {
     abstract fun skillDao(): SkillDao

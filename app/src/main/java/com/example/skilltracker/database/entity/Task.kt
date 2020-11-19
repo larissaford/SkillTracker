@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class Task (
-    @PrimaryKey
-    val taskId: Long?,
+    @PrimaryKey(autoGenerate = true)
+    val taskId: Long = 0L,
     @ColumnInfo(name="task_name")
     val taskName: String,
     @ColumnInfo(name="task_description")
@@ -22,3 +22,12 @@ data class Task (
     @ColumnInfo(name="task_active")
     val active: Boolean
 )
+//    : Parcelable {
+//    @IgnoredOnParcel
+//    @PrimaryKey(autoGenerate = true)
+//    var skillSetId: Long = 0L
+//
+//    constructor(): this("add name", "add description", LocalDateTime.now())
+//
+//    constructor(name: String, description: String): this(name, description, LocalDateTime.now())
+//}
