@@ -24,8 +24,8 @@ import com.example.skilltracker.database.entity.SkillSet
  * @param orders a list of previous orders
  * @property layoutInflater for inflating the recycler view
  */
-class SkillRecyclerAdapter(private val context: Context, private var orders: List<SkillSet>) :
-    PagingDataAdapter<SkillSet, SkillRecyclerAdapter.ViewHolder>(SkillSetDiffCallBack()) {
+class SkillSetRecyclerAdapter(private val context: Context, private var orders: List<SkillSet>) :
+    PagingDataAdapter<SkillSet, SkillSetRecyclerAdapter.ViewHolder>(SkillSetDiffCallBack()) {
 
     private val layoutInflater = LayoutInflater.from(context)
 
@@ -39,6 +39,7 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
         val SkillSetName = itemView.findViewById<TextView?>(R.id.skill_set_name)
         val skillsetDescription = itemView.findViewById<TextView?>(R.id.description)
         val dateCreated = itemView.findViewById<TextView?>(R.id.date_created)
+        var SkillSet: SkillSet? = null
     }
 
     /**
@@ -60,17 +61,26 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
      * @param position the position of the previously ordered SkillSet in the previous orders list
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val SkillSet = orders[position]
-        holder.SkillSetName?.text = SkillSet.name
-        holder.skillsetDescription?.text = SkillSet.description
-        holder.dateCreated?.text = SkillSet.dateCreated.toLocalDate().toString()
+        val skillSet = orders[position]
+        holder.SkillSetName?.text = skillSet.name
+        holder.skillsetDescription?.text = skillSet.description
+        holder.dateCreated?.text = skillSet.dateCreated.toLocalDate().toString()
 
         // Clicking on CardView navigates to Skills Fragment
         holder.itemView.setOnClickListener { view: View->
             view.findNavController().navigate(
                 SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment()
+
+//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(skillSet)
+//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(holder.SkillSet)
             )
         }
+
+//        holder.itemView.setOnLongClickListener({view: View->
+//            view.findNavController().navigate(
+//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment()
+//            )
+//        }
     }
 
     /**
