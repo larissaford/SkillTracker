@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -69,10 +67,8 @@ class SkillSetRecyclerAdapter(private val context: Context, private var skillSet
         // Clicking on CardView navigates to Skills Fragment
         holder.itemView.setOnClickListener { view: View->
             view.findNavController().navigate(
-                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment()
-
-//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(skillSet)
-//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(holder.SkillSet)
+                // Pass Long of SkillSet for Skill to find Join data
+                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(skillSet.skillSetId)
             )
         }
 

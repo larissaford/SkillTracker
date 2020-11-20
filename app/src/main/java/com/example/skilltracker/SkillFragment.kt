@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class SkillFragment : Fragment() {
     private lateinit var binding: FragmentSkillBinding
     private lateinit var vm: SkillsViewModel
+    private var skillSetId: Long? = null
 
     /**
      * Inflates the layout for this fragment
@@ -34,6 +35,9 @@ class SkillFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_skill, container, false
         )
+
+        skillSetId = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSetId }
+        print("SKILLSET ID: $skillSetId\n")
 
         return binding.root
     }
