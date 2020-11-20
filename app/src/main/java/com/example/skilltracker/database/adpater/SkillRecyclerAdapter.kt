@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
+import com.example.skilltracker.SkillSetFragmentDirections
 import com.example.skilltracker.database.entity.SkillSet
 
 
@@ -35,7 +39,7 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
         val SkillSetName = itemView.findViewById<TextView?>(R.id.skill_set_name)
         val skillsetDescription = itemView.findViewById<TextView?>(R.id.description)
         val dateCreated = itemView.findViewById<TextView?>(R.id.date_created)
-        }
+    }
 
     /**
      * gets references to the views we want to use within the previous_order_list layout.
@@ -60,7 +64,14 @@ class SkillRecyclerAdapter(private val context: Context, private var orders: Lis
         holder.SkillSetName?.text = SkillSet.name
         holder.skillsetDescription?.text = SkillSet.description
         holder.dateCreated?.text = SkillSet.dateCreated.toLocalDate().toString()
+
+        // Clicking on CardView navigates to Skills Fragment
+        holder.itemView.setOnClickListener { view: View->
+            view.findNavController().navigate(
+                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment()
+            )
         }
+    }
 
     /**
      * This answers how much data overall will be displayed
