@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_skillFragment_to_newSkillFragment"
             app:destination="@id/newSkillFragment" />
+        <argument
+            android:name="skillSetId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/newSkillFragment"
