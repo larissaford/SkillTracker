@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0-alpha02'
     kapt "com.android.databinding:compiler:3.1.4"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -55,6 +56,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
 
     //date dependency
