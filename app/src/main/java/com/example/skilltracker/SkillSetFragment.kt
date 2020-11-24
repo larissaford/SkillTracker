@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class SkillSetFragment : Fragment() {
+class SkillSetFragment : Fragment(), FABclicker {
     private lateinit var binding: FragmentSkillSetBinding
     private lateinit var vm: SkillsViewModel
 
@@ -68,7 +68,7 @@ class SkillSetFragment : Fragment() {
      * Navigates to the NewSkillSetFragment and makes the FAB invisible
      * @param view: The view displayed when the FAB was clicked
      */
-    fun onFABClicked(view: View) {
+    override fun onFABClicked(view: View) {
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment

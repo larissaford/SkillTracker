@@ -28,6 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/skillFragment"
+        tools:layout="@layout/fragment_skill"
         android:name="com.example.skilltracker.SkillFragment"
         android:label="My Skills" >
         <action

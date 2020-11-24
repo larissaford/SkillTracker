@@ -41,12 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
         val navController: NavController = navHostFragment.navController
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController,appBarConfiguration)
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             //To-Do: make it so you don't need to say "... as certainFragment"
-            val currentFragment = getCurrentFragment() as SkillSetFragment
+            val currentFragment = getCurrentFragment() as FABclicker
             currentFragment.onFABClicked(view)
         }
     }

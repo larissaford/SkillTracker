@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * @property binding The binding variable for this fragment
  * @property vm The view model for skill sets
  */
-class SkillFragment : Fragment() {
+class SkillFragment : Fragment(), FABclicker {
     private lateinit var binding: FragmentSkillBinding
     private lateinit var vm: SkillsViewModel
     private var skillSetId: Long? = null
@@ -63,7 +63,7 @@ class SkillFragment : Fragment() {
      * Navigates to the NewSkillFragments and makes the FAB invisible
      * @param view: The view displayed when the FAB was clicked
      */
-    fun onFABClicked(view: View) {
+    override fun onFABClicked(view: View) {
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
