@@ -13,13 +13,10 @@ import java.util.*
 class DateConverter {
     @TypeConverter
     fun dateToLong(date: LocalDateTime?): Long? {
-        var dateTime = date?.plusDays(10L)
-        dateTime = dateTime?.plusHours(10L)
-        dateTime = dateTime?.plusMinutes(10L)
-
-        val zonedDateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault())
+        val zonedDateTime = ZonedDateTime.of(date, ZoneId.systemDefault())
         return zonedDateTime.toInstant().toEpochMilli()
     }
+
     @TypeConverter
     fun longToDate(timestamp: Long?) : LocalDateTime? {
         return LocalDateTime.ofInstant(
