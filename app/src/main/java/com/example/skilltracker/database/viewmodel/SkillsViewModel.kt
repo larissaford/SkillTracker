@@ -35,4 +35,11 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     fun insertSkillSet(SkillSet: SkillSet) = viewModelScope.launch {
         repository.insertSkillSet(SkillSet)
     }
+
+    /**
+     * Update a specific skillSet
+     */
+    fun updateSkillSet(skillSet: SkillSet) = viewModelScope.launch {
+        repository.update(skillSet)
+    }
 }
