@@ -34,6 +34,7 @@ class SkillSetFragment : Fragment() {
         binding =  DataBindingUtil.inflate(
             inflater, R.layout.fragment_skill_set, container, false)
 
+
         return binding.root
     }
 
@@ -56,6 +57,7 @@ class SkillSetFragment : Fragment() {
             } }
         })
 
+
         //set on click listeners here
         /*view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
@@ -71,7 +73,7 @@ class SkillSetFragment : Fragment() {
             // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
-            navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment())
+            navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment(null))
 
             // Set the fab visibility to false so it does not display while the user is creating a new skill set
             (activity as MainActivity).hideFAB()

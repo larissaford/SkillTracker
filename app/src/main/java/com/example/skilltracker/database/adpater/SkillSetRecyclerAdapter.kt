@@ -72,11 +72,15 @@ class SkillSetRecyclerAdapter(private val context: Context, private var skillSet
             )
         }
 
-//        holder.itemView.setOnLongClickListener({view: View->
-//            view.findNavController().navigate(
-//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment()
-//            )
-//        }
+        // Long Clicks on CardView Navigate to Update it
+        holder.itemView.setOnLongClickListener{ view: View->
+            view.findNavController().navigate(
+                // Go to New SkillSetFragment
+                SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment(skillSet)
+            )
+            // needed for this type of listener
+            true
+        }
     }
 
     /**

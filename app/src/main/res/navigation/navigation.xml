@@ -20,7 +20,12 @@
         android:id="@+id/newSkillSetFragment"
         android:name="com.example.skilltracker.NewSkillSetFragment"
         android:label="New Skill Set"
-        tools:layout="@layout/fragment_new_skill_set" />
+        tools:layout="@layout/fragment_new_skill_set" >
+        <argument
+            android:name="skillSet"
+            app:argType="com.example.skilltracker.database.entity.SkillSet"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/skillFragment"
         android:name="com.example.skilltracker.SkillFragment"

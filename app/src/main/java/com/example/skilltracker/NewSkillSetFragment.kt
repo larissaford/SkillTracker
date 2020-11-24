@@ -17,10 +17,12 @@ import com.example.skilltracker.databinding.FragmentNewSkillSetBinding
  * Used to create a new Skill Set
  * @property binding The binding variable for this fragment
  * @property vm The view model for skill sets
+ * @property skillSet data that can be passed in for an update
  */
 class NewSkillSetFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillSetBinding
     private lateinit var vm: SkillsViewModel
+    private var skillSet: SkillSet? = null
 
     /**
      * Inflates the layout for this fragment and sets an onClickListener for the createNewSkillSet button
@@ -35,6 +37,12 @@ class NewSkillSetFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_skill_set, container, false
         )
+
+        skillSet = arguments?.let { NewSkillSetFragmentArgs.fromBundle(it).skillSet }
+        if(skillSet != null) {
+            binding.newSkillSetNameInput.setText(skillSet!!.name)
+            binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
+        }
 
         binding.createNewSkillSetButton.setOnClickListener {
             // Add the new skill set to the database if it is valid
@@ -99,8 +107,16 @@ class NewSkillSetFragment : Fragment() {
 
         // If name and description are provided, add the skill set to the database
         if (validName && validDescritpion) {
-            val skillSet = SkillSet(name, description)
-            vm.insertSkillSet(skillSet)
+            if(skillSet == null) {
+                val skillSet = SkillSet(name, description)
+                vm.insertSkillSet(skillSet)
+            }
+            else {
+                // Set values in the SkillSet and call update
+                skillSet!!.name = name
+                skillSet!!.description = description
+                vm.updateSkillSet(skillSet!!)
+            }
             return true
         }
 
