@@ -84,4 +84,9 @@ class SkillsRepository(app: Application){
 
     /* DELETES */
     suspend fun nukeTable() = skillsDao.nukeTable()
+
+    /* UPDATES */
+    suspend fun update(skillSet: SkillSet) {
+        skillsDao.update(skillSet)
+    }
 }
