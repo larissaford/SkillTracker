@@ -89,4 +89,8 @@ class SkillsRepository(app: Application){
     suspend fun update(skillSet: SkillSet) {
         skillsDao.update(skillSet)
     }
+
+    suspend fun updateSkill(skill: Skill) {
+        skillsDao.updateSkill(skill)
+    }
 }

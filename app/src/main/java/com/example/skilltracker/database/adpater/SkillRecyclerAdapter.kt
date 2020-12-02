@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
 import com.example.skilltracker.SkillFragmentDirections
-import com.example.skilltracker.SkillSetFragmentDirections
 import com.example.skilltracker.database.entity.Skill
-import com.example.skilltracker.database.entity.SkillSet
 
 /**
  * This is the adaptor to take the views and put them into the layout, and then take the data and
@@ -34,10 +32,10 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @param itemView the inflated previous_order_list layout
      */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val SkillSetName = itemView.findViewById<TextView?>(R.id.skill_set_name)
-        val skillsetDescription = itemView.findViewById<TextView?>(R.id.description)
-        val dateCreated = itemView.findViewById<TextView?>(R.id.date_created)
-        var SkillSet: SkillSet? = null
+        val skillName: TextView = itemView.findViewById<TextView?>(R.id.skill_name)
+        val skillCompleted: TextView = itemView.findViewById<TextView?>(R.id.skill_completed)
+        val dateCreated: TextView = itemView.findViewById<TextView?>(R.id.skill_date_created)
+        var skill: Skill? = null
     }
 
     /**
@@ -48,7 +46,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @return returns the reference to the view
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = layoutInflater.inflate(R.layout.skill_set_list, parent, false)
+        val itemView = layoutInflater.inflate(R.layout.skill_list, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -59,10 +57,10 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @param position the position of the previously ordered SkillSet in the previous orders list
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val skillSet = skills[position]
-//        holder.SkillSetName?.text = skills.name
-//        holder.skillsetDescription?.text = skills.description
-        holder.dateCreated?.text = skillSet.dateCreated.toLocalDate().toString()
+        val skill = skills[position]
+        holder.skillName.text = skill.skillName
+        holder.skillCompleted.text = if (skill.completed)  "Yes" else "No"
+        holder.dateCreated.text = skill.dateCreated.toLocalDate().toString()
 
         // Clicking on CardView navigates to Task Fragment
 //        holder.itemView.setOnClickListener { view: View ->
@@ -74,12 +72,13 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
 //            )
 //        }
 
-        // Long Clicks allow for editing the Skill
-//        holder.itemView.setOnLongClickListener({view: View->
-//            view.findNavController().navigate(
-//                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment()
-//            )
-//        }
+        //Long Clicks allow for editing the Skill
+        holder.itemView.setOnLongClickListener { view: View ->
+            view.findNavController().navigate(
+                SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(null, skill)
+            )
+            true
+        }
     }
 
     /**

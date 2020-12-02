@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/newSkillSetFragment"
         android:name="com.example.skilltracker.NewSkillSetFragment"
-        android:label="New Skill Set"
+        android:label="Create/Edit Skill Set"
         tools:layout="@layout/fragment_new_skill_set" >
         <argument
             android:name="skillSet"
@@ -31,16 +31,26 @@
         tools:layout="@layout/fragment_skill"
         android:name="com.example.skilltracker.SkillFragment"
         android:label="My Skills" >
+        <argument
+            android:name="skillSet"
+            app:argType="com.example.skilltracker.database.entity.SkillSet" />
         <action
             android:id="@+id/action_skillFragment_to_newSkillFragment"
-            app:destination="@id/newSkillFragment" />
-        <argument
-            android:name="skillSetId"
-            app:argType="long" />
+            app:destination="@id/newSkillFragment"
+            app:popUpTo="@id/skillFragment" />
     </fragment>
     <fragment
         android:id="@+id/newSkillFragment"
         android:name="com.example.skilltracker.NewSkillFragment"
-        android:label="New Skill"
-        tools:layout="@layout/fragment_new_skill" />
+        android:label="Create/Edit Skill"
+        tools:layout="@layout/fragment_new_skill">
+        <argument
+            android:name="skillSet"
+            app:argType="com.example.skilltracker.database.entity.SkillSet"
+            app:nullable="true" />
+        <argument
+            android:name="skill"
+            app:argType="com.example.skilltracker.database.entity.Skill"
+            app:nullable="true" />
+    </fragment>
 </navigation>

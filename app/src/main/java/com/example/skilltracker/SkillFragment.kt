@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
+import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentSkillBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,14 +20,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * Displays all of the skills under a skill set
  * @property binding The binding variable for this fragment
  * @property vm The view model for skill sets
+ * @property skillSet The skill set that was clicked on to view the skills
  */
 class SkillFragment : Fragment(), FABclicker {
     private lateinit var binding: FragmentSkillBinding
     private lateinit var vm: SkillsViewModel
-    private var skillSetId: Long? = null
+    private lateinit var skillSet: SkillSet
 
     /**
-     * Inflates the layout for this fragment
+     * Inflates the layout for this fragment and gets the skillSet from the passed in arguments
      *
      * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's UI should be attached to
@@ -36,14 +41,14 @@ class SkillFragment : Fragment(), FABclicker {
             inflater, R.layout.fragment_skill, container, false
         )
 
-        skillSetId = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSetId }
-        print("SKILLSET ID: $skillSetId\n")
+        skillSet = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSet }!!
+        print("SKILLSET ID: ${skillSet.skillSetId}\n")
 
         return binding.root
     }
 
     /**
-     * Initializes the view model variable vm
+     * Initializes the view model variable vm and fills the recycler view with the skills
      *
      * @param view The view that was created
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
@@ -56,11 +61,21 @@ class SkillFragment : Fragment(), FABclicker {
         val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
         fab.visibility = View.VISIBLE
 
-        //To-Do: Add the recycler view for skills
+        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        binding.skillList.layoutManager = LinearLayoutManager(context)
+
+        // fill the recycler view with most recent data from the database
+        vm.getSkills().observe(viewLifecycleOwner, {
+            binding.skillList.adapter = context?.let { vm.getSkills().value?.let { it1 ->
+                SkillRecyclerAdapter(it,
+                    it1
+                )
+            } }
+        })
     }
 
     /**
-     * Navigates to the NewSkillFragments and makes the FAB invisible
+     * Navigates to the NewSkillFragment and makes the FAB invisible
      * @param view: The view displayed when the FAB was clicked
      */
     override fun onFABClicked(view: View) {
@@ -68,10 +83,7 @@ class SkillFragment : Fragment(), FABclicker {
             // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
-            navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment())
-
-            // Set the fab visibility to false so it does not display while the user is creating a new skill set
-            (activity as MainActivity).hideFAB()
+            navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
 
             //clear the database for testing
             //vm.nuke()

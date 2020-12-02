@@ -75,9 +75,6 @@ class SkillSetFragment : Fragment(), FABclicker {
             val navController: NavController = navHostFragment.navController
             navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment(null))
 
-            // Set the fab visibility to false so it does not display while the user is creating a new skill set
-            (activity as MainActivity).hideFAB()
-
             //clear the database for testing
             //vm.nuke()
         }

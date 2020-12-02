@@ -33,6 +33,9 @@ class NewSkillSetFragment : Fragment() {
      * @return The view of the fragment's UI or null
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Set the fab visibility to false so it does not display while the user is creating a new skill set
+        (activity as MainActivity).hideFAB()
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_skill_set, container, false
@@ -42,6 +45,7 @@ class NewSkillSetFragment : Fragment() {
         if(skillSet != null) {
             binding.newSkillSetNameInput.setText(skillSet!!.name)
             binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
+            binding.createNewSkillSetButton.text = getString(R.string.update_skillSet)
         }
 
         binding.createNewSkillSetButton.setOnClickListener {
@@ -75,13 +79,13 @@ class NewSkillSetFragment : Fragment() {
     }
 
     /**
-     * Adds a new skill set to the database
+     * Adds a new skill set to the database or updates an existing skill set
      */
     private fun addNewSkillSet(): Boolean {
         val name: String = binding.newSkillSetNameInput.text.toString()
         val description: String = binding.newSkillSetDescriptionInput.text.toString()
-        var validName: Boolean = false
-        var validDescritpion: Boolean = false
+        var validName = false
+        var validDescription = false
 
         // Ensure a name was provided
         if (name == null || name == "") {
@@ -101,12 +105,12 @@ class NewSkillSetFragment : Fragment() {
             binding.newSkillSetMissingDescription.visibility = View.VISIBLE
         }
         else {
-            validDescritpion = true
+            validDescription = true
             binding.newSkillSetMissingDescription.visibility = View.INVISIBLE
         }
 
         // If name and description are provided, add the skill set to the database
-        if (validName && validDescritpion) {
+        if (validName && validDescription) {
             if(skillSet == null) {
                 val skillSet = SkillSet(name, description)
                 vm.insertSkillSet(skillSet)

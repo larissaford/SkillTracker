@@ -106,4 +106,7 @@ interface SkillDao {
      */
     @Update
     suspend fun update(vararg skillSets: SkillSet)
+
+    @Update
+    suspend fun updateSkill(vararg skills: Skill)
 }
