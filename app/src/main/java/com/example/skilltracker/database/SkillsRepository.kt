@@ -39,6 +39,10 @@ class SkillsRepository(app: Application){
         return skillsDao.getAllSkillSetWithSkills()
     }
 
+    fun getSpecificSkillSetWithSkills(skillSetId: Long): LiveData<List<SkillSetWithSkills>> {
+        return skillsDao.getSpecificSkillSetWithSkills(skillSetId)
+    }
+
     fun getSkillWithTasks(): LiveData<List<SkillWithTasks>> {
         return skillsDao.getAllSkillWithTasks()
     }
