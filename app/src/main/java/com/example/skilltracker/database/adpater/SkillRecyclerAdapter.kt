@@ -58,6 +58,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val skill = skills[position]
+        println("IN RECYCLERVIEW: ${skill.skillName}")
         holder.skillName.text = skill.skillName
         holder.skillCompleted.text = if (skill.completed)  "Yes" else "No"
         holder.dateCreated.text = skill.dateCreated.toLocalDate().toString()
@@ -65,10 +66,8 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
         // Clicking on CardView navigates to Task Fragment
 //        holder.itemView.setOnClickListener { view: View ->
 //            view.findNavController().navigate(
-////                SkillFragmentDirections.actionSkillFragmentToNewSkillFragment()
-//
-////                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(skillSet)
-////                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(holder.SkillSet)
+//                // navigate to Task Fragment
+////                SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skill.skillId)
 //            )
 //        }
 

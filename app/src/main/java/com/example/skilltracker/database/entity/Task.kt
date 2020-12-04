@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// TODO: Add dateCreated
 /**
  * Data class that has individual tasks a user wants to complete.
  */

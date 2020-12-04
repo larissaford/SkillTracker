@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
@@ -28,7 +29,7 @@ class SkillFragment : Fragment(), FABclicker {
     private lateinit var skillSet: SkillSet
 
     /**
-     * Inflates the layout for this fragment and gets the skillSet from the passed in arguments
+     * Inflates the layout for this fragment
      *
      * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's UI should be attached to
@@ -44,9 +45,28 @@ class SkillFragment : Fragment(), FABclicker {
         skillSet = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSet }!!
         print("SKILLSET ID: ${skillSet.skillSetId}\n")
 
+        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        binding.skillList.layoutManager = LinearLayoutManager(context)
+
+        vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).observe(viewLifecycleOwner, {
+            var skills = it[0].skills
+            println("Skillset: ${it[0].skillSet.skillSetId}")
+            println("Skills size: ${skills.size}")
+            for(skill in skills) {
+                println("skill Name: ${skill.skillName}")
+                println("skill ID: ${skill.skillId}")
+            }
+            binding.skillList.adapter = context?.let { vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).value?.let { it1 ->
+                SkillRecyclerAdapter(it,
+                    skills
+                )
+            } }
+        })
+
         return binding.root
     }
 
+    // TODO: Check that setting skills works
     /**
      * Initializes the view model variable vm and fills the recycler view with the skills
      *
@@ -61,17 +81,39 @@ class SkillFragment : Fragment(), FABclicker {
         val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
         fab.visibility = View.VISIBLE
 
-        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
-        binding.skillList.layoutManager = LinearLayoutManager(context)
+//        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+//        binding.skillList.layoutManager = LinearLayoutManager(context)
+//
+//        // fill the recycler view with most recent data from the database
+//        vm.getSkills().observe(viewLifecycleOwner, {
+//            binding.skillList.adapter = context?.let { vm.getSkills().value?.let { it1 ->
+//                print(it1)
+//                SkillRecyclerAdapter(it,
+//                    it1
+//                )
+//            } }
+//        })
 
         // fill the recycler view with most recent data from the database
-        vm.getSkills().observe(viewLifecycleOwner, {
-            binding.skillList.adapter = context?.let { vm.getSkills().value?.let { it1 ->
-                SkillRecyclerAdapter(it,
-                    it1
-                )
-            } }
-        })
+//        vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).observe(viewLifecycleOwner, {
+//            var skills1 = it[0].skills
+//            println("Skillset: ${it[0].skillSet.skillSetId}")
+//            println("Skills size: ${skills1.size}")
+//            for(skill in skills1) {
+//                println("skill Name: ${skill.skillName}")
+//                println("skill ID: ${skill.skillId}")
+//            }
+//            binding.skillList.adapter = context?.let { vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).value?.let { it1 ->
+////                var skills = it1[0].skills
+////                for(skill in skills) {
+////                    println(skill.skillName)
+////                }
+//
+//                SkillRecyclerAdapter(it,
+//                    skills1
+//                )
+//            } }
+//        })
     }
 
     /**

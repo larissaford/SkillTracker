@@ -79,7 +79,7 @@ interface SkillDao {
      * @param skill Skills to be added to Skill table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg skill: Skill)
+    suspend fun insert(vararg skill: Skill): List<Long>
 
     /**
      * Insert Task data into database

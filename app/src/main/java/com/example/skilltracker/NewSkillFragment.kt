@@ -110,12 +110,21 @@ class NewSkillFragment : Fragment() {
             binding.newSkillMissingName.visibility = View.INVISIBLE
             // If skill is null, the user is adding a new skill, otherwise they are updating an existing skill
             if (skill == null) {
-                val newSkill = Skill(name, false)
-                vm.insertSkill(newSkill)
-
-                val skillList = listOf<Skill>(newSkill)
-                val skillSetWithSkill = SkillSetWithSkills(skillSet!!, skillList)
-                vm.insertSkillSetWithSkills(skillSetWithSkill)
+//                var result = vm.insertSkill(Skill(name,false))
+//                println("RESULT: $result")
+                vm.insertNewSkillWithJoin(skillSet!!, Skill(name, false))
+//                var newSkill = Skill(name, false)
+//                var newSkillId = vm.insertSkill(newSkill)
+//                newSkill.skillId = newSkillId
+//
+//                val skillList = listOf<Skill>(newSkill)
+//                val skillSetWithSkill = SkillSetWithSkills(skillSet!!, skillList)
+//                vm.insertSkillSetWithSkills(skillSetWithSkill) // insert join
+////                var newSkillId = vm.insertSkill(Skill(name, false))
+//
+//                val skillList = listOf<Skill>(newSkill)
+//                val skillSetWithSkill = SkillSetWithSkills(skillSet!!, skillList)
+//                vm.insertSkillSetWithSkills(skillSetWithSkill) // insert join
             }
             else {
                 // If the skill was marked as completed, set the dateCompleted
