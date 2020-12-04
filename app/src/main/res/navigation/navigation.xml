@@ -11,7 +11,8 @@
         android:label="My Skill Sets" >
         <action
             android:id="@+id/action_skillSetFragment_to_newSkillSetFragment"
-            app:destination="@id/newSkillSetFragment" />
+            app:destination="@id/newSkillSetFragment"
+            app:popUpTo="@id/skillSetFragment" />
         <action
             android:id="@+id/action_skillSetFragment_to_skillFragment"
             app:destination="@id/skillFragment" />
@@ -25,6 +26,10 @@
             android:name="skillSet"
             app:argType="com.example.skilltracker.database.entity.SkillSet"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_newSkillSetFragment_to_skillFragment"
+            app:destination="@id/skillFragment"
+            app:popUpTo="@id/skillSetFragment" />
     </fragment>
     <fragment
         android:id="@+id/skillFragment"

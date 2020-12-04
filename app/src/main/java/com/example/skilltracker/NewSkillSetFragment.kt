@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
@@ -82,6 +83,18 @@ class NewSkillSetFragment : Fragment() {
             }
         }
 
+        binding.addNewSkillsButton.setOnClickListener { view: View ->
+            if (addNewSkillSet()) {
+                view.findNavController().navigate(NewSkillSetFragmentDirections.actionNewSkillSetFragmentToSkillFragment(skillSet!!))
+            }
+
+            // Ensure the FAB is visible
+            (activity as MainActivity).showFAB()
+
+            // Hide the user's keyboard
+            (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
+        }
+
         return binding.root
     }
 
@@ -129,8 +142,11 @@ class NewSkillSetFragment : Fragment() {
             // TODO: Add the skills from the multi-select to the skill set
 
             if(skillSet == null) {
-                val skillSet = SkillSet(name, description)
-                vm.insertSkillSet(skillSet)
+                skillSet = SkillSet(name, description)
+
+                // TODO: I think we will want to store the new skillSets Id so we have the Id when it is passed to the skill fragment
+                // skillSet = vm.insertSkillSet(skillSet)
+                vm.insertSkillSet(skillSet!!)
             }
             else {
                 // Set values in the SkillSet and call update

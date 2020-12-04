@@ -99,11 +99,24 @@
             android:id="@+id/create_new_skillSet_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
+            android:layout_marginTop="44dp"
             android:text="@string/create_skill_set"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/add_new_skills_button"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/skill_multi_select_list" />
+
+        <Button
+            android:id="@+id/add_new_skills_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_skills"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/create_new_skillSet_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/create_new_skillSet_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
