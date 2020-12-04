@@ -47,6 +47,10 @@ class SkillsRepository(app: Application){
         return skillsDao.getAllSkillWithTasks()
     }
 
+    fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>> {
+        return skillsDao.getSkillsFromJoin(skillSetId)
+    }
+
     /* INSERTS */
     suspend fun insertSkillSet(skillSet: SkillSet){
         skillsDao.insert(skillSet)
@@ -69,6 +73,8 @@ class SkillsRepository(app: Application){
         println("ADDING JOIN WITH SKILLID: $skillId")
         this.insertSkillSetWithSkills(SkillSetWithSkills(skillSet, listOf(skill)))
     }
+
+//    suspend fun insertNewSkillSetSkillJoin()
 
     suspend fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills){
         println("IN REPO")
