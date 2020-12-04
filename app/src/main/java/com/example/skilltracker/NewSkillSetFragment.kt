@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentNewSkillSetBinding
+import timber.log.Timber
 
 /**
  * Used to create a new Skill Set
@@ -23,9 +26,12 @@ class NewSkillSetFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillSetBinding
     private lateinit var vm: SkillsViewModel
     private var skillSet: SkillSet? = null
+    private var allSkills: ArrayList<Skill> = ArrayList()
+    private lateinit var spinner: MultiSelectionSpinner
 
     /**
-     * Inflates the layout for this fragment and sets an onClickListener for the createNewSkillSet button
+     * Inflates the layout for this fragment, initializes the viewModel variable vm, gets all skills and
+     *  sets them to the multi-select spinner, and sets an onClickListener for the createNewSkillSet button
      *
      * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's UI should be attached to
@@ -41,6 +47,18 @@ class NewSkillSetFragment : Fragment() {
             inflater, R.layout.fragment_new_skill_set, container, false
         )
 
+        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+
+        // Get all of the skills from the database
+        vm.getSkills().observe(viewLifecycleOwner, Observer { skills ->
+            allSkills = skills as ArrayList<Skill>
+
+            // Initialize the multi select spinner and set its items/skills
+            spinner = binding.skillMultiSelectList
+            spinner.setItems(allSkills)
+        })
+
+        // Get the skill set if it was passed on and set its values to the corresponding inputs
         skillSet = arguments?.let { NewSkillSetFragmentArgs.fromBundle(it).skillSet }
         if(skillSet != null) {
             binding.newSkillSetNameInput.setText(skillSet!!.name)
@@ -48,6 +66,7 @@ class NewSkillSetFragment : Fragment() {
             binding.createNewSkillSetButton.text = getString(R.string.update_skillSet)
         }
 
+        // Set an onClickListener for the createNewSkillSet button
         binding.createNewSkillSetButton.setOnClickListener {
             // Add the new skill set to the database if it is valid
             if (addNewSkillSet()) {
@@ -64,18 +83,6 @@ class NewSkillSetFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    /**
-     * Initializes the view model variable vm
-     *
-     * @param view The view that was created
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
-     * @return The view of the fragment's UI or null
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
     }
 
     /**
@@ -111,6 +118,16 @@ class NewSkillSetFragment : Fragment() {
 
         // If name and description are provided, add the skill set to the database
         if (validName && validDescription) {
+            // Get the skills the user selected to add to the skill set right away
+            var selectedItems: ArrayList<Skill> = spinner.getSelectedItems()
+
+            Timber.i("Number of selected items: " + selectedItems.size)
+            for (item in selectedItems) {
+                Timber.i("Selected skill name: " + item.skillName)
+            }
+
+            // TODO: Add the skills from the multi-select to the skill set
+
             if(skillSet == null) {
                 val skillSet = SkillSet(name, description)
                 vm.insertSkillSet(skillSet)

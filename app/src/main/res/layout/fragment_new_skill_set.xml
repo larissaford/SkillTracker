@@ -5,19 +5,19 @@
     tools:context=".NewSkillSetFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/new_skill_set_fragment_constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/new_skill_set_fragment_constraint_layout">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/new_skillSet_name"
+            style="@style/new_skill_set_body_labels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:labelFor="@id/new_skillSet_name_input"
             android:text="@string/name_semicolon"
             app:layout_constraintBaseline_toBaselineOf="@+id/new_skillSet_name_input"
-            app:layout_constraintEnd_toEndOf="@+id/new_skillSet_description"
-            style="@style/new_skill_set_body_labels" />
+            app:layout_constraintEnd_toEndOf="@+id/new_skillSet_description" />
 
         <EditText
             android:id="@+id/new_skillSet_name_input"
@@ -55,25 +55,15 @@
             app:layout_constraintStart_toEndOf="@+id/new_skillSet_description"
             app:layout_constraintTop_toBottomOf="@+id/new_skillSet_name_input" />
 
-        <Button
-            android:id="@+id/create_new_skillSet_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
-            android:text="@string/create_skill_set"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_description_input" />
-
         <TextView
             android:id="@+id/new_skillSet_missing_name"
+            style="@style/missing_field_error_warning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name_can_not_be_blank"
             app:layout_constraintEnd_toEndOf="@+id/new_skillSet_name_input"
             app:layout_constraintStart_toStartOf="@+id/new_skillSet_name_input"
-            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_name_input"
-            style="@style/missing_field_error_warning" />
+            app:layout_constraintTop_toBottomOf="@+id/new_skillSet_name_input" />
 
         <TextView
             android:id="@+id/new_skillSet_missing_description"
@@ -84,6 +74,36 @@
             app:layout_constraintEnd_toEndOf="@+id/new_skillSet_description_input"
             app:layout_constraintStart_toStartOf="@+id/new_skillSet_description_input"
             app:layout_constraintTop_toBottomOf="@+id/new_skillSet_description_input" />
+
+        <com.example.skilltracker.MultiSelectionSpinner
+            android:id="@+id/skill_multi_select_list"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/new_skillSet_body_padding"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toEndOf="@+id/add_skills"
+            app:layout_constraintTop_toTopOf="@+id/add_skills" />
+
+        <TextView
+            android:id="@+id/add_skills"
+            style="@style/new_skill_set_body_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/new_skillSet_body_padding"
+            android:text="@string/add_skills_optional"
+            app:layout_constraintStart_toStartOf="@+id/new_skillSet_description"
+            app:layout_constraintTop_toTopOf="@+id/new_skillSet_missing_description" />
+
+        <Button
+            android:id="@+id/create_new_skillSet_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
+            android:text="@string/create_skill_set"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/skill_multi_select_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

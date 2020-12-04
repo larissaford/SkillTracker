@@ -25,4 +25,5 @@
     <string name="update_skill">Update Skill</string>
     <string name="update_skillSet">Update Skill Set</string>
     <string name="completed_on">Completed On:</string>
+    <string name="add_skills_optional">Add Skills (optional):</string>
 </resources>
