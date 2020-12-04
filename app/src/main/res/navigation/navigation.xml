@@ -38,6 +38,9 @@
             android:id="@+id/action_skillFragment_to_newSkillFragment"
             app:destination="@id/newSkillFragment"
             app:popUpTo="@id/skillFragment" />
+        <action
+            android:id="@+id/action_skillFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
     </fragment>
     <fragment
         android:id="@+id/newSkillFragment"
@@ -53,4 +56,18 @@
             app:argType="com.example.skilltracker.database.entity.Skill"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.example.skilltracker.TaskFragment"
+        tools:layout="@layout/fragment_task"
+        android:label="TaskFragment" >
+        <action
+            android:id="@+id/action_taskFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.skilltracker.NewTaskFragment"
+        tools:layout="@layout/fragment_new_task"
+        android:label="NewTaskFragment" />
 </navigation>
