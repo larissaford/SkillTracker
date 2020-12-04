@@ -14,9 +14,9 @@
             style="@style/new_skill_set_body_labels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:labelFor="@id/new_skill_name_input"
+            android:labelFor="@id/new_task_name_input"
             android:text="@string/name_semicolon"
-            app:layout_constraintBaseline_toBaselineOf="@+id/new_skill_name_input"
+            app:layout_constraintBaseline_toBaselineOf="@+id/new_task_name_input"
             app:layout_constraintEnd_toEndOf="@+id/skill_completed"
             app:layout_constraintStart_toStartOf="@+id/skill_completed" />
 
@@ -39,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name_can_not_be_blank"
-            app:layout_constraintEnd_toEndOf="@+id/new_skill_name_input"
-            app:layout_constraintStart_toStartOf="@+id/new_skill_name_input"
-            app:layout_constraintTop_toBottomOf="@+id/new_skill_name_input" />
+            app:layout_constraintEnd_toEndOf="@+id/new_task_name_input"
+            app:layout_constraintStart_toStartOf="@+id/new_task_name_input"
+            app:layout_constraintTop_toBottomOf="@+id/new_task_name_input" />
 
         <Button
             android:id="@+id/create_new_skill_button"

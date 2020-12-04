@@ -9,7 +9,7 @@
         tools:context=".SkillFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/skill_list"
+            android:id="@+id/task_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

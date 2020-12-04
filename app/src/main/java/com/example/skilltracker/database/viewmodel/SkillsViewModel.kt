@@ -8,6 +8,7 @@ import com.example.skilltracker.database.SkillsRepository
 import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.entity.SkillSetWithSkills
+import com.example.skilltracker.database.entity.Task
 import kotlinx.coroutines.launch
 
 /**
@@ -17,12 +18,17 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     private val repository: SkillsRepository = SkillsRepository(app)
     private val allSkillSets : LiveData<List<SkillSet>> = repository.getSkillSet()
     private val allSkills : LiveData<List<Skill>> = repository.getSkills()
+    private val allTasks : LiveData<List<Task>> = repository.getTasks()
 
     /**
      * get all SkillSetes from database
      */
     fun getSkillSet(): LiveData<List<SkillSet>> {
         return allSkillSets
+    }
+
+    fun getTasks(): LiveData<List<Task>> {
+        return allTasks
     }
 
     /**
@@ -55,6 +61,20 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
      */
     fun updateSkillSet(skillSet: SkillSet) = viewModelScope.launch {
         repository.update(skillSet)
+    }
+
+    /**
+     * Update a specific Task
+     */
+    fun updateTasks(task: Task) = viewModelScope.launch {
+        repository.updateTask(task)
+    }
+
+    /**
+     * Insert a specific Task
+     */
+    fun insertTasks(task: Task) = viewModelScope.launch {
+        repository.insertTask(task)
     }
 
     /**

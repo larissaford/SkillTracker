@@ -69,10 +69,22 @@
         <action
             android:id="@+id/action_taskFragment_to_newTaskFragment"
             app:destination="@id/newTaskFragment" />
+        <argument
+            android:name="skill"
+            app:argType="com.example.skilltracker.database.entity.Skill" />
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.example.skilltracker.NewTaskFragment"
         tools:layout="@layout/fragment_new_task"
-        android:label="NewTaskFragment" />
+        android:label="NewTaskFragment" >
+        <argument
+            android:name="task"
+            app:argType="com.example.skilltracker.database.entity.Task"
+            app:nullable="true" />
+        <argument
+            android:name="skill"
+            app:argType="com.example.skilltracker.database.entity.Skill"
+            app:nullable="true" />
+    </fragment>
 </navigation>

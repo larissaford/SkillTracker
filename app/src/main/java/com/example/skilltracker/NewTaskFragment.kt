@@ -10,10 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.skilltracker.database.entity.Skill
-import com.example.skilltracker.database.entity.SkillSet
-import com.example.skilltracker.database.entity.SkillSetWithSkills
+import com.example.skilltracker.database.entity.Task
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
-import com.example.skilltracker.databinding.FragmentNewSkillBinding
+import com.example.skilltracker.databinding.FragmentNewTaskBinding
 import org.threeten.bp.LocalDateTime
 
 /**
@@ -22,10 +21,10 @@ import org.threeten.bp.LocalDateTime
  * @property vm The view model for skills
  */
 class NewTaskFragment : Fragment() {
-    private lateinit var binding: FragmentNewSkillBinding
+    private lateinit var binding: FragmentNewTaskBinding
     private lateinit var vm: SkillsViewModel
 
-    private var skillSet: SkillSet? = null
+    private var task: Task? = null
     private var skill: Skill? = null
 
     /**
@@ -42,30 +41,30 @@ class NewTaskFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_new_skill, container, false
+            inflater, R.layout.fragment_new_task, container, false
         )
 
-        skillSet = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skillSet }
-        skill = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skill }
+        task = arguments?.let { NewTaskFragmentArgs.fromBundle(it).task }
+        skill = arguments?.let { NewTaskFragmentArgs.fromBundle(it).skill }
 
         // If the skill is not null, the user is editing an existing skill
-        if (skill != null) {
-            binding.newSkillNameInput.setText(skill!!.skillName)
-            binding.skillCompleted.visibility = View.VISIBLE
-            binding.skillCompletedCheckbox.visibility = View.VISIBLE
-            binding.skillCompletedCheckbox.isChecked = skill!!.completed
-            binding.createNewSkillButton.text = getString(R.string.update_skill)
+        if (task != null) {
+            binding.newTaskNameInput.setText(task!!.taskName)
+            binding.taskCompleted.visibility = View.VISIBLE
+            binding.taskCompletedCheckbox.visibility = View.VISIBLE
+            binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
+            binding.createNewTaskButton.text = getString(R.string.create_task)
 
             // If the skill is completed, show the date it was completed on
-            if (skill!!.completed) {
-                binding.skillCompletedOn.visibility = View.VISIBLE
-                binding.skillDateCompletedOn.visibility = View.VISIBLE
-                binding.skillDateCompletedOn.text = skill!!.dateCompleted?.toLocalDate().toString()
+            if (task!!.taskCompleted) {
+                binding.taskCompletedOn.visibility = View.VISIBLE
+                binding.taskDateCompletedOn.visibility = View.VISIBLE
+                binding.taskDateCompletedOn.text = task!!.taskDateCompleted?.toLocalDate().toString()
             }
         }
 
-        binding.createNewSkillButton.setOnClickListener {
-            if (addNewSkill()) {
+        binding.createNewTaskButton.setOnClickListener {
+            if (addNewTask()) {
                 // Navigate back to the SkillSet fragment
                 val navController = this.findNavController()
                 navController.navigateUp()
@@ -96,20 +95,20 @@ class NewTaskFragment : Fragment() {
     /**
      * Adds a new skill to the database or updates an existing skill
      */
-    private fun addNewSkill(): Boolean {
-        val name: String = binding.newSkillNameInput.text.toString()
+    private fun addNewTask(): Boolean {
+        val name: String = binding.newTaskNameInput.text.toString()
 
         // Ensure a name was provided for the skill
         if (name == null || name == "") {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
-            binding.newSkillMissingName.visibility = View.VISIBLE
+            binding.newTaskMissingName.visibility = View.VISIBLE
             return false
         }
         else {
-            binding.newSkillMissingName.visibility = View.INVISIBLE
+            binding.newTaskMissingName.visibility = View.INVISIBLE
             // If skill is null, the user is adding a new skill, otherwise they are updating an existing skill
-            if (skill == null) {
+            if (task == null) {
 //                var result = vm.insertSkill(Skill(name,false))
 //                println("RESULT: $result")
                 //vm.insertNewSkillWithJoin(skillSet!!, Skill(name, false))
@@ -128,13 +127,14 @@ class NewTaskFragment : Fragment() {
             }
             else {
                 // If the skill was marked as completed, set the dateCompleted
-                if (binding.skillCompletedCheckbox.isChecked && !skill!!.completed) {
-                    skill!!.dateCompleted = LocalDateTime.now()
+                if (binding.taskCompletedCheckbox.isChecked && !skill!!.completed) {
+                    task!!.taskDateCompleted = LocalDateTime.now()
                 }
 
-                skill!!.skillName = name
-                skill!!.completed = binding.skillCompletedCheckbox.isChecked
-                vm.updateSkill(skill!!)
+                task!!.taskName = name
+                task!!.taskCompleted = binding.taskCompletedCheckbox.isChecked
+                vm.insertTasks(task!!)
+                print("updated task")
             }
             return true
         }

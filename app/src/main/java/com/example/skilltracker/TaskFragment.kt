@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
-import com.example.skilltracker.database.entity.SkillSet
+import com.example.skilltracker.database.adpater.TaskRecyclerAdapter
+import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
-import com.example.skilltracker.databinding.FragmentSkillBinding
+import com.example.skilltracker.databinding.FragmentTaskBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -24,12 +23,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * @property skillSet The skill set that was clicked on to view the skills
  */
 class TaskFragment : Fragment(), FABclicker {
-    private lateinit var binding: FragmentSkillBinding
+    private lateinit var binding: FragmentTaskBinding
     private lateinit var vm: SkillsViewModel
-    private lateinit var skillSet: SkillSet
+    private lateinit var skill: Skill
 
     /**
-     * Inflates the layout for this fragment
+     * Inflates the layout for this fragment and gets the skillSet from the passed in arguments
      *
      * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's UI should be attached to
@@ -39,34 +38,15 @@ class TaskFragment : Fragment(), FABclicker {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_skill, container, false
+            inflater, R.layout.fragment_task, container, false
         )
 
-        skillSet = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSet }!!
-        print("SKILLSET ID: ${skillSet.skillSetId}\n")
-
-        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
-        binding.skillList.layoutManager = LinearLayoutManager(context)
-
-        vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).observe(viewLifecycleOwner, {
-            var skills = it[0].skills
-            println("Skillset: ${it[0].skillSet.skillSetId}")
-            println("Skills size: ${skills.size}")
-            for(skill in skills) {
-                println("skill Name: ${skill.skillName}")
-                println("skill ID: ${skill.skillId}")
-            }
-            binding.skillList.adapter = context?.let { vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).value?.let { it1 ->
-                SkillRecyclerAdapter(it,
-                    skills
-                )
-            } }
-        })
+        skill = arguments?.let { TaskFragmentArgs.fromBundle(it).skill }!!
+        print("SKILL ID: ${skill.skillId}\n")
 
         return binding.root
     }
 
-    // TODO: Check that setting skills works
     /**
      * Initializes the view model variable vm and fills the recycler view with the skills
      *
@@ -81,39 +61,17 @@ class TaskFragment : Fragment(), FABclicker {
         val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
         fab.visibility = View.VISIBLE
 
-//        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
-//        binding.skillList.layoutManager = LinearLayoutManager(context)
-//
-//        // fill the recycler view with most recent data from the database
-//        vm.getSkills().observe(viewLifecycleOwner, {
-//            binding.skillList.adapter = context?.let { vm.getSkills().value?.let { it1 ->
-//                print(it1)
-//                SkillRecyclerAdapter(it,
-//                    it1
-//                )
-//            } }
-//        })
+        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        binding.taskList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
-//        vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).observe(viewLifecycleOwner, {
-//            var skills1 = it[0].skills
-//            println("Skillset: ${it[0].skillSet.skillSetId}")
-//            println("Skills size: ${skills1.size}")
-//            for(skill in skills1) {
-//                println("skill Name: ${skill.skillName}")
-//                println("skill ID: ${skill.skillId}")
-//            }
-//            binding.skillList.adapter = context?.let { vm.getSpecificSkillSetWithSkills(skillSet.skillSetId).value?.let { it1 ->
-////                var skills = it1[0].skills
-////                for(skill in skills) {
-////                    println(skill.skillName)
-////                }
-//
-//                SkillRecyclerAdapter(it,
-//                    skills1
-//                )
-//            } }
-//        })
+        vm.getSkills().observe(viewLifecycleOwner, {
+            binding.taskList.adapter = context?.let { vm.getTasks().value?.let { it1 ->
+                TaskRecyclerAdapter(it,
+                    it1
+                )
+            } }
+        })
     }
 
     /**
@@ -125,7 +83,7 @@ class TaskFragment : Fragment(), FABclicker {
             // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
-            navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
+            navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
 
             //clear the database for testing
             //vm.nuke()

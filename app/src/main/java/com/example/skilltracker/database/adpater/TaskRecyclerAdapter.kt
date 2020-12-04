@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
 import com.example.skilltracker.SkillFragmentDirections
-import com.example.skilltracker.database.entity.Skill
+import com.example.skilltracker.TaskFragmentDirections
+import com.example.skilltracker.database.entity.Task
 
 /**
  * This is the adaptor to take the views and put them into the layout, and then take the data and
@@ -21,8 +22,8 @@ import com.example.skilltracker.database.entity.Skill
  * @param skills a list of previous skills for the SkillSet
  * @property layoutInflater for inflating the recycler view
  */
-class SkillRecyclerAdapter (private val context: Context, private var skills: List<Skill>) :
-    PagingDataAdapter<Skill, SkillRecyclerAdapter.ViewHolder>(SkillDiffCallBack()) {
+class TaskRecyclerAdapter (private val context: Context, private var tasks: List<Task>) :
+    PagingDataAdapter<Task, TaskRecyclerAdapter.ViewHolder>(TaskDiffCallBack()) {
     private val layoutInflater = LayoutInflater.from(context)
 
     /**
@@ -32,10 +33,10 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @param itemView the inflated previous_order_list layout
      */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val skillName: TextView = itemView.findViewById<TextView?>(R.id.skill_name)
-        val skillCompleted: TextView = itemView.findViewById<TextView?>(R.id.skill_completed)
-        val dateCreated: TextView = itemView.findViewById<TextView?>(R.id.skill_date_created)
-        var skill: Skill? = null
+        val taskName: TextView = itemView.findViewById<TextView?>(R.id.task_name)
+        val taskCompleted: TextView = itemView.findViewById<TextView?>(R.id.task_completed)
+        val dateCreated: TextView = itemView.findViewById<TextView?>(R.id.task_date_created)
+        var task: Task? = null
     }
 
     /**
@@ -46,7 +47,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @return returns the reference to the view
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = layoutInflater.inflate(R.layout.skill_list, parent, false)
+        val itemView = layoutInflater.inflate(R.layout.task_list, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -57,22 +58,15 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @param position the position of the previously ordered SkillSet in the previous orders list
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val skill = skills[position]
-        holder.skillName.text = skill.skillName
-        holder.skillCompleted.text = if (skill.completed)  "Yes" else "No"
-        holder.dateCreated.text = skill.dateCreated.toLocalDate().toString()
-
-        // Clicking on CardView navigates to Task Fragment
-        holder.itemView.setOnClickListener { view: View ->
-            view.findNavController().navigate(
-                SkillFragmentDirections.actionSkillFragmentToTaskFragment(skill)
-            )
-        }
+        val task = tasks[position]
+        holder.taskName.text = task.taskName
+        holder.taskCompleted.text = if (task.taskCompleted)  "Yes" else "No"
+        holder.dateCreated.text = task.taskDateCreated.toLocalDate().toString()
 
         //Long Clicks allow for editing the Skill
         holder.itemView.setOnLongClickListener { view: View ->
             view.findNavController().navigate(
-                SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(null, skill)
+                TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(task, null)
             )
             true
         }
@@ -83,18 +77,18 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      *
      * @return the size of the previous orders list
      */
-    override fun getItemCount() = skills.size
+    override fun getItemCount() = tasks.size
 
     /**
      *  Boiler plate code for the Paging Data Adaptor to work, which is not really used yet but
      *  is for better practices when adding data to the database I think.
      */
-    private class SkillDiffCallBack : DiffUtil.ItemCallback<Skill>() {
-        override fun areItemsTheSame(oldItem: Skill, newItem: Skill): Boolean {
-            return oldItem.skillId == newItem.skillId
+    private class TaskDiffCallBack : DiffUtil.ItemCallback<Task>() {
+        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem.taskId == newItem.taskId
         }
 
-        override fun areContentsTheSame(oldItem: Skill, newItem: Skill): Boolean {
+        override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem == newItem
         }
     }

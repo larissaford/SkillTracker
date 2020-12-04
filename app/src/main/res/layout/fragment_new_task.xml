@@ -5,23 +5,23 @@
     tools:context=".NewSkillFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/new_skill_fragment_constraint_layout"
+        android:id="@+id/new_task_fragment_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/new_skill_name"
+            android:id="@+id/new_task_name"
             style="@style/new_skill_set_body_labels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:labelFor="@id/new_skill_name_input"
+            android:labelFor="@id/new_task_name_input"
             android:text="@string/name_semicolon"
-            app:layout_constraintBaseline_toBaselineOf="@+id/new_skill_name_input"
+            app:layout_constraintBaseline_toBaselineOf="@+id/new_task_name_input"
             app:layout_constraintEnd_toEndOf="@+id/skill_completed"
-            app:layout_constraintStart_toStartOf="@+id/skill_completed" />
+            app:layout_constraintStart_toStartOf="@+id/date_completed" />
 
         <EditText
-            android:id="@+id/new_skill_name_input"
+            android:id="@+id/new_task_name_input"
             android:layout_width="183dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/new_skillSet_top_padding"
@@ -30,62 +30,63 @@
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/skill_completed_checkbox"
+            app:layout_constraintStart_toStartOf="@+id/task_completed_checkbox"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/new_skill_missing_name"
+            android:id="@+id/new_task_missing_name"
             style="@style/missing_field_error_warning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name_can_not_be_blank"
-            app:layout_constraintEnd_toEndOf="@+id/new_skill_name_input"
-            app:layout_constraintStart_toStartOf="@+id/new_skill_name_input"
-            app:layout_constraintTop_toBottomOf="@+id/new_skill_name_input" />
+            app:layout_constraintEnd_toEndOf="@+id/new_task_name_input"
+            app:layout_constraintStart_toStartOf="@+id/new_task_name_input"
+            app:layout_constraintTop_toBottomOf="@+id/new_task_name_input" />
 
         <Button
-            android:id="@+id/create_new_skill_button"
+            android:id="@+id/create_new_task_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
-            android:text="@string/create_skill"
+            android:layout_marginBottom="16dp"
+            android:text="@string/create_task"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/skill_date_completed_on" />
+            app:layout_constraintTop_toBottomOf="@+id/new_task_missing_name" />
 
         <CheckBox
-            android:id="@+id/skill_completed_checkbox"
+            android:id="@+id/task_completed_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/new_skillSet_body_padding"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/skill_date_completed_on"
-            app:layout_constraintTop_toTopOf="@+id/new_skill_missing_name" />
+            app:layout_constraintStart_toStartOf="@+id/task_date_completed_on"
+            app:layout_constraintTop_toTopOf="@+id/new_task_missing_name" />
 
         <TextView
-            android:id="@+id/skill_completed"
+            android:id="@+id/task_completed"
             style="@style/new_skill_set_body_labels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/completed"
             android:visibility="invisible"
-            app:layout_constraintBaseline_toBaselineOf="@+id/skill_completed_checkbox"
-            app:layout_constraintEnd_toEndOf="@+id/skill_completed_on"
-            app:layout_constraintStart_toStartOf="@+id/skill_completed_on" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/task_completed_checkbox"
+            app:layout_constraintEnd_toEndOf="@+id/task_completed_on"
+            app:layout_constraintStart_toStartOf="@+id/task_completed_on" />
 
         <TextView
-            android:id="@+id/skill_completed_on"
+            android:id="@+id/task_completed_on"
             style="@style/new_skill_set_body_labels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/new_skillSet_body_padding"
             android:text="@string/completed_on"
             android:visibility="invisible"
-            app:layout_constraintBaseline_toBaselineOf="@+id/skill_date_completed_on"
+            app:layout_constraintBaseline_toBaselineOf="@+id/task_date_completed_on"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/skill_date_completed_on"
+            android:id="@+id/task_date_completed_on"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/new_skillSet_body_padding"
@@ -93,8 +94,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000000"
             android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/skill_completed_on"
-            app:layout_constraintTop_toBottomOf="@+id/skill_completed_checkbox" />
+            app:layout_constraintStart_toEndOf="@+id/task_completed_on"
+            app:layout_constraintTop_toBottomOf="@+id/task_completed_checkbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

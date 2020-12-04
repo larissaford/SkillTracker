@@ -3,15 +3,13 @@ package com.example.skilltracker
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.appcompat.app.AppCompatActivity
-
-import androidx.databinding.DataBindingUtil
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -20,7 +18,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.skilltracker.databinding.ActivityMainBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import timber.log.Timber
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val navController: NavController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController,appBarConfiguration)
+        findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController, appBarConfiguration)
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             //To-Do: make it so you don't need to say "... as certainFragment"
@@ -79,8 +79,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getCurrentFragment(): Fragment?{
-        val navFrag = supportFragmentManager.findFragmentById(R.id.myNavHostFragment)
-        return navFrag?.childFragmentManager?.fragments?.get(0)
+        //val navFrag = supportFragmentManager.findFragmentById(R.id.myNavHostFragment)
+        //return navFrag?.childFragmentManager?.fragments?.get(0)
+        val navHostFragment = supportFragmentManager.primaryNavigationFragment
+        return navHostFragment!!.childFragmentManager.fragments[0]
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
