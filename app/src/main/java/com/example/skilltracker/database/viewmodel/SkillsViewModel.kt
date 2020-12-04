@@ -32,6 +32,10 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
         return allSkills
     }
 
+    fun getSpecificSkillSetWithSkills(skillSetId: Long): LiveData<List<SkillSetWithSkills>> {
+        return repository.getSpecificSkillSetWithSkills(skillSetId)
+    }
+
     /**
      * gets rid of all values in database
      */
