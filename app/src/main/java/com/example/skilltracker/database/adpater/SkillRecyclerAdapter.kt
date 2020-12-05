@@ -58,7 +58,6 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val skill = skills[position]
-        println("IN RECYCLERVIEW: ${skill.skillName}")
         holder.skillName.text = skill.skillName
         holder.skillCompleted.text = if (skill.completed)  "Yes" else "No"
         holder.dateCreated.text = skill.dateCreated.toLocalDate().toString()

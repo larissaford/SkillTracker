@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
+import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentSkillBinding
@@ -75,7 +76,6 @@ class SkillFragment : Fragment(), FABclicker {
 //                println("SKILL NAME: ${x.skillName}")
 //            }
             binding.skillList.adapter = SkillRecyclerAdapter(this.requireContext(), it)
-
         })
     }
 
