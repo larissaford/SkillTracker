@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
 import com.example.skilltracker.database.adpater.SkillSetRecyclerAdapter
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
@@ -49,12 +50,8 @@ class SkillSetFragment : Fragment(), FABclicker {
         binding.skillSetList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
-        vm.getSkillSet().observe(viewLifecycleOwner, Observer {
-            binding.skillSetList.adapter = context?.let { vm.getSkillSet().value?.let { it1 ->
-                SkillSetRecyclerAdapter(it,
-                    it1
-                )
-            } }
+        vm.getSkillSet().observe(viewLifecycleOwner, {
+            binding.skillSetList.adapter = SkillSetRecyclerAdapter(this.requireContext(), it)
         })
 
 

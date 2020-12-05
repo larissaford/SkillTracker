@@ -47,28 +47,50 @@ class SkillsRepository(app: Application){
         return skillsDao.getAllSkillWithTasks()
     }
 
+    fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>> {
+        return skillsDao.getSkillsFromJoin(skillSetId)
+    }
+
     /* INSERTS */
     suspend fun insertSkillSet(skillSet: SkillSet){
         skillsDao.insert(skillSet)
     }
 
-    suspend fun insertSkill(skill: Skill){
-        skillsDao.insert(skill)
+    suspend fun insertSkill(skill: Skill) : Long {
+        var skillIds = skillsDao.insert(skill)
+        println("REPO ADDED SKILLID ${skillIds[0]}")
+        return skillIds[0]
     }
 
     suspend fun insertTask(task: Task){
         skillsDao.insert(task)
     }
 
+    suspend fun insertNewSkillAndJoin(skillSet: SkillSet, skill: Skill) {
+        println("ADDING SKILL LAUNCHED")
+        var skillId = this.insertSkill(skill)
+        skill.skillId = skillId
+        println("ADDING JOIN WITH SKILLID: $skillId")
+        this.insertSkillSetWithSkills(SkillSetWithSkills(skillSet, listOf(skill)))
+    }
+
+//    suspend fun insertNewSkillSetSkillJoin()
+
     suspend fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills){
+        println("IN REPO")
         // get skillset id
         val skillSetId = skillSetWithSkills.skillSet.skillSetId
         // use array initialization to create rows
         val join = Array(skillSetWithSkills.skills.size) { it ->
+            println("NEW JOIN: ${skillSetWithSkills.skills[it].skillId}")
                 SkillSetSkillCrossRef(
                     skillSetId,
                     skillSetWithSkills.skills[it].skillId
             )
+        }
+
+        for(x in join) {
+            println(x.skillId)
         }
         skillsDao.insert(*join)
     }

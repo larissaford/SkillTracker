@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 
+// TODO: Add active flag here?
 /**
  * Data class that will be returned by a join query of Skill and Task table.
  * Join will be in structure of a Skill with a List of Tasks related to it.

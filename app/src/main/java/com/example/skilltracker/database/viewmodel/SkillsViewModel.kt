@@ -8,8 +8,13 @@ import com.example.skilltracker.database.SkillsRepository
 import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.entity.SkillSetWithSkills
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import com.example.skilltracker.database.entity.Task
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.lang.Exception
 
 /**
  * Uses Coroutines seen by the viewModelScope.launch function
@@ -40,6 +45,10 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
 
     fun getSpecificSkillSetWithSkills(skillSetId: Long): LiveData<List<SkillSetWithSkills>> {
         return repository.getSpecificSkillSetWithSkills(skillSetId)
+    }
+
+    fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>> {
+        return repository.getSkillsFromJoin(skillSetId)
     }
 
     /**
@@ -80,15 +89,22 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     /**
      * Adds a Skill to the database
      */
-    fun insertSkill(skill: Skill) = viewModelScope.launch {
-        repository.insertSkill(skill)
+    suspend fun insertSkill(skill: Skill): Long {
+        return repository.insertSkill(skill)
     }
 
     /**
      * Adds a Skill to a SkillSet in the database
      */
-    fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills) = viewModelScope.launch {
+    fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills) = GlobalScope.launch {
         repository.insertSkillSetWithSkills(skillSetWithSkills)
+    }
+
+    suspend fun insertNewSkillWithJoin(skillSet: SkillSet, skill: Skill) {
+//        var result = insertSkill(skill)
+//        var skillId = result.await()
+//        skill.skillId = skillId
+        repository.insertNewSkillAndJoin(skillSet, skill)
     }
 
     fun updateSkill(skill: Skill) = viewModelScope.launch {

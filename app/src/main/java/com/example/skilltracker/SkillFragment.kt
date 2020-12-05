@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
+import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentSkillBinding
@@ -28,7 +30,7 @@ class SkillFragment : Fragment(), FABclicker {
     private lateinit var skillSet: SkillSet
 
     /**
-     * Inflates the layout for this fragment and gets the skillSet from the passed in arguments
+     * Inflates the layout for this fragment
      *
      * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's UI should be attached to
@@ -43,6 +45,9 @@ class SkillFragment : Fragment(), FABclicker {
 
         skillSet = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSet }!!
         print("SKILLSET ID: ${skillSet.skillSetId}\n")
+
+        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        binding.skillList.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
@@ -65,12 +70,12 @@ class SkillFragment : Fragment(), FABclicker {
         binding.skillList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
-        vm.getSkills().observe(viewLifecycleOwner, {
-            binding.skillList.adapter = context?.let { vm.getSkills().value?.let { it1 ->
-                SkillRecyclerAdapter(it,
-                    it1
-                )
-            } }
+        vm.getSkillsFromJoin(skillSet.skillSetId).observe(viewLifecycleOwner, {
+//            for(x in it) {
+//                println("SKILL ID: ${x.skillId}")
+//                println("SKILL NAME: ${x.skillName}")
+//            }
+            binding.skillList.adapter = SkillRecyclerAdapter(this.requireContext(), it)
         })
     }
 

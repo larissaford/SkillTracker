@@ -64,6 +64,9 @@ interface SkillDao {
     @Query("SELECT * FROM Skill")
     fun getAllSkillWithTasks(): LiveData<List<SkillWithTasks>>
 
+    @Transaction
+    @Query("SELECT * FROM Skill s JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId WHERE ssXRef.skillSetId = :skillSetId")
+    fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>>
 
 
     /* INSERTS */
@@ -79,7 +82,7 @@ interface SkillDao {
      * @param skill Skills to be added to Skill table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg skill: Skill)
+    suspend fun insert(vararg skill: Skill): List<Long>
 
     /**
      * Insert Task data into database
