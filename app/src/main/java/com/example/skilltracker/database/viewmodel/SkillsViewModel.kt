@@ -11,6 +11,7 @@ import com.example.skilltracker.database.entity.SkillSetWithSkills
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import com.example.skilltracker.database.entity.Task
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
@@ -22,12 +23,17 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     private val repository: SkillsRepository = SkillsRepository(app)
     private val allSkillSets : LiveData<List<SkillSet>> = repository.getSkillSet()
     private val allSkills : LiveData<List<Skill>> = repository.getSkills()
+    private val allTasks : LiveData<List<Task>> = repository.getTasks()
 
     /**
      * get all SkillSetes from database
      */
     fun getSkillSet(): LiveData<List<SkillSet>> {
         return allSkillSets
+    }
+
+    fun getTasks(): LiveData<List<Task>> {
+        return allTasks
     }
 
     /**
@@ -67,6 +73,20 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     }
 
     /**
+     * Update a specific Task
+     */
+    fun updateTasks(task: Task) = viewModelScope.launch {
+        repository.updateTask(task)
+    }
+
+    /**
+     * Insert a specific Task
+     */
+    fun insertTasks(task: Task) = viewModelScope.launch {
+        repository.insertTask(task)
+    }
+
+    /**
      * Adds a Skill to the database
      */
     suspend fun insertSkill(skill: Skill): Long {
@@ -86,11 +106,6 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
 //        skill.skillId = skillId
         repository.insertNewSkillAndJoin(skillSet, skill)
     }
-
-//    fun insertNewSkillAndJoin(skillSet: SkillSet, skill: Skill) = viewModelScope.launch {
-//        var result = repository.insertNewSkillAndJoin(skillSet, skill)
-//        var skillId = result.await()
-//    }
 
     fun updateSkill(skill: Skill) = viewModelScope.launch {
         repository.updateSkill(skill)

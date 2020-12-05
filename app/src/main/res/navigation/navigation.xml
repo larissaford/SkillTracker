@@ -11,7 +11,8 @@
         android:label="My Skill Sets" >
         <action
             android:id="@+id/action_skillSetFragment_to_newSkillSetFragment"
-            app:destination="@id/newSkillSetFragment" />
+            app:destination="@id/newSkillSetFragment"
+            app:popUpTo="@id/skillSetFragment" />
         <action
             android:id="@+id/action_skillSetFragment_to_skillFragment"
             app:destination="@id/skillFragment" />
@@ -25,6 +26,10 @@
             android:name="skillSet"
             app:argType="com.example.skilltracker.database.entity.SkillSet"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_newSkillSetFragment_to_skillFragment"
+            app:destination="@id/skillFragment"
+            app:popUpTo="@id/skillSetFragment" />
     </fragment>
     <fragment
         android:id="@+id/skillFragment"
@@ -38,6 +43,9 @@
             android:id="@+id/action_skillFragment_to_newSkillFragment"
             app:destination="@id/newSkillFragment"
             app:popUpTo="@id/skillFragment" />
+        <action
+            android:id="@+id/action_skillFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
     </fragment>
     <fragment
         android:id="@+id/newSkillFragment"
@@ -47,6 +55,32 @@
         <argument
             android:name="skillSet"
             app:argType="com.example.skilltracker.database.entity.SkillSet"
+            app:nullable="true" />
+        <argument
+            android:name="skill"
+            app:argType="com.example.skilltracker.database.entity.Skill"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.example.skilltracker.TaskFragment"
+        tools:layout="@layout/fragment_task"
+        android:label="TaskFragment" >
+        <action
+            android:id="@+id/action_taskFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
+        <argument
+            android:name="skill"
+            app:argType="com.example.skilltracker.database.entity.Skill" />
+    </fragment>
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.skilltracker.NewTaskFragment"
+        tools:layout="@layout/fragment_new_task"
+        android:label="NewTaskFragment" >
+        <argument
+            android:name="task"
+            app:argType="com.example.skilltracker.database.entity.Task"
             app:nullable="true" />
         <argument
             android:name="skill"
