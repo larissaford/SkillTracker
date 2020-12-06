@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -28,7 +30,11 @@ class NewSkillSetFragment : Fragment() {
     private lateinit var vm: SkillsViewModel
     private var skillSet: SkillSet? = null
     private var allSkills: ArrayList<Skill> = ArrayList()
+    private var currentSkills: ArrayList<Skill> = ArrayList()
     private lateinit var spinner: MultiSelectionSpinner
+    private lateinit var skillsListView: ListView
+    private lateinit var adapter: ArrayAdapter<String>
+    private var currentSkillNames: ArrayList<String?> = ArrayList<String?>()
 
     /**
      * Inflates the layout for this fragment, initializes the viewModel variable vm, gets all skills and
@@ -50,13 +56,31 @@ class NewSkillSetFragment : Fragment() {
 
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
 
-        // Get all of the skills from the database
+        // Get all of the skills from the database & add them to the multi-select spinner
         vm.getSkills().observe(viewLifecycleOwner, Observer { skills ->
             allSkills = skills as ArrayList<Skill>
 
             // Initialize the multi select spinner and set its items/skills
             spinner = binding.skillMultiSelectList
             spinner.setItems(allSkills)
+
+            // If the user is editing an existing skill set, get the skill set's current skills and display
+            //  them in a list view
+            if (skillSet != null) {
+                // Get the skills that are currently part of the skill set and set them to selected in the multi-select spinner
+                vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skills ->
+                    currentSkills = skills as ArrayList<Skill>
+                    spinner.setSelection(currentSkills)
+
+                    for (i in 0 until currentSkills.size) {
+                        currentSkillNames.add(currentSkills[i].skillName)
+                    }
+
+                    skillsListView = binding.currentSkillsListView
+                    adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
+                    skillsListView.adapter = adapter
+                })
+            }
         })
 
         // Get the skill set if it was passed on and set its values to the corresponding inputs
@@ -65,6 +89,8 @@ class NewSkillSetFragment : Fragment() {
             binding.newSkillSetNameInput.setText(skillSet!!.name)
             binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
             binding.createNewSkillSetButton.text = getString(R.string.update_skillSet)
+            binding.currentSkillsLabel.visibility = View.VISIBLE
+            binding.currentSkillsListView.visibility = View.VISIBLE
         }
 
         // Set an onClickListener for the createNewSkillSet button
