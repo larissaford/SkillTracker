@@ -43,6 +43,10 @@ class SkillsRepository(app: Application){
         return skillsDao.getSpecificSkillSetWithSkills(skillSetId)
     }
 
+    fun getSpecificSkillWithTasks(skillId: Long): LiveData<List<SkillWithTasks>> {
+        return skillsDao.getSpecificSkillWithTasks(skillId)
+    }
+
     fun getSkillWithTasks(): LiveData<List<SkillWithTasks>> {
         return skillsDao.getAllSkillWithTasks()
     }
@@ -56,22 +60,25 @@ class SkillsRepository(app: Application){
         skillsDao.insert(skillSet)
     }
 
-    suspend fun insertSkill(skill: Skill) : Long {
+    suspend fun insertSkill(skill: Skill): Long {
         var skillIds = skillsDao.insert(skill)
-        println("REPO ADDED SKILLID ${skillIds[0]}")
         return skillIds[0]
     }
 
-    suspend fun insertTask(task: Task){
-        skillsDao.insert(task)
+    suspend fun insertTask(task: Task): Long {
+        var taskIds = skillsDao.insert(task)
+        return taskIds[0]
     }
 
     suspend fun insertNewSkillAndJoin(skillSet: SkillSet, skill: Skill) {
-        println("ADDING SKILL LAUNCHED")
-        var skillId = this.insertSkill(skill)
-        skill.skillId = skillId
-        println("ADDING JOIN WITH SKILLID: $skillId")
+//        var skillId = this.insertSkill(skill)
+//        skill.skillId = skillId
+
         this.insertSkillSetWithSkills(SkillSetWithSkills(skillSet, listOf(skill)))
+    }
+
+    suspend fun insertNewTaskWithJoin(skill: Skill, task: Task) {
+        this.insertSkillsWithTasks(SkillWithTasks(skill, listOf(task)))
     }
 
 //    suspend fun insertNewSkillSetSkillJoin()

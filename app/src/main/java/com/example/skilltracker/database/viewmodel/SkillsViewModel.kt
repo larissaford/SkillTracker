@@ -5,13 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.skilltracker.database.SkillsRepository
-import com.example.skilltracker.database.entity.Skill
-import com.example.skilltracker.database.entity.SkillSet
-import com.example.skilltracker.database.entity.SkillSetWithSkills
+import com.example.skilltracker.database.entity.*
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import com.example.skilltracker.database.entity.Task
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
@@ -45,6 +42,10 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
 
     fun getSpecificSkillSetWithSkills(skillSetId: Long): LiveData<List<SkillSetWithSkills>> {
         return repository.getSpecificSkillSetWithSkills(skillSetId)
+    }
+
+    fun getSpecificSkillWithTasks(skillId: Long): LiveData<List<SkillWithTasks>> {
+        return repository.getSpecificSkillWithTasks(skillId)
     }
 
     fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>> {
@@ -82,8 +83,8 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     /**
      * Insert a specific Task
      */
-    fun insertTasks(task: Task) = viewModelScope.launch {
-        repository.insertTask(task)
+    suspend fun insertTasks(task: Task): Long {
+        return repository.insertTask(task)
     }
 
     /**
@@ -101,10 +102,11 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     }
 
     suspend fun insertNewSkillWithJoin(skillSet: SkillSet, skill: Skill) {
-//        var result = insertSkill(skill)
-//        var skillId = result.await()
-//        skill.skillId = skillId
         repository.insertNewSkillAndJoin(skillSet, skill)
+    }
+
+    suspend fun insertNewTaskWithJoin(skill: Skill, task: Task) {
+        repository.insertNewTaskWithJoin(skill, task)
     }
 
     fun updateSkill(skill: Skill) = viewModelScope.launch {

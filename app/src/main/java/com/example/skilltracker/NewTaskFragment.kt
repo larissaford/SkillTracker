@@ -13,6 +13,8 @@ import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.Task
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentNewTaskBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 
 /**
@@ -107,8 +109,17 @@ class NewTaskFragment : Fragment() {
         }
         else {
             binding.newTaskMissingName.visibility = View.INVISIBLE
-            // If skill is null, the user is adding a new skill, otherwise they are updating an existing skill
+            // If task is null, the user is adding a new task, otherwise they are updating an existing task
             if (task == null) {
+                GlobalScope.launch {
+                    // Create a new Task, insert into DB, and get returned rowId
+                    var newTask = Task(name, "Description")
+                    var newTaskId = vm.insertTasks(newTask)
+
+                    // Set returned rowId to Task's id and insert join
+                    newTask.taskId = newTaskId
+                    vm.insertNewTaskWithJoin(skill!!, newTask)
+                }
 //                var result = vm.insertSkill(Skill(name,false))
 //                println("RESULT: $result")
                 //vm.insertNewSkillWithJoin(skillSet!!, Skill(name, false))
@@ -133,7 +144,7 @@ class NewTaskFragment : Fragment() {
 
                 task!!.taskName = name
                 task!!.taskCompleted = binding.taskCompletedCheckbox.isChecked
-                vm.insertTasks(task!!)
+                vm.updateTasks(task!!)
                 print("updated task")
             }
             return true

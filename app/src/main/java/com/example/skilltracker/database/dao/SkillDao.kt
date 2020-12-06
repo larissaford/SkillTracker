@@ -56,6 +56,11 @@ interface SkillDao {
     @Query("SELECT * FROM SkillSet WHERE skillSetId=:skillSetId")
     fun getSpecificSkillSetWithSkills(skillSetId: Long): LiveData<List<SkillSetWithSkills>>
 
+
+    @Transaction
+    @Query("SELECT * FROM Skill WHERE skillId=:skillId")
+    fun getSpecificSkillWithTasks(skillId: Long): LiveData<List<SkillWithTasks>>
+
     /**
      * Return Join data between Skill and Task tables from database
      * @return LiveData with list of Skill with related Tasks
@@ -89,7 +94,7 @@ interface SkillDao {
      * @param task Task to be added to Task table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg task: Task)
+    suspend fun insert(vararg task: Task): List<Long>
 
     /**
      * Insert join data between Skillset and Skill into database
