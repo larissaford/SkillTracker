@@ -95,7 +95,7 @@ class TaskFragment : Fragment(), FABclicker {
             navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
 
             //clear the database for testing
-            //vm.nuke()
+            //vm.nukeTask()
         }
     }
 }

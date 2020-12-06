@@ -59,6 +59,22 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
         repository.nukeTable()
     }
 
+    fun nukeSkill() = viewModelScope.launch {
+        repository.nukeSkillTable()
+    }
+
+    fun nukeTask() = viewModelScope.launch {
+        repository.nukeTaskTable()
+    }
+
+    fun nukeSkillSetSkillCrossRef() = viewModelScope.launch {
+        repository.nukeSkillSetSkillCrossRefTable()
+    }
+
+    fun nukeSkillTaskCrossRef() = viewModelScope.launch {
+        repository.nukeSkillTaskCrossRefTable()
+    }
+
     /**
      * adds SkillSet to database
      */

@@ -25,6 +25,17 @@ interface SkillDao {
     @Query("DELETE FROM SkillSet")
     suspend fun nukeTable()
 
+    @Query("DELETE FROM Skill")
+    suspend fun nukeSkillTable()
+
+    @Query("DELETE FROM Task")
+    suspend fun nukeTaskTable()
+
+    @Query("DELETE FROM SkillSetSkillCrossRef")
+    suspend fun nukeSkillSetSkillCrossRefTable()
+
+    @Query("DELETE FROM SkillTaskCrossRef")
+    suspend fun nukeSkillTaskCrossRefTable()
     /**
      * Return all Skills data from database
      * @return LiveData with list of Skills

@@ -118,6 +118,14 @@ class SkillsRepository(app: Application){
     /* DELETES */
     suspend fun nukeTable() = skillsDao.nukeTable()
 
+    suspend fun nukeSkillTable() = skillsDao.nukeSkillTable()
+
+    suspend fun nukeTaskTable() = skillsDao.nukeTaskTable()
+
+    suspend fun nukeSkillSetSkillCrossRefTable() = skillsDao.nukeSkillSetSkillCrossRefTable()
+
+    suspend fun nukeSkillTaskCrossRefTable() = skillsDao.nukeSkillTaskCrossRefTable()
+
     /* UPDATES */
     suspend fun update(skillSet: SkillSet) {
         skillsDao.update(skillSet)

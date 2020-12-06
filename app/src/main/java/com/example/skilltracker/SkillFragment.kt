@@ -91,7 +91,7 @@ class SkillFragment : Fragment(), FABclicker {
             navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
 
             //clear the database for testing
-            //vm.nuke()
+            //vm.nukeSkill()
         }
     }
 }
