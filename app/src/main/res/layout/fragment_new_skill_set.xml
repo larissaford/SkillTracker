@@ -111,12 +111,38 @@
             android:id="@+id/add_new_skills_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_new_skills"
+            android:text="@string/create_new_skills"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/create_new_skillSet_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/create_new_skillSet_button" />
+
+        <ListView
+            android:id="@+id/current_skills_list_view"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="@dimen/new_skillSet_body_padding"
+            android:layout_marginTop="30dp"
+            android:isScrollContainer="true"
+            android:scrollbars="vertical"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/add_new_skills_button"
+            app:layout_constraintStart_toEndOf="@+id/current_skills_label"
+            app:layout_constraintTop_toBottomOf="@+id/add_new_skills_button" />
+
+        <TextView
+            android:id="@+id/current_skills_label"
+            style="@style/new_skill_set_body_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/new_skillSet_body_padding"
+            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
+            android:text="@string/skills_already_added"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_new_skillSet_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,5 +28,6 @@
     <string name="completed_on">Completed On:</string>
     <string name="add_skills_optional">Add Skills (optional):</string>
     <string name="create_task">Create Task </string>
-    <string name="add_new_skills">Add New Skills</string>
+    <string name="create_new_skills">Create New Skills</string>
+    <string name="skills_already_added">Skills Already \n Added:</string>
 </resources>

@@ -93,7 +93,7 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
     /**
      * Used to set which options will be initially selected before the user clicks on the spinner
      */
-    fun setSelection(selection: Array<Skill>) {
+    fun setSelection(selection: ArrayList<Skill>) {
         for (i in 0 until this.selection!!.size) {
             this.selection!![i] = false
         }
