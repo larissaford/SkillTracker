@@ -56,8 +56,9 @@ class SkillsRepository(app: Application){
     }
 
     /* INSERTS */
-    suspend fun insertSkillSet(skillSet: SkillSet){
-        skillsDao.insert(skillSet)
+    suspend fun insertSkillSet(skillSet: SkillSet): Long {
+        var skillSetIds = skillsDao.insert(skillSet)
+        return skillSetIds[0]
     }
 
     suspend fun insertSkill(skill: Skill): Long {
@@ -115,7 +116,7 @@ class SkillsRepository(app: Application){
         skillsDao.insert(*join)
     }
 
-    /* DELETES */
+    /* NUKES */
     suspend fun nukeTable() = skillsDao.nukeTable()
 
     suspend fun nukeSkillTable() = skillsDao.nukeSkillTable()
@@ -125,6 +126,23 @@ class SkillsRepository(app: Application){
     suspend fun nukeSkillSetSkillCrossRefTable() = skillsDao.nukeSkillSetSkillCrossRefTable()
 
     suspend fun nukeSkillTaskCrossRefTable() = skillsDao.nukeSkillTaskCrossRefTable()
+
+    /* DELETES */
+    suspend fun deleteSkillSetSkillJoin(skillSet: SkillSet, skill: Skill){
+        this.deleteSkillSetWithSkills(SkillSetWithSkills(skillSet, listOf(skill)))
+    }
+
+    private suspend fun deleteSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills) {
+        val skillSetId = skillSetWithSkills.skillSet.skillSetId
+        // use array initialization to create rows
+        val join = Array(skillSetWithSkills.skills.size) { it ->
+            SkillSetSkillCrossRef(
+                skillSetId,
+                skillSetWithSkills.skills[it].skillId
+            )
+        }
+        skillsDao.deleteSkillSetSkillCrossRef(*join)
+    }
 
     /* UPDATES */
     suspend fun update(skillSet: SkillSet) {

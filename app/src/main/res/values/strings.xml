@@ -18,16 +18,15 @@
     <string name="name_semicolon">Name:</string>
     <string name="description_semicolon">Description:</string>
     <string name="new_skill_set">New Skill Set</string>
-    <string name="create_skill_set">Create Skill Set</string>
+    <string name="save_skill_set">Save Skill Set</string>
     <string name="name_can_not_be_blank">Name can not be blank</string>
     <string name="description_can_not_be_blank">Description can not be blank</string>
     <string name="create_skill">Create Skill</string>
     <string name="completed">Completed:</string>
     <string name="update_skill">Update Skill</string>
-    <string name="update_skillSet">Update Skill Set</string>
     <string name="completed_on">Completed On:</string>
     <string name="add_skills_optional">Add Skills (optional):</string>
     <string name="create_task">Create Task </string>
-    <string name="create_new_skills">Create New Skills</string>
-    <string name="skills_already_added">Skills Already \n Added:</string>
+    <string name="skills_already_newLine_added">Skills Already \n Added:</string>
+    <string name="save_skillSet_and_newLine_create_new_skills">Save Skill Set &amp; \n Create New Skills</string>
 </resources>
