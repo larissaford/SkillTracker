@@ -13,6 +13,8 @@ import com.example.skilltracker.R
 import com.example.skilltracker.SkillFragmentDirections
 import com.example.skilltracker.TaskFragmentDirections
 import com.example.skilltracker.database.entity.Task
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
 
 /**
  * This is the adaptor to take the views and put them into the layout, and then take the data and
@@ -61,7 +63,15 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
         val task = tasks[position]
         holder.taskName.text = task.taskName
         holder.taskCompleted.text = if (task.taskCompleted)  "Yes" else "No"
-        holder.dateCreated.text = task.taskDateCreated.toLocalDate().toString()
+
+        // Format date and set it to the viewHolder
+        var formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        holder.dateCreated?.text = task.taskDateCreated.format(formatter).toString()
+
+        holder.itemView.setOnClickListener { view: View ->
+            task.taskCompleted = !task.taskCompleted
+//            notifyItemChanged(position)
+        }
 
         //Long Clicks allow for editing the Skill
         holder.itemView.setOnLongClickListener { view: View ->
