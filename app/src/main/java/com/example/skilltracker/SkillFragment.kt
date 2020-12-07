@@ -17,6 +17,8 @@ import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentSkillBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import timber.log.Timber
+import java.lang.Exception
 
 /**
  * Displays all of the skills under a skill set
@@ -84,14 +86,20 @@ class SkillFragment : Fragment(), FABclicker {
      * @param view: The view displayed when the FAB was clicked
      */
     override fun onFABClicked(view: View) {
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            // Navigate to the NewSkillSet Fragment
-            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
-            val navController: NavController = navHostFragment.navController
-            navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
+        // Put this try block here to avoid the app crashing when clicking on the "Save Skill Set & Create New Skills" button in the NewSkillSetFragment
+        try {
+            view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+                // Navigate to the NewSkillSet Fragment
+                val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+                val navController: NavController = navHostFragment.navController
+                navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
 
-            //clear the database for testing
-            //vm.nukeSkill()
+                //clear the database for testing
+                //vm.nukeSkill()
+            }
+        }
+        catch (ex: Exception) {
+            Timber.i("onFABClicked not able to be implemented")
         }
     }
 }

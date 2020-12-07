@@ -78,22 +78,8 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     /**
      * adds SkillSet to database
      */
-    fun insertSkillSet(SkillSet: SkillSet) = viewModelScope.launch {
-        repository.insertSkillSet(SkillSet)
-    }
-
-    /**
-     * Update a specific skillSet
-     */
-    fun updateSkillSet(skillSet: SkillSet) = viewModelScope.launch {
-        repository.update(skillSet)
-    }
-
-    /**
-     * Update a specific Task
-     */
-    fun updateTasks(task: Task) = viewModelScope.launch {
-        repository.updateTask(task)
+    suspend fun insertSkillSet(skillSet: SkillSet): Long {
+        return repository.insertSkillSet(skillSet)
     }
 
     /**
@@ -125,7 +111,28 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
         repository.insertNewTaskWithJoin(skill, task)
     }
 
+    /**
+     * Update a specific skillSet
+     */
+    fun updateSkillSet(skillSet: SkillSet) = viewModelScope.launch {
+        repository.update(skillSet)
+    }
+
     fun updateSkill(skill: Skill) = viewModelScope.launch {
         repository.updateSkill(skill)
+    }
+
+    /**
+     * Update a specific Task
+     */
+    fun updateTasks(task: Task) = viewModelScope.launch {
+        repository.updateTask(task)
+    }
+
+    /**
+     * Delete a skill from a skill set
+     */
+    fun deleteSkillSetSkillCrossRef(skillSet: SkillSet, skill: Skill) = viewModelScope.launch {
+        repository.deleteSkillSetSkillJoin(skillSet, skill)
     }
 }

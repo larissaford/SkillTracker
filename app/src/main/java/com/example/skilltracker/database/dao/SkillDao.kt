@@ -91,7 +91,7 @@ interface SkillDao {
      * @param skillSet SkillSets to be added to SkillSet table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg skillSet: SkillSet)
+    suspend fun insert(vararg skillSet: SkillSet): List<Long>
 
     /**
      * Insert Skill data into database
@@ -128,6 +128,9 @@ interface SkillDao {
      */
     @Delete
     suspend fun delete(skillSet: SkillSet)
+
+    @Delete
+    suspend fun deleteSkillSetSkillCrossRef(vararg skillSetSkillCrossRef: SkillSetSkillCrossRef)
 
     /* UPDATES */
     /**
