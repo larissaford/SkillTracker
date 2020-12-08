@@ -78,7 +78,7 @@
                 style="@style/fragment_new_skill_set_user_form_style3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="51dp"
+                android:layout_marginTop="50dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/fragment_new_skill_set_form_hint_desription"
