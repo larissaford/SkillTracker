@@ -8,6 +8,7 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.LocalDateTime
 
+// TODO: Add dateCreated
 /**
  * Data class that has individual tasks a user wants to complete.
  */

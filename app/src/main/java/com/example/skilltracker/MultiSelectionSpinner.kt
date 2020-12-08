@@ -23,6 +23,7 @@ import java.util.*
 class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
     var skills: ArrayList<Skill>? = null
     var adapter: ArrayAdapter<*>
+    var selectionChanged: Boolean = false
     private var selection: BooleanArray? = null
 
     constructor(context: Context) : super(context) {
@@ -48,6 +49,7 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
         if (selection != null && idx < selection!!.size) {
             selection!![idx] = isChecked
             adapter.clear()
+            selectionChanged = true
         } else {
             throw IllegalArgumentException(
                 "'idx' is out of bounds.")
@@ -93,7 +95,7 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
     /**
      * Used to set which options will be initially selected before the user clicks on the spinner
      */
-    fun setSelection(selection: Array<Skill>) {
+    fun setSelection(selection: ArrayList<Skill>) {
         for (i in 0 until this.selection!!.size) {
             this.selection!![i] = false
         }
