@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="image_header_height">50dp</dimen>
-    <dimen name="actionbar">56dp</dimen>
+    <dimen name="actionbar">50dp</dimen>
 
     <!-- New skill set/skill/task dimens -->
     <dimen name="header_top_margin">20dp</dimen>
@@ -11,4 +11,13 @@
     <dimen name="new_skillSet_create_button_padding">40dp</dimen>
     <dimen name="new_skillSet_top_padding">80dp</dimen>
     <dimen name="missing_field_error_text_size">14sp</dimen>
+    <dimen name="fragment_new_skill_set_main_margin_layout">10dp</dimen>
+    <dimen name="fragment_new_skill_set._padding_form_text">10dp</dimen>
+    <dimen name="fragment_new_skill_set_text_size_form_text">20sp</dimen>
+    <dimen name="fragement_new_skill_set_text_input_left_padding">10dp</dimen>
+    <dimen name="fragment_new_skill_set_padding_right">10dp</dimen>
+    <dimen name="fragment_new_skill_set_padding_start_user_input">10sp</dimen>
+    <dimen name="fragment_new_skill_set_padding_end_user_input">10sp</dimen>
+    <dimen name="linespaceing">10dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
 </resources>

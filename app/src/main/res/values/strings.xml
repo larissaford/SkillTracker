@@ -26,7 +26,9 @@
     <string name="update_skill">Update Skill</string>
     <string name="update_skillSet">Update Skill Set</string>
     <string name="completed_on">Completed On:</string>
-    <string name="add_skills_optional">Add Skills (optional):</string>
+    <string name="add_skills_optional">Add Past Skills From Another Skill Set:</string>
     <string name="create_task">Create Task </string>
     <string name="add_new_skills">Add New Skills</string>
+    <string name="fragment_new_skill_set_hint_value_for_user_input">Enter the name of your new skill</string>
+    <string name="fragment_new_skill_set_form_hint_desription">Enter a desciption of the skill</string>
 </resources>
