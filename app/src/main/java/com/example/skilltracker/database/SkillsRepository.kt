@@ -55,6 +55,10 @@ class SkillsRepository(app: Application){
         return skillsDao.getSkillsFromJoin(skillSetId)
     }
 
+    fun getAllSkillWithTasksForSpecificSkillSet(skillSetId: Long): LiveData<List<SkillWithTasks>> {
+        return skillsDao.getAllSkillWithTasksForSpecificSkillSet(skillSetId)
+    }
+
     /* INSERTS */
     suspend fun insertSkillSet(skillSet: SkillSet): Long {
         var skillSetIds = skillsDao.insert(skillSet)
@@ -110,7 +114,8 @@ class SkillsRepository(app: Application){
         val join = Array(skillWithTasks.tasks.size) { it ->
             SkillTaskCrossRef(
                 skillSetId,
-                skillWithTasks.tasks[it].taskId
+                skillWithTasks.tasks[it].taskId,
+                taskCompleted = skillWithTasks.tasks[it].taskCompleted
             )
         }
         skillsDao.insert(*join)

@@ -84,6 +84,9 @@ interface SkillDao {
     @Query("SELECT * FROM Skill s JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId WHERE ssXRef.skillSetId = :skillSetId")
     fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>>
 
+    @Transaction
+    @Query("SELECT * FROM SKILL s JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId WHERE ssXRef.skillSetId = :skillSetId")
+    fun getAllSkillWithTasksForSpecificSkillSet(skillSetId: Long): LiveData<List<SkillWithTasks>>
 
     /* INSERTS */
     /**
