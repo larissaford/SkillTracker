@@ -72,7 +72,7 @@ class SkillFragment : Fragment(), FABclicker {
         binding.skillList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
-        vm.getSkillsFromJoin(skillSet.skillSetId).observe(viewLifecycleOwner, {
+        vm.getAllSkillWithTasksForSpecificSkillSet(skillSet.skillSetId).observe(viewLifecycleOwner, {
 //            for(x in it) {
 //                println("SKILL ID: ${x.skillId}")
 //                println("SKILL NAME: ${x.skillName}")
