@@ -18,7 +18,7 @@
             android:text="@string/name_semicolon"
             app:layout_constraintBaseline_toBaselineOf="@+id/new_task_name_input"
             app:layout_constraintEnd_toEndOf="@+id/skill_completed"
-            app:layout_constraintStart_toStartOf="@+id/date_completed" />
+            app:layout_constraintStart_toStartOf="@id/date_completed" />
 
         <EditText
             android:id="@+id/new_task_name_input"
@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_task_missing_name" />
+            app:layout_constraintTop_toBottomOf="@+id/task_completed_on" />
 
         <CheckBox
             android:id="@+id/task_completed_checkbox"
