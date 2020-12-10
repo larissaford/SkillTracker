@@ -56,6 +56,7 @@
 
             <TextView
                 android:id="@+id/date_created"
+                style="@style/Base.Widget.MaterialComponents.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"

@@ -1,6 +1,7 @@
 package com.example.skilltracker
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.entity.SkillSetWithSkills
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentNewSkillBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 
 /**
@@ -110,12 +113,15 @@ class NewSkillFragment : Fragment() {
             binding.newSkillMissingName.visibility = View.INVISIBLE
             // If skill is null, the user is adding a new skill, otherwise they are updating an existing skill
             if (skill == null) {
-                val newSkill = Skill(name, false)
-                vm.insertSkill(newSkill)
+                GlobalScope.launch {
+                    // Create skill and insert skill and return it's row id
+                    var newSkill = Skill(name, false)
+                    var newSkillId = vm.insertSkill(newSkill)
 
-                val skillList = listOf<Skill>(newSkill)
-                val skillSetWithSkill = SkillSetWithSkills(skillSet!!, skillList)
-                vm.insertSkillSetWithSkills(skillSetWithSkill)
+                    // Set new skill's id to row and insert into join table
+                    newSkill.skillId = newSkillId
+                    vm.insertNewSkillWithJoin(skillSet!!, newSkill)
+                }
             }
             else {
                 // If the skill was marked as completed, set the dateCompleted

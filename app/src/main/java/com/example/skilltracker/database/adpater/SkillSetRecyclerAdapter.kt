@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
 import com.example.skilltracker.SkillSetFragmentDirections
 import com.example.skilltracker.database.entity.SkillSet
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
 
 
 /**
@@ -62,7 +64,10 @@ class SkillSetRecyclerAdapter(private val context: Context, private var skillSet
         val skillSet = skillSets[position]
         holder.SkillSetName?.text = skillSet.name
         holder.skillsetDescription?.text = skillSet.description
-        holder.dateCreated?.text = skillSet.dateCreated.toLocalDate().toString()
+
+        // Format date and set it to the viewHolder
+        var formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        holder.dateCreated?.text = skillSet.dateCreated.format(formatter).toString()
 
         // Clicking on CardView navigates to Skills Fragment
         holder.itemView.setOnClickListener { view: View->

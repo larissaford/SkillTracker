@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
 import com.example.skilltracker.database.adpater.TaskRecyclerAdapter
 import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
@@ -65,12 +66,20 @@ class TaskFragment : Fragment(), FABclicker {
         binding.taskList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
-        vm.getSkills().observe(viewLifecycleOwner, {
-            binding.taskList.adapter = context?.let { vm.getTasks().value?.let { it1 ->
-                TaskRecyclerAdapter(it,
-                    it1
-                )
-            } }
+//        vm.getSkills().observe(viewLifecycleOwner, {
+//            binding.taskList.adapter = context?.let { vm.getTasks().value?.let { it1 ->
+//                TaskRecyclerAdapter(it,
+//                    it1
+//                )
+//            } }
+//        })
+
+        vm.getSpecificSkillWithTasks(skill.skillId).observe(viewLifecycleOwner, {
+//            for(x in it) {
+//                println("SKILL ID: ${x.skillId}")
+//                println("SKILL NAME: ${x.skillName}")
+//            }
+            binding.taskList.adapter = TaskRecyclerAdapter(this.requireContext(), it[0].tasks)
         })
 
         binding.fab.setOnClickListener {
@@ -93,7 +102,7 @@ class TaskFragment : Fragment(), FABclicker {
             navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
 
             //clear the database for testing
-            //vm.nuke()
+            //vm.nukeTask()
         }
     }
 }

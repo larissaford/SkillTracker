@@ -5,11 +5,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.skilltracker.database.SkillsRepository
-import com.example.skilltracker.database.entity.Skill
-import com.example.skilltracker.database.entity.SkillSet
-import com.example.skilltracker.database.entity.SkillSetWithSkills
-import com.example.skilltracker.database.entity.Task
+import com.example.skilltracker.database.entity.*
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.lang.Exception
 
 /**
  * Uses Coroutines seen by the viewModelScope.launch function
@@ -42,6 +44,18 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
         return repository.getSpecificSkillSetWithSkills(skillSetId)
     }
 
+    fun getSpecificSkillWithTasks(skillId: Long): LiveData<List<SkillWithTasks>> {
+        return repository.getSpecificSkillWithTasks(skillId)
+    }
+
+    fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>> {
+        return repository.getSkillsFromJoin(skillSetId)
+    }
+
+    fun getAllSkillWithTasksForSpecificSkillSet(skillSetId: Long): LiveData<List<SkillWithTasks>> {
+        return repository.getAllSkillWithTasksForSpecificSkillSet(skillSetId)
+    }
+
     /**
      * gets rid of all values in database
      */
@@ -49,11 +63,56 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
         repository.nukeTable()
     }
 
+    fun nukeSkill() = viewModelScope.launch {
+        repository.nukeSkillTable()
+    }
+
+    fun nukeTask() = viewModelScope.launch {
+        repository.nukeTaskTable()
+    }
+
+    fun nukeSkillSetSkillCrossRef() = viewModelScope.launch {
+        repository.nukeSkillSetSkillCrossRefTable()
+    }
+
+    fun nukeSkillTaskCrossRef() = viewModelScope.launch {
+        repository.nukeSkillTaskCrossRefTable()
+    }
+
     /**
      * adds SkillSet to database
      */
-    fun insertSkillSet(SkillSet: SkillSet) = viewModelScope.launch {
-        repository.insertSkillSet(SkillSet)
+    suspend fun insertSkillSet(skillSet: SkillSet): Long {
+        return repository.insertSkillSet(skillSet)
+    }
+
+    /**
+     * Insert a specific Task
+     */
+    suspend fun insertTasks(task: Task): Long {
+        return repository.insertTask(task)
+    }
+
+    /**
+     * Adds a Skill to the database
+     */
+    suspend fun insertSkill(skill: Skill): Long {
+        return repository.insertSkill(skill)
+    }
+
+    /**
+     * Adds a Skill to a SkillSet in the database
+     */
+    fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills) = GlobalScope.launch {
+        repository.insertSkillSetWithSkills(skillSetWithSkills)
+    }
+
+    suspend fun insertNewSkillWithJoin(skillSet: SkillSet, skill: Skill) {
+        repository.insertNewSkillAndJoin(skillSet, skill)
+    }
+
+    suspend fun insertNewTaskWithJoin(skill: Skill, task: Task) {
+        repository.insertNewTaskWithJoin(skill, task)
     }
 
     /**
@@ -61,6 +120,10 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
      */
     fun updateSkillSet(skillSet: SkillSet) = viewModelScope.launch {
         repository.update(skillSet)
+    }
+
+    fun updateSkill(skill: Skill) = viewModelScope.launch {
+        repository.updateSkill(skill)
     }
 
     /**
@@ -71,27 +134,9 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     }
 
     /**
-     * Insert a specific Task
+     * Delete a skill from a skill set
      */
-    fun insertTasks(task: Task) = viewModelScope.launch {
-        repository.insertTask(task)
-    }
-
-    /**
-     * Adds a Skill to the database
-     */
-    fun insertSkill(skill: Skill) = viewModelScope.launch {
-        repository.insertSkill(skill)
-    }
-
-    /**
-     * Adds a Skill to a SkillSet in the database
-     */
-    fun insertSkillSetWithSkills(skillSetWithSkills: SkillSetWithSkills) = viewModelScope.launch {
-        repository.insertSkillSetWithSkills(skillSetWithSkills)
-    }
-
-    fun updateSkill(skill: Skill) = viewModelScope.launch {
-        repository.updateSkill(skill)
+    fun deleteSkillSetSkillCrossRef(skillSet: SkillSet, skill: Skill) = viewModelScope.launch {
+        repository.deleteSkillSetSkillJoin(skillSet, skill)
     }
 }

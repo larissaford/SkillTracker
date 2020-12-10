@@ -12,17 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
 import com.example.skilltracker.SkillFragmentDirections
 import com.example.skilltracker.database.entity.Skill
+import com.example.skilltracker.database.entity.SkillWithTasks
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
+
 
 /**
  * This is the adaptor to take the views and put them into the layout, and then take the data and
  * fill in those views within the layout.
  *
  * @param context a private context
- * @param skills a list of previous skills for the SkillSet
+ * @param skillsWithTasks a list of previous skills with tasks for the specific SkillSet
  * @property layoutInflater for inflating the recycler view
  */
-class SkillRecyclerAdapter (private val context: Context, private var skills: List<Skill>) :
-    PagingDataAdapter<Skill, SkillRecyclerAdapter.ViewHolder>(SkillDiffCallBack()) {
+class SkillRecyclerAdapter (private val context: Context, private var skillsWithTasks: List<SkillWithTasks>) :
+    PagingDataAdapter<SkillWithTasks, SkillRecyclerAdapter.ViewHolder>(SkillDiffCallBack()) {
     private val layoutInflater = LayoutInflater.from(context)
 
     /**
@@ -35,7 +39,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
         val skillName: TextView = itemView.findViewById<TextView?>(R.id.skill_name)
         val skillCompleted: TextView = itemView.findViewById<TextView?>(R.id.skill_completed)
         val dateCreated: TextView = itemView.findViewById<TextView?>(R.id.skill_date_created)
-        var skill: Skill? = null
+        var skillWithTasks: SkillWithTasks? = null
     }
 
     /**
@@ -57,10 +61,29 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      * @param position the position of the previously ordered SkillSet in the previous orders list
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val skill = skills[position]
+        // Gather and Calculate Data for View
+        val skillWithTasks: SkillWithTasks = skillsWithTasks[position]
+        var skill = skillWithTasks.skill
+        var tasksCompletedPercentage = 0.0 // assume percentage is 0 for no tasks case
+        // If there are tasks, count all the completed tasks for % completed
+        if(skillWithTasks.tasks.isNotEmpty()) {
+            var tasksCompletedCount = 0
+            for(task in skillWithTasks.tasks) {
+                if(task.taskCompleted) {
+                    tasksCompletedCount++
+                }
+            }
+            tasksCompletedPercentage =
+                ((tasksCompletedCount/skillWithTasks.tasks.size) * 100).toDouble()
+        }
+
+
         holder.skillName.text = skill.skillName
-        holder.skillCompleted.text = if (skill.completed)  "Yes" else "No"
-        holder.dateCreated.text = skill.dateCreated.toLocalDate().toString()
+        holder.skillCompleted.text = "${String.format("%.2f",tasksCompletedPercentage)}%"
+
+        // Format date and set it to viewHolder
+        var formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        holder.dateCreated?.text = skill.dateCreated.format(formatter).toString()
 
         // Clicking on CardView navigates to Task Fragment
         holder.itemView.setOnClickListener { view: View ->
@@ -83,19 +106,19 @@ class SkillRecyclerAdapter (private val context: Context, private var skills: Li
      *
      * @return the size of the previous orders list
      */
-    override fun getItemCount() = skills.size
+    override fun getItemCount() = skillsWithTasks.size
 
     /**
      *  Boiler plate code for the Paging Data Adaptor to work, which is not really used yet but
      *  is for better practices when adding data to the database I think.
      */
-    private class SkillDiffCallBack : DiffUtil.ItemCallback<Skill>() {
-        override fun areItemsTheSame(oldItem: Skill, newItem: Skill): Boolean {
-            return oldItem.skillId == newItem.skillId
+    private class SkillDiffCallBack : DiffUtil.ItemCallback<SkillWithTasks>() {
+        override fun areItemsTheSame(oldItem: SkillWithTasks, newItem: SkillWithTasks): Boolean {
+            return (oldItem.skill == newItem.skill) && (oldItem.tasks == newItem.tasks)
         }
 
-        override fun areContentsTheSame(oldItem: Skill, newItem: Skill): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: SkillWithTasks, newItem: SkillWithTasks): Boolean {
+            return (oldItem.skill == newItem.skill) && (oldItem.tasks == newItem.tasks)
         }
     }
 
