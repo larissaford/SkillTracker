@@ -16,9 +16,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@id/new_task_name_input"
             android:text="@string/name_semicolon"
-            app:layout_constraintBaseline_toBaselineOf="@+id/new_task_name_input"
-            app:layout_constraintEnd_toEndOf="@+id/skill_completed"
-            app:layout_constraintStart_toStartOf="@id/task_date_completed_on" />
+            app:layout_constraintBaseline_toBaselineOf="@id/new_task_name_input"
+            app:layout_constraintEnd_toEndOf="@id/task_completed" />
 
         <EditText
             android:id="@+id/new_task_name_input"
