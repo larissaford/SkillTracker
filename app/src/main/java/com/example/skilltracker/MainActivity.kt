@@ -125,16 +125,16 @@ class MainActivity : AppCompatActivity() {
     /**
      * Sets the FAB's visibility to visible
      */
-    fun showFAB() {
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.visibility = View.VISIBLE
-    }
+//    fun showFAB() {
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.visibility = View.VISIBLE
+//    }
 
     /**
      * Sets the FAB's visibility to invisible
      */
-    fun hideFAB() {
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.visibility = View.INVISIBLE
-    }
+//    fun hideFAB() {
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.visibility = View.INVISIBLE
+//    }
 }

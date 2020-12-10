@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
@@ -43,7 +45,7 @@ class NewSkillSetFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillSetBinding
     private lateinit var vm: SkillsViewModel
     private lateinit var spinner: MultiSelectionSpinner
-    private lateinit var skillsListView: ListView
+    //private lateinit var skillsListView: ListView
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var skillSetName: String
     private lateinit var skillSetDescription: String
@@ -64,7 +66,7 @@ class NewSkillSetFragment : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Set the fab visibility to false so it does not display while the user is creating a new skill set
-        (activity as MainActivity).hideFAB()
+        //(activity as MainActivity).hideFAB()
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
@@ -94,9 +96,9 @@ class NewSkillSetFragment : Fragment() {
                         currentSkillNames.add(currentSkills[i].skillName)
                     }
 
-                    skillsListView = binding.currentSkillsListView
-                    adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
-                    skillsListView.adapter = adapter
+                    // skillsListView = binding.currentSkillsListView
+                    //adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
+                    //skillsListView.adapter = adapter
                 })
             }
         })
@@ -107,9 +109,9 @@ class NewSkillSetFragment : Fragment() {
             binding.newSkillSetNameInput.setText(skillSet!!.name)
             binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
 
-            binding.currentSkillsLabel.visibility = View.VISIBLE
-            binding.currentSkillsListView.visibility = View.VISIBLE
-            binding.newSkillSetHorizontalLine.visibility = View.VISIBLE
+//            binding.currentSkillsLabel.visibility = View.VISIBLE
+//            binding.currentSkillsListView.visibility = View.VISIBLE
+//            binding.newSkillSetHorizontalLine.visibility = View.VISIBLE
         }
 
         // Set an onClickListener for the createNewSkillSet button
@@ -166,7 +168,7 @@ class NewSkillSetFragment : Fragment() {
                 } // end GlobalScope.launch Coroutine
 
                 // Ensure the FAB is visible
-                (activity as MainActivity).showFAB()
+                //(activity as MainActivity).showFAB()
 
                 // Hide the user's keyboard
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
@@ -239,7 +241,7 @@ class NewSkillSetFragment : Fragment() {
             }
 
             // Ensure the FAB is visible
-            (activity as MainActivity).showFAB()
+            //(activity as MainActivity).showFAB()
 
             // Hide the user's keyboard
             (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)

@@ -41,7 +41,7 @@ class NewSkillFragment : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Set the fab visibility to false so it does not display while the user is creating a new skill set
-        (activity as MainActivity).hideFAB()
+        //(activity as MainActivity).hideFAB()
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
@@ -74,7 +74,7 @@ class NewSkillFragment : Fragment() {
                 navController.navigateUp()
 
                 // Ensure the FAB is visible
-                (activity as MainActivity).showFAB()
+                //(activity as MainActivity).showFAB()
 
                 // Hide the user's keyboard
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)

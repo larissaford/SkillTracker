@@ -115,7 +115,7 @@ class SkillsRepository(app: Application){
             SkillTaskCrossRef(
                 skillSetId,
                 skillWithTasks.tasks[it].taskId,
-                taskCompleted = skillWithTasks.tasks[it].taskCompleted
+                //taskCompleted = skillWithTasks.tasks[it].taskCompleted
             )
         }
         skillsDao.insert(*join)
