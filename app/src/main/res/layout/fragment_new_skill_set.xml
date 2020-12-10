@@ -128,7 +128,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_button_one"
-                android:text="@string/create_skill_set"
+                android:text="@string/save_skill_set"
                 android:textColor="@color/fragment_new_skill_set_button_text_color"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
