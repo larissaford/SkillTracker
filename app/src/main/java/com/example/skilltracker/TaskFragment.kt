@@ -72,6 +72,13 @@ class TaskFragment : Fragment(), FABclicker {
                 )
             } }
         })
+
+        binding.fab.setOnClickListener {
+            // Navigate to the NewSkillSet Fragment
+            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+            val navController: NavController = navHostFragment.navController
+            navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
+        }
     }
 
     /**

@@ -27,11 +27,11 @@ class SkillSetFragment : Fragment(), FABclicker {
     private lateinit var vm: SkillsViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding =  DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_skill_set, container, false)
 
 
@@ -50,14 +50,21 @@ class SkillSetFragment : Fragment(), FABclicker {
 
         // fill the recycler view with most recent data from the database
         vm.getSkillSet().observe(viewLifecycleOwner, Observer {
-            binding.skillSetList.adapter = context?.let { vm.getSkillSet().value?.let { it1 ->
-                SkillSetRecyclerAdapter(it,
-                    it1
-                )
-            } }
+            binding.skillSetList.adapter = context?.let {
+                vm.getSkillSet().value?.let { it1 ->
+                    SkillSetRecyclerAdapter(it,
+                        it1
+                    )
+                }
+            }
         })
 
-
+        binding.fab.setOnClickListener {
+            // Navigate to the NewSkillSet Fragment
+            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+            val navController: NavController = navHostFragment.navController
+            navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment(null))
+        }
         //set on click listeners here
         /*view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
