@@ -138,7 +138,7 @@ class NewTaskFragment : Fragment() {
             }
             else {
                 // If the skill was marked as completed, set the dateCompleted
-                if (binding.taskCompletedCheckbox.isChecked && !skill!!.completed) {
+                if (binding.taskCompletedCheckbox.isChecked && !task!!.taskCompleted) {
                     task!!.taskDateCompleted = LocalDateTime.now()
                 }
 
