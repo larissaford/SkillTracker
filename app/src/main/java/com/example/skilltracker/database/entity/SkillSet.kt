@@ -8,11 +8,12 @@ import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 
-// TODO: Add dateCompleted
 /**
- * @property name of SkillSet
- * @property description of SkillSet
- * @property dateCreated of SkillSet
+ * Class representing a Skillset, which will be related to a subset of Skills
+ * @property name user designated name of SkillSet
+ * @property description user designated of SkillSet
+ * @property dateCreated date of creation of SkillSet
+ * @property skillSetId id of SkillSet within the database table
  */
 @Parcelize
 @Entity
@@ -27,8 +28,6 @@ data class SkillSet(
     var skillSetId: Long = 0L
 
     constructor(): this("add name", "add description", LocalDateTime.now())
-//    constructor(): this("add name", "add description", LocalDateTime.now(), null)
 
     constructor(name: String, description: String): this(name, description, LocalDateTime.now())
-//    constructor(name: String, description: String): this(name, description, LocalDateTime.now(), null)
 }
