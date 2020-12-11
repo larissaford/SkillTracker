@@ -79,6 +79,13 @@ class SkillFragment : Fragment(), FABclicker {
 //            }
             binding.skillList.adapter = SkillRecyclerAdapter(this.requireContext(), it)
         })
+
+        binding.fab.setOnClickListener {
+            // Navigate to the NewSkillSet Fragment
+            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+            val navController: NavController = navHostFragment.navController
+            navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
+        }
     }
 
     /**

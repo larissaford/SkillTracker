@@ -68,8 +68,8 @@
     <fragment
         android:id="@+id/taskFragment"
         android:name="com.example.skilltracker.TaskFragment"
-        tools:layout="@layout/fragment_task"
-        android:label="TaskFragment" >
+        android:label="My Tasks"
+        tools:layout="@layout/fragment_task">
         <action
             android:id="@+id/action_taskFragment_to_newTaskFragment"
             app:destination="@id/newTaskFragment" />
@@ -80,8 +80,8 @@
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.example.skilltracker.NewTaskFragment"
-        tools:layout="@layout/fragment_new_task"
-        android:label="NewTaskFragment" >
+        android:label="Create/Edit Tasks"
+        tools:layout="@layout/fragment_new_task">
         <argument
             android:name="task"
             app:argType="com.example.skilltracker.database.entity.Task"

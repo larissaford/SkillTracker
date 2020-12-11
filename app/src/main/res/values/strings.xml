@@ -10,7 +10,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="created_on">Created On:\u0020</string>
+    <string name="created_on">Created On\u0020</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="skillset_fragment_label">My Skill Sets</string>
 
@@ -23,12 +23,13 @@
     <string name="description_can_not_be_blank">Description can not be blank</string>
     <string name="create_skill">Create Skill</string>
     <string name="completed">Completed:\u0020</string>
-    <string name="update_skill">Update Skill</string>
+    <string name="update_skill">Save Skill</string>
     <string name="update_skillSet">Update Skill Set</string>
-    <string name="completed_on">Completed On:\u0020</string>
+    <string name="completed_on">Completed On\u0020</string>
     <string name="add_skills_optional">Add Past Skills From Another Skill Set:</string>
-    <string name="create_task">Create Task </string>
+    <string name="create_task">Save Task </string>
     <string name="add_new_skills">Add New Skills</string>
     <string name="fragment_new_skill_set_hint_value_for_user_input">Enter the name of your new skill</string>
     <string name="fragment_new_skill_set_form_hint_desription">Enter a desciption of the skill</string>
+    <string name="save_skill_set">Save Skill Set</string>
 </resources>

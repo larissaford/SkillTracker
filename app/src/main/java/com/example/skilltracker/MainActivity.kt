@@ -45,13 +45,30 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController, appBarConfiguration)
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            //To-Do: make it so you don't need to say "... as certainFragment"
-            val currentFragment = getCurrentFragment() as FABclicker
-            currentFragment.onFABClicked(view)
-        }
+//        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+//            // To-Do: make it so you don't need to say "... as certainFragment"
+//            // val currentFragment = getCurrentFragment() as FABclicker
+//            // currentFragment.onFABClicked(view)
+//
+//            when (val currentFragment = getCurrentFragment()) {
+//                is SkillSetFragment -> {
+//                    currentFragment.onFABClicked(view)
+//                }
+//                is SkillFragment -> currentFragment.onFABClicked(view)
+//                is TaskFragment -> currentFragment.onFABClicked(view)
+//            }
+//
+//            val navHostFragment = supportFragmentManager.fragments.first() as? NavHostFragment
+//            if(navHostFragment != null) {
+//                val childFragments = navHostFragment.childFragmentManager.fragments as List<FABclicker>
+//                childFragments.forEach { fragment ->
+//                    fragment.onFABClicked(view)
+//                }
+//            }
+//
+//
+//        }
     }
-
     /**
      * sets up the nav Controller and the back button in the app bar.
      * @return Boolean
@@ -108,16 +125,16 @@ class MainActivity : AppCompatActivity() {
     /**
      * Sets the FAB's visibility to visible
      */
-    fun showFAB() {
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.visibility = View.VISIBLE
-    }
+//    fun showFAB() {
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.visibility = View.VISIBLE
+//    }
 
     /**
      * Sets the FAB's visibility to invisible
      */
-    fun hideFAB() {
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.visibility = View.INVISIBLE
-    }
+//    fun hideFAB() {
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.visibility = View.INVISIBLE
+//    }
 }
