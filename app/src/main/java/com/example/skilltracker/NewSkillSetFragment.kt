@@ -45,7 +45,7 @@ class NewSkillSetFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillSetBinding
     private lateinit var vm: SkillsViewModel
     private lateinit var spinner: MultiSelectionSpinner
-    //private lateinit var skillsListView: ListView
+    private lateinit var skillsListView: ListView
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var skillSetName: String
     private lateinit var skillSetDescription: String
@@ -96,9 +96,9 @@ class NewSkillSetFragment : Fragment() {
                         currentSkillNames.add(currentSkills[i].skillName)
                     }
 
-                    // skillsListView = binding.currentSkillsListView
-                    //adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
-                    //skillsListView.adapter = adapter
+                    skillsListView = binding.currentSkillsListView
+                    adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
+                    skillsListView.adapter = adapter
                 })
             }
         })
@@ -109,9 +109,8 @@ class NewSkillSetFragment : Fragment() {
             binding.newSkillSetNameInput.setText(skillSet!!.name)
             binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
 
-//            binding.currentSkillsLabel.visibility = View.VISIBLE
-//            binding.currentSkillsListView.visibility = View.VISIBLE
-//            binding.newSkillSetHorizontalLine.visibility = View.VISIBLE
+            binding.currentSkillsLabel.visibility = View.VISIBLE
+            binding.currentSkillsListView.visibility = View.VISIBLE
         }
 
         // Set an onClickListener for the createNewSkillSet button

@@ -32,4 +32,5 @@
     <string name="fragment_new_skill_set_hint_value_for_user_input">Enter the name of your new skill</string>
     <string name="fragment_new_skill_set_form_hint_desription">Enter a desciption of the skill</string>
     <string name="save_skill_set">Save Skill Set</string>
+    <string name="skills_already_newLine_added">Skills Already \n Added:</string>
 </resources>
