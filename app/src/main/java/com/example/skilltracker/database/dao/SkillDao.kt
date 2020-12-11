@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.skilltracker.database.entity.*
 
-// TODO: Add updates and deletes as needed
 /**
- * adding suspend to functions that need to run asynchronously
+ * Interface Room will implement to interact with the Database
+ * Will run inserts, deletes and updates asynchronously with Coroutines
  */
 @Dao
 interface SkillDao {
@@ -17,25 +17,8 @@ interface SkillDao {
      * @return LiveData with list of SkillSets
      */
     @Query("SELECT * FROM SkillSet")
-    fun getAll(): LiveData<List<SkillSet>>
+    fun getAllSkillSets(): LiveData<List<SkillSet>>
 
-    /**
-     * Deletes all data in SkillSet table
-     */
-    @Query("DELETE FROM SkillSet")
-    suspend fun nukeTable()
-
-    @Query("DELETE FROM Skill")
-    suspend fun nukeSkillTable()
-
-    @Query("DELETE FROM Task")
-    suspend fun nukeTaskTable()
-
-    @Query("DELETE FROM SkillSetSkillCrossRef")
-    suspend fun nukeSkillSetSkillCrossRefTable()
-
-    @Query("DELETE FROM SkillTaskCrossRef")
-    suspend fun nukeSkillTaskCrossRefTable()
     /**
      * Return all Skills data from database
      * @return LiveData with list of Skills
@@ -60,32 +43,50 @@ interface SkillDao {
 
     /**
      * Return Join data between SkillSet and Skill tables from database with specific
-     * skillSetId
+     * @param skillSetId id of SkillSet to query
      * @return LiveData with a SkillSet with List of Skills
      */
     @Transaction
     @Query("SELECT * FROM SkillSet WHERE skillSetId=:skillSetId")
     fun getSpecificSkillSetWithSkills(skillSetId: Long): LiveData<List<SkillSetWithSkills>>
 
-
+    /**
+     * Return Join data between Skill and Task tables from database with specific skillId
+     * @param skillId id of Skill to query
+     * @return LiveData with a Skill with List of Tasks
+     */
     @Transaction
     @Query("SELECT * FROM Skill WHERE skillId=:skillId")
     fun getSpecificSkillWithTasks(skillId: Long): LiveData<List<SkillWithTasks>>
 
     /**
-     * Return Join data between Skill and Task tables from database
+     * Return all Join data between Skill and Task tables from database
      * @return LiveData with list of Skill with related Tasks
      */
     @Transaction
     @Query("SELECT * FROM Skill")
     fun getAllSkillWithTasks(): LiveData<List<SkillWithTasks>>
 
+    /**
+     * Return Skill rows from database with specific skillSetId
+     * @param skillSetId id of SkillSet to query
+     * @return LiveData with a SkillSet with List of Skills
+     */
     @Transaction
-    @Query("SELECT * FROM Skill s JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId WHERE ssXRef.skillSetId = :skillSetId")
+    @Query("""SELECT * FROM Skill s 
+                    JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId 
+                    WHERE ssXRef.skillSetId = :skillSetId""")
     fun getSkillsFromJoin(skillSetId: Long): LiveData<List<Skill>>
 
+    /**
+     * Returns Join data between Skill and Tasks based on a specific SkillSet
+     * @param skillSetId id of SkillSet to base query on
+     * @return List of Skills with their Tasks
+     */
     @Transaction
-    @Query("SELECT * FROM SKILL s JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId WHERE ssXRef.skillSetId = :skillSetId")
+    @Query("""SELECT * FROM SKILL s
+            JOIN SkillSetSkillCrossRef ssXRef ON ssXRef.skillId = s.skillId
+            WHERE ssXRef.skillSetId = :skillSetId""")
     fun getAllSkillWithTasksForSpecificSkillSet(skillSetId: Long): LiveData<List<SkillWithTasks>>
 
     /* INSERTS */
@@ -132,8 +133,42 @@ interface SkillDao {
     @Delete
     suspend fun delete(skillSet: SkillSet)
 
+    /**
+     * Delete SkillSet data from database
+     * @param skillSet SkillSets to be removed from SkillSet table
+     */
     @Delete
     suspend fun deleteSkillSetSkillCrossRef(vararg skillSetSkillCrossRef: SkillSetSkillCrossRef)
+
+    /**
+     * Deletes all data in SkillSet table
+     */
+    @Query("DELETE FROM SkillSet")
+    suspend fun nukeSkillSetTable()
+
+    /**
+     * Deletes all data in Skill table
+     */
+    @Query("DELETE FROM Skill")
+    suspend fun nukeSkillTable()
+
+    /**
+     * Deletes all data in Task table
+     */
+    @Query("DELETE FROM Task")
+    suspend fun nukeTaskTable()
+
+    /**
+     * Deletes all data in SkillSetSkillCrossRef table
+     */
+    @Query("DELETE FROM SkillSetSkillCrossRef")
+    suspend fun nukeSkillSetSkillCrossRefTable()
+
+    /**
+     * Deletes all data in SkillTaskCrossRef table
+     */
+    @Query("DELETE FROM SkillTaskCrossRef")
+    suspend fun nukeSkillTaskCrossRefTable()
 
     /* UPDATES */
     /**
@@ -143,9 +178,17 @@ interface SkillDao {
     @Update
     suspend fun update(vararg skillSets: SkillSet)
 
+    /**
+     * Update Skill data in database
+     * @param skills Skill rows to be updated
+     */
     @Update
     suspend fun updateSkill(vararg skills: Skill)
 
+    /**
+     * Update Task data in database
+     * @param tasks Task rows to be updated
+     */
     @Update
     suspend fun updateTask(vararg task: Task)
 }
