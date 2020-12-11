@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 
 
 /**
- * adding the synchronized keyword to the database makes it work with Coroutines
+ * Database to be implemented by Room. Sets up tables for SkillSet, Skill, Task, and joins between
+ * them.  Implemented in a singleton pattern.
  */
 @Database(entities = [SkillSet::class, SkillSetSkillCrossRef::class, Skill::class,
     SkillTaskCrossRef::class, Task::class], version = 10, exportSchema = false)
