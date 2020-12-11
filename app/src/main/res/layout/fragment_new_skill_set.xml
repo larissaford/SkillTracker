@@ -85,7 +85,7 @@
                     android:gravity="start|top"
                     android:hint="@string/fragment_new_skill_set_form_hint_desription"
                     android:importantForAutofill="no"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine" />
                 <!--android:background="@drawable/custom_input_style"/>-->
 
             </androidx.cardview.widget.CardView>
@@ -120,6 +120,45 @@
                     android:spinnerMode="dropdown" />
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_four"
+                style="@style/card_style"
+                android:layout_width="match_parent"
+                android:layout_height="200sp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/fragment_new_skill_set"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="@dimen/card_padding"
+                app:layout_constraintTop_toBottomOf="@+id/card_three">
+
+                <TextView
+                    android:id="@+id/current_skills_label"
+                    style="@style/new_skill_set_body_labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/skills_already_newLine_added"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/card_four"
+                    app:layout_constraintStart_toStartOf="@+id/card_four"
+                    app:layout_constraintTop_toBottomOf="@+id/card_four" />
+
+                <ListView
+                    android:id="@+id/current_skills_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="200dp"
+                    android:isScrollContainer="true"
+                    android:scrollbars="vertical"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/card_four"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/card_four"
+                    app:layout_constraintTop_toBottomOf="@+id/card_four" />
+
+            </androidx.cardview.widget.CardView>
             <Button
                 android:id="@+id/create_new_skillSet_button"
                 android:layout_width="0dp"
@@ -133,7 +172,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/add_new_skills_button"
-                app:layout_constraintTop_toBottomOf="@+id/card_three" />
+                app:layout_constraintTop_toBottomOf="@+id/card_four" />
 
             <Button
                 android:id="@+id/add_new_skills_button"
@@ -148,33 +187,11 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/create_new_skillSet_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_three" />
+                app:layout_constraintTop_toBottomOf="@+id/card_four" />
 
-            <ListView
-                android:id="@+id/current_skills_list_view"
-                android:layout_width="0dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="80dp"
-                android:isScrollContainer="true"
-                android:scrollbars="vertical"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/create_new_skillSet_button"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/add_new_skills_button"
-                app:layout_constraintTop_toBottomOf="@+id/add_new_skills_button" />
 
-            <TextView
-                android:id="@+id/current_skills_label"
-                style="@style/new_skill_set_body_labels"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="@string/skills_already_newLine_added"
-                android:textAlignment="center"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/add_new_skills_button"
-                app:layout_constraintStart_toStartOf="@+id/add_new_skills_button"
-                app:layout_constraintTop_toBottomOf="@+id/create_new_skillSet_button" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
