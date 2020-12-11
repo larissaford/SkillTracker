@@ -114,8 +114,7 @@ class SkillsRepository(app: Application){
         val join = Array(skillWithTasks.tasks.size) { it ->
             SkillTaskCrossRef(
                 skillSetId,
-                skillWithTasks.tasks[it].taskId,
-                taskCompleted = skillWithTasks.tasks[it].taskCompleted
+                skillWithTasks.tasks[it].taskId
             )
         }
         skillsDao.insert(*join)
