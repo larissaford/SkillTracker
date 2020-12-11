@@ -7,4 +7,5 @@
     <color name="color_main_backgroun_newSkill_fragment">#F3EDED</color>
     <color name="fragment_new_skill_set">#FFFCFC</color>
     <color name="fragment_new_skill_set_button_text_color">#FFFFFF</color>
+    <color name ="purple">#bb86fc</color>
 </resources>

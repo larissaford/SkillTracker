@@ -4,7 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/purple</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -76,5 +76,9 @@
         <item name="android:layout_marginTop">106dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="fragment_new_skill_card">
+
     </style>
 </resources>
