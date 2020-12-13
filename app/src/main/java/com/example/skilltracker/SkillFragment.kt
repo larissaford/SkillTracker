@@ -26,7 +26,7 @@ import java.lang.Exception
  * @property vm The view model for skill sets
  * @property skillSet The skill set that was clicked on to view the skills
  */
-class SkillFragment : Fragment(), FABclicker {
+class SkillFragment : Fragment(){
     private lateinit var binding: FragmentSkillBinding
     private lateinit var vm: SkillsViewModel
     private lateinit var skillSet: SkillSet
@@ -64,10 +64,6 @@ class SkillFragment : Fragment(), FABclicker {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ensure the FAB is visible
-        val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
-        fab.visibility = View.VISIBLE
-
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
         binding.skillList.layoutManager = LinearLayoutManager(context)
 
@@ -85,28 +81,6 @@ class SkillFragment : Fragment(), FABclicker {
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
             navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
-        }
-    }
-
-    /**
-     * Navigates to the NewSkillFragment and makes the FAB invisible
-     * @param view: The view displayed when the FAB was clicked
-     */
-    override fun onFABClicked(view: View) {
-        // Put this try block here to avoid the app crashing when clicking on the "Save Skill Set & Create New Skills" button in the NewSkillSetFragment
-        try {
-            view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-                // Navigate to the NewSkillSet Fragment
-                val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
-                val navController: NavController = navHostFragment.navController
-                navController.navigate(SkillFragmentDirections.actionSkillFragmentToNewSkillFragment(skillSet, null))
-
-                //clear the database for testing
-                //vm.nukeSkill()
-            }
-        }
-        catch (ex: Exception) {
-            Timber.i("onFABClicked not able to be implemented")
         }
     }
 }

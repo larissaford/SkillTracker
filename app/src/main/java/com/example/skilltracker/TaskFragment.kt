@@ -21,9 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * Displays all of the skills under a skill set
  * @property binding The binding variable for this fragment
  * @property vm The view model for skill sets
- * @property skillSet The skill set that was clicked on to view the skills
+ * @property skill The skill that was clicked on to view the skills
  */
-class TaskFragment : Fragment(), FABclicker {
+class TaskFragment : Fragment() {
     private lateinit var binding: FragmentTaskBinding
     private lateinit var vm: SkillsViewModel
     private lateinit var skill: Skill
@@ -87,22 +87,6 @@ class TaskFragment : Fragment(), FABclicker {
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
             navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
-        }
-    }
-
-    /**
-     * Navigates to the NewSkillFragment and makes the FAB invisible
-     * @param view: The view displayed when the FAB was clicked
-     */
-    override fun onFABClicked(view: View) {
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            // Navigate to the NewSkillSet Fragment
-            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
-            val navController: NavController = navHostFragment.navController
-            navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
-
-            //clear the database for testing
-            //vm.nukeTask()
         }
     }
 }

@@ -40,9 +40,6 @@ class NewSkillFragment : Fragment() {
      * @return The view of the fragment's UI or null
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Set the fab visibility to false so it does not display while the user is creating a new skill set
-        //(activity as MainActivity).hideFAB()
-
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_skill, container, false
@@ -73,9 +70,6 @@ class NewSkillFragment : Fragment() {
                 val navController = this.findNavController()
                 navController.navigateUp()
 
-                // Ensure the FAB is visible
-                //(activity as MainActivity).showFAB()
-
                 // Hide the user's keyboard
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
             }
@@ -103,7 +97,7 @@ class NewSkillFragment : Fragment() {
         val name: String = binding.newSkillNameInput.text.toString()
 
         // Ensure a name was provided for the skill
-        if (name == null || name == "") {
+        if (name == "") {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillMissingName.visibility = View.VISIBLE
@@ -115,8 +109,8 @@ class NewSkillFragment : Fragment() {
             if (skill == null) {
                 GlobalScope.launch {
                     // Create skill and insert skill and return it's row id
-                    var newSkill = Skill(name, false)
-                    var newSkillId = vm.insertSkill(newSkill)
+                    val newSkill = Skill(name, false)
+                    val newSkillId = vm.insertSkill(newSkill)
 
                     // Set new skill's id to row and insert into join table
                     newSkill.skillId = newSkillId

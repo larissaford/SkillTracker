@@ -65,8 +65,6 @@ class NewSkillSetFragment : Fragment() {
      * @return The view of the fragment's UI or null
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Set the fab visibility to false so it does not display while the user is creating a new skill set
-        //(activity as MainActivity).hideFAB()
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
@@ -76,7 +74,7 @@ class NewSkillSetFragment : Fragment() {
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
 
         // Get all of the skills from the database & add them to the multi-select spinner
-        vm.getSkills().observe(viewLifecycleOwner, Observer { skills ->
+        vm.getSkills().observe(viewLifecycleOwner, { skills ->
             allSkills = skills as ArrayList<Skill>
 
             // Initialize the multi select spinner and set its items/skills
@@ -87,9 +85,9 @@ class NewSkillSetFragment : Fragment() {
             //  them in a list view
             if (skillSet != null) {
                 // Get the skills that are currently part of the skill set and set them to selected in the multi-select spinner
-                vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skills ->
-                    currentSkills = skills as ArrayList<Skill>
-                    Timber.i("Current skills size: " + currentSkills.size)
+                vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skillsFromJoin: List<Skill> ->
+                    currentSkills = skillsFromJoin as ArrayList<Skill>
+                    Timber.i("Current skills size: %s", currentSkills.size)
                     spinner.setSelection(currentSkills)
 
                     for (i in 0 until currentSkills.size) {
@@ -118,7 +116,7 @@ class NewSkillSetFragment : Fragment() {
             // Add or update the skill set to the database if it is valid
             if (isValidNameAndDescription()) {
                 // Get the skills the user selected to add to the skill set right away
-                var selectedSkills: ArrayList<Skill> = spinner.getSelectedItems()
+                val selectedSkills = spinner.getSelectedItems()
 
                 GlobalScope.launch {
                     withContext(Dispatchers.IO) {
@@ -127,7 +125,7 @@ class NewSkillSetFragment : Fragment() {
                         if (skillSet == null) {
                             // Create & insert the skill set and return its row id
                             skillSet = SkillSet(skillSetName, skillSetDescription)
-                            var newSkillSetId = vm.insertSkillSet(skillSet!!)
+                            val newSkillSetId = vm.insertSkillSet(skillSet!!)
                             skillSet!!.skillSetId = newSkillSetId
 
                             // Insert the selected skills into the join table
@@ -166,9 +164,6 @@ class NewSkillSetFragment : Fragment() {
                     }
                 } // end GlobalScope.launch Coroutine
 
-                // Ensure the FAB is visible
-                //(activity as MainActivity).showFAB()
-
                 // Hide the user's keyboard
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
             }
@@ -179,7 +174,7 @@ class NewSkillSetFragment : Fragment() {
             // Add or update the skill set to the database if it is valid
             if (isValidNameAndDescription()) {
                 // Get the skills the user selected to add to the skill set right away
-                var selectedSkills: ArrayList<Skill> = spinner.getSelectedItems()
+                val selectedSkills: ArrayList<Skill> = spinner.getSelectedItems()
 
                 // If the skillSet is null, the user is creating a new skill set; otherwise they are editing
                 //  an existing skill set
@@ -188,7 +183,7 @@ class NewSkillSetFragment : Fragment() {
                         withContext(Dispatchers.IO) {
                             // Create & insert the skill set and return its row id
                             skillSet = SkillSet(skillSetName, skillSetDescription)
-                            var newSkillSetId = vm.insertSkillSet(skillSet!!)
+                            val newSkillSetId = vm.insertSkillSet(skillSet!!)
                             skillSet!!.skillSetId = newSkillSetId
 
                             // Insert the selected skills into the join table
@@ -211,7 +206,7 @@ class NewSkillSetFragment : Fragment() {
                                 // Remove any skills that were newly un-checked
                                 for (skill in currentSkills) {
                                     if (selectedSkills.indexOf(skill) == -1) {
-                                        Timber.i("Removing skill: " + skill.skillName)
+                                        Timber.i("Removing skill: %s", skill.skillName)
                                         vm.deleteSkillSetSkillCrossRef(skillSet!!, skill)
                                     }
                                 }
@@ -219,7 +214,7 @@ class NewSkillSetFragment : Fragment() {
                                 // Add any skills that were newly checked
                                 for (skill in selectedSkills) {
                                     if (currentSkills.indexOf(skill) == -1) {
-                                        Timber.i("Adding skill: " + skill.skillName)
+                                        Timber.i("Adding skill: %s", skill.skillName)
                                         vm.insertNewSkillWithJoin(skillSet!!, skill)
                                     }
                                 }
@@ -239,9 +234,6 @@ class NewSkillSetFragment : Fragment() {
                 }
             }
 
-            // Ensure the FAB is visible
-            //(activity as MainActivity).showFAB()
-
             // Hide the user's keyboard
             (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
         }
@@ -260,7 +252,7 @@ class NewSkillSetFragment : Fragment() {
         var validDescription = false
 
         // Ensure a name was provided
-        if (skillSetName == null || skillSetName == "") {
+        if (skillSetName == "") {
             val toast = Toast.makeText(context, "Please give the new skill set a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillSetMissingName.visibility = View.VISIBLE
@@ -271,7 +263,7 @@ class NewSkillSetFragment : Fragment() {
         }
 
         // Ensure a description was provided
-        if (skillSetDescription == null || skillSetDescription == "") {
+        if (skillSetDescription == "") {
             val toast = Toast.makeText(context, "Please give the new skill set a description", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillSetMissingDescription.visibility = View.VISIBLE
