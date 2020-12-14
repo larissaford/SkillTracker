@@ -63,6 +63,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_two_fragment_new_skill"
+            android:visibility="invisible"
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -97,6 +98,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_three_fragment_new_skill"
+            android:visibility="invisible"
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -147,6 +149,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_four_fragment_new_skill"
+            android:visibility="invisible"
+
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="50dp"

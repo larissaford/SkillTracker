@@ -51,8 +51,14 @@ class NewSkillFragment : Fragment() {
         // If the skill is not null, the user is editing an existing skill
         if (skill != null) {
             binding.newSkillNameInput.setText(skill!!.skillName)
+
+            binding.cardTwoFragmentNewSkill.visibility = View.VISIBLE
+            binding.cardThreeFragmentNewSkill.visibility = View.VISIBLE
+            binding.cardFourFragmentNewSkill.visibility = View.VISIBLE
+
             binding.skillCompleted.visibility = View.VISIBLE
             binding.skillCompletedCheckbox.visibility = View.VISIBLE
+
             binding.skillCompletedCheckbox.isChecked = skill!!.completed
             binding.createNewSkillButton.text = getString(R.string.update_skill)
 

@@ -110,9 +110,10 @@ class NewSkillSetFragment : Fragment() {
         if(skillSet != null) {
             binding.newSkillSetNameInput.setText(skillSet!!.name)
             binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
-
+            binding.cardFour.visibility = View.VISIBLE
             binding.currentSkillsLabel.visibility = View.VISIBLE
             binding.currentSkillsListView.visibility = View.VISIBLE
+
         }
 
         // Set an onClickListener for the createNewSkillSet button
