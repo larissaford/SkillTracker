@@ -22,6 +22,7 @@
         <item name="android:textColor">#FF0000</item>
         <item name="android:textSize">@dimen/missing_field_error_text_size</item>
         <item name="android:visibility">invisible</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="fragment_new_skill_set_form_text_style">
@@ -62,18 +63,18 @@
     <style name="fragment_new_skill_set_form_text_style2" parent="fragment_new_skill_set_form_text_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="fragment_new_skill_set_user_form_style3" parent="fragment_new_skill_set_user_form_style">
-        <item name="android:layout_marginTop">61sp</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginTop">35sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="missing_field_error_warningNew" parent="missing_field_error_warning">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
-        <item name="android:layout_marginTop">106dp</item>
+        <item name="android:layout_marginTop">75dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>

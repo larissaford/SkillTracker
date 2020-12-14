@@ -84,6 +84,7 @@ class NewSkillSetFragment : Fragment() {
             // If the user is editing an existing skill set, get the skill set's current skills and display
             //  them in a list view
             if (skillSet != null) {
+                binding.createNewSkillSetButton.text = getString(R.string.update_skill_set)
                 // Get the skills that are currently part of the skill set and set them to selected in the multi-select spinner
                 vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skillsFromJoin: List<Skill> ->
                     currentSkills = skillsFromJoin as ArrayList<Skill>
@@ -98,6 +99,9 @@ class NewSkillSetFragment : Fragment() {
                     adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
                     skillsListView.adapter = adapter
                 })
+            }
+            else {
+                binding.cardFour.visibility = View.INVISIBLE
             }
         })
 
