@@ -13,7 +13,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_one_fragment_new_skill"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="76dp"
             style="@style/card_style"
             app:cardCornerRadius="10dp"
@@ -59,51 +59,76 @@
 
 
 
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_two_fragment_new_skill"
+            style="@style/card_style"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="@dimen/card_padding"
+            app:layout_constraintTop_toBottomOf="@+id/card_one_fragment_new_skill"
+            tools:layout_editor_absoluteX="16dp">
+
             <CheckBox
                 android:id="@+id/skill_completed_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="140dp"
-                android:visibility="invisible"
-              />
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="10dp"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/skill_completed"
-                style="@style/new_skill_set_body_labels"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+                style="@style/fragment_new_skill_set_form_text_style2"
+
+                android:layout_width="150dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="@dimen/new_skillSet_body_padding"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/completed"
-                android:visibility="invisible"
-                />
+                android:visibility="invisible" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_three_fragment_new_skill"
+            style="@style/card_style"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="@dimen/card_padding"
+            app:layout_constraintTop_toBottomOf="@+id/card_two_fragment_new_skill"
+            tools:layout_editor_absoluteX="16dp">
 
             <TextView
                 android:id="@+id/skill_completed_on"
-                style="@style/new_skill_set_body_labels"
+                style="@style/fragment_new_skill_set_form_text_style2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/new_skillSet_body_padding"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="10dp"
 
                 android:text="@string/completed_on"
                 android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/skill_completed" />
+               />
 
             <TextView
                 android:id="@+id/skill_date_completed_on"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="400dp"
+                style="@style/fragment_new_skill_set_form_text_style2"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="180dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
                 android:visibility="invisible"
-                app:layout_constraintStart_toEndOf="@+id/skill_completed_on"
-                app:layout_constraintTop_toBottomOf="@+id/skill_completed_checkbox" />
-
+               />
 
         </androidx.cardview.widget.CardView>
 
@@ -111,15 +136,27 @@
             android:id="@+id/create_new_skill_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
-            android:text="@string/create_skill"
-            android:textStyle="bold"
-            android:textColor="@color/fragment_new_skill_set_button_text_color"
+            android:layout_marginTop="40dp"
             android:background="@drawable/custom_button_one"
+            android:text="@string/create_skill"
+            android:textColor="@color/fragment_new_skill_set_button_text_color"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.545"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_one_fragment_new_skill" />
+            app:layout_constraintTop_toBottomOf="@+id/card_three_fragment_new_skill" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_four_fragment_new_skill"
+            style="@style/card_style"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="@dimen/card_padding"
+            app:layout_constraintTop_toBottomOf="@+id/create_new_skill_button"
+            tools:layout_editor_absoluteX="-28dp">
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
