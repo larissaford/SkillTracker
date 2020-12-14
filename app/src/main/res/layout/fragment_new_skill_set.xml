@@ -106,8 +106,6 @@
                 style="@style/fragment_new_skill_set_form_text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1sp"
-                android:lineSpacingExtra="@dimen/linespaceing"
                 android:text="@string/add_skills_from_another_skillSet" />
 
             <com.example.skilltracker.MultiSelectionSpinner

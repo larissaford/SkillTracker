@@ -64,6 +64,12 @@
             android:name="skill"
             app:argType="com.example.skilltracker.database.entity.Skill"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_newSkillFragment_to_skillFragment"
+            app:destination="@id/skillFragment" />
+        <action
+            android:id="@+id/action_newSkillFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskFragment"

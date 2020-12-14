@@ -23,14 +23,14 @@
     <string name="description_can_not_be_blank">Description can not be blank</string>
     <string name="create_skill">Create Skill</string>
     <string name="completed">Completed:\u0020</string>
-    <string name="update_skill">Save Skill</string>
+    <string name="update_skill">Update Skill</string>
     <string name="update_skillSet">Update Skill Set</string>
-    <string name="completed_on">Completed On\u0020</string>
+    <string name="completed_on_semicolon">Completed On:</string>
     <string name="add_skills_from_another_skillSet">Add Skills From Another Skill Set:</string>
     <string name="create_task">Save Task </string>
     <string name="add_new_skills">Add New Skills</string>
-    <string name="fragment_new_skill_set_hint_value_for_user_input">Enter a Name for the New Skill Set</string>
-    <string name="fragment_new_skill_set_form_hint_desription">Enter a Description for the New Skill Set</string>
+    <string name="fragment_new_skill_set_hint_value_for_user_input">Enter a Name for the Skill Set</string>
+    <string name="fragment_new_skill_set_form_hint_desription">Enter a Description for the Skill Set</string>
     <string name="save_skill_set">Save Skill Set</string>
     <string name="skills_already_newLine_added">Skills Already \n Added:</string>
 
@@ -39,5 +39,7 @@
 
     <string name="fragment_new_skill_card_one_title">Name of the skill:</string>
     <string name="update_skill_set">Update Skill Set</string>
+    <string name="skill_name_input_hint">Enter a Name for the Skill</string>
+    <string name="add_tasks_from_another_skill">Add Tasks from Another Skill:</string>
 
 </resources>

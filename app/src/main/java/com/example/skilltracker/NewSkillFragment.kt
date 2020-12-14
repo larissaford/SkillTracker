@@ -9,14 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.skilltracker.database.entity.Skill
-import com.example.skilltracker.database.entity.SkillSet
-import com.example.skilltracker.database.entity.SkillSetWithSkills
+import com.example.skilltracker.database.entity.*
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentNewSkillBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDateTime
 
 /**
@@ -27,9 +28,14 @@ import org.threeten.bp.LocalDateTime
 class NewSkillFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillBinding
     private lateinit var vm: SkillsViewModel
+    private lateinit var spinner: MultiSelectionSpinner
+    private lateinit var skillName: String
 
     private var skillSet: SkillSet? = null
     private var skill: Skill? = null
+    private var allTasks: ArrayList<Task> = ArrayList()
+    private var currentTasks: ArrayList<Task> = ArrayList()
+    private var currentTaskNames: ArrayList<String?> = ArrayList<String?>()
 
     /**
      * Inflates the layout for this fragment and sets an onClickListener for the createNewSkillSet button
@@ -48,8 +54,27 @@ class NewSkillFragment : Fragment() {
         skillSet = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skillSet }
         skill = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skill }
 
+        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+
+        vm.getTasks().observe(viewLifecycleOwner, { tasks ->
+            allTasks = tasks as ArrayList<Task>
+
+            spinner = binding.taskMultiSelectList
+            spinner.setItems(allTasks as ArrayList<Any>)
+        })
+
         // If the skill is not null, the user is editing an existing skill
         if (skill != null) {
+            vm.getSpecificSkillWithTasks(skill!!.skillId).observe(viewLifecycleOwner, { tasksFromJoin: List<SkillWithTasks> ->
+                currentTasks = tasksFromJoin[0].tasks as ArrayList<Task>
+                spinner.setSelection(currentTasks as ArrayList<Any>)
+
+                for (i in 0 until currentTasks.size) {
+                    currentTaskNames.add(currentTasks[i].taskName)
+                }
+            })
+
+            binding.createNewSkillButton.text = getString(R.string.update_skill)
             binding.newSkillNameInput.setText(skill!!.skillName)
 
             binding.cardTwoFragmentNewSkill.visibility = View.VISIBLE
@@ -69,41 +94,73 @@ class NewSkillFragment : Fragment() {
                 binding.skillDateCompletedOn.text = skill!!.dateCompleted?.toLocalDate().toString()
             }
         }
+        else {
+            binding.cardThreeFragmentNewSkill.visibility = View.INVISIBLE
+        }
 
-        binding.createNewSkillButton.setOnClickListener {
-            if (addNewSkill()) {
-                // Navigate back to the SkillSet fragment
-                val navController = this.findNavController()
-                navController.navigateUp()
+        binding.createNewSkillButton.setOnClickListener { view: View ->
+            if (isValidName()) {
+                val selectedTasks: ArrayList<Task> = spinner.getSelectedItems() as ArrayList<Task>
+
+                GlobalScope.launch {
+                    withContext(Dispatchers.IO) {
+                        if (skill == null) {
+                            skill = Skill(skillName, false)
+                            val newSkillId = vm.insertSkill(skill!!)
+                            skill!!.skillId = newSkillId
+
+                            vm.insertNewSkillWithJoin(skillSet!!, skill!!)
+
+                            for (task in selectedTasks) {
+                                vm.insertNewTaskWithJoin(skill!!, task)
+                            }
+                        }
+                        else {
+                            if (spinner.selectionChanged) {
+                                for (task in currentTasks) {
+                                    if (selectedTasks.indexOf(task) == -1) {
+                                        //TODO - Make method to remove the skill task cross ref
+                                    }
+                                }
+
+                                for (task in selectedTasks) {
+                                    if (currentTasks.indexOf(task) == -1) {
+                                        vm.insertNewTaskWithJoin(skill!!, task)
+                                    }
+                                }
+                            } // end if(spinner.selectionChanged)
+
+                            // If the skill was marked as completed, set the dateCompleted
+                            if (binding.skillCompletedCheckbox.isChecked && !skill!!.completed) {
+                                skill!!.dateCompleted = LocalDateTime.now()
+                            }
+
+                            // Update the skills information
+                            skill!!.skillName = skillName
+                            skill!!.completed = binding.skillCompletedCheckbox.isChecked
+                            vm.updateSkill(skill!!)
+                        } // end if(skill == null) else statement
+
+                        withContext(Dispatchers.Main) {
+                            val navController = view.findNavController()
+                            navController.navigateUp()
+                        }
+                    }
+                } // end GlobalScope.launch Coroutine
 
                 // Hide the user's keyboard
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
-            }
-        }
+            } // end if (isValidName())
+        } // end setOnClickListener for createNewSkillButton
 
         return binding.root
     }
 
-    /**
-     * Initializes the view model variable vm
-     *
-     * @param view The view that was created
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
-     * @return The view of the fragment's UI or null
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
-    }
-
-    /**
-     * Adds a new skill to the database or updates an existing skill
-     */
-    private fun addNewSkill(): Boolean {
-        val name: String = binding.newSkillNameInput.text.toString()
+    private fun isValidName(): Boolean {
+        skillName = binding.newSkillNameInput.text.toString()
 
         // Ensure a name was provided for the skill
-        if (name == "") {
+        if (skillName == "") {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillMissingName.visibility = View.VISIBLE
@@ -111,29 +168,8 @@ class NewSkillFragment : Fragment() {
         }
         else {
             binding.newSkillMissingName.visibility = View.INVISIBLE
-            // If skill is null, the user is adding a new skill, otherwise they are updating an existing skill
-            if (skill == null) {
-                GlobalScope.launch {
-                    // Create skill and insert skill and return it's row id
-                    val newSkill = Skill(name, false)
-                    val newSkillId = vm.insertSkill(newSkill)
-
-                    // Set new skill's id to row and insert into join table
-                    newSkill.skillId = newSkillId
-                    vm.insertNewSkillWithJoin(skillSet!!, newSkill)
-                }
-            }
-            else {
-                // If the skill was marked as completed, set the dateCompleted
-                if (binding.skillCompletedCheckbox.isChecked && !skill!!.completed) {
-                    skill!!.dateCompleted = LocalDateTime.now()
-                }
-
-                skill!!.skillName = name
-                skill!!.completed = binding.skillCompletedCheckbox.isChecked
-                vm.updateSkill(skill!!)
-            }
-            return true
+            return true;
         }
     }
+
 }

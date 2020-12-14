@@ -79,7 +79,7 @@ class NewSkillSetFragment : Fragment() {
 
             // Initialize the multi select spinner and set its items/skills
             spinner = binding.skillMultiSelectList
-            spinner.setItems(allSkills)
+            spinner.setItems(allSkills as java.util.ArrayList<Any>)
 
             // If the user is editing an existing skill set, get the skill set's current skills and display
             //  them in a list view
@@ -89,7 +89,7 @@ class NewSkillSetFragment : Fragment() {
                 vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skillsFromJoin: List<Skill> ->
                     currentSkills = skillsFromJoin as ArrayList<Skill>
                     Timber.i("Current skills size: %s", currentSkills.size)
-                    spinner.setSelection(currentSkills)
+                    spinner.setSelection(currentSkills as ArrayList<Any>)
 
                     for (i in 0 until currentSkills.size) {
                         currentSkillNames.add(currentSkills[i].skillName)
@@ -135,7 +135,7 @@ class NewSkillSetFragment : Fragment() {
 
                             // Insert the selected skills into the join table
                             for (item in selectedSkills) {
-                                vm.insertNewSkillWithJoin(skillSet!!, item)
+                                vm.insertNewSkillWithJoin(skillSet!!, item as Skill)
                             }
                         }
                         else {
@@ -151,7 +151,7 @@ class NewSkillSetFragment : Fragment() {
                                 // Add any skills that were newly checked
                                 for (skill in selectedSkills) {
                                     if (currentSkills.indexOf(skill) == -1) {
-                                        vm.insertNewSkillWithJoin(skillSet!!, skill)
+                                        vm.insertNewSkillWithJoin(skillSet!!, skill as Skill)
                                     }
                                 }
                             }
@@ -179,7 +179,7 @@ class NewSkillSetFragment : Fragment() {
             // Add or update the skill set to the database if it is valid
             if (isValidNameAndDescription()) {
                 // Get the skills the user selected to add to the skill set right away
-                val selectedSkills: ArrayList<Skill> = spinner.getSelectedItems()
+                val selectedSkills: ArrayList<Skill> = spinner.getSelectedItems() as ArrayList<Skill>
 
                 // If the skillSet is null, the user is creating a new skill set; otherwise they are editing
                 //  an existing skill set

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import androidx.appcompat.widget.AppCompatSpinner
 import com.example.skilltracker.database.entity.Skill
+import com.example.skilltracker.database.entity.Task
 import timber.log.Timber
 import java.util.*
 
@@ -21,29 +22,29 @@ import java.util.*
  * @property selection A boolean array that stores whether each skill in the skills array is checked or not
  */
 class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
-    var skills: ArrayList<Skill>? = null
+    var values: ArrayList<Any>? = null
     var adapter: ArrayAdapter<*>
     var selectionChanged: Boolean = false
     private var selection: BooleanArray? = null
 
     constructor(context: Context) : super(context) {
-        adapter = ArrayAdapter<Skill>(context,
+        adapter = ArrayAdapter<Any>(context,
             R.layout.simple_spinner_item)
         super.setAdapter(adapter)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        adapter = ArrayAdapter<Skill>(context,
+        adapter = ArrayAdapter<Any>(context,
             R.layout.simple_spinner_item)
         super.setAdapter(adapter)
     }
 
     /**
-     * Handles when the user clicks on a skill to select or un-select it
+     * Handles when the user clicks on a value to select or un-select it
      *
      * @param dialog The dialog that is being viewed
-     * @param idx The index of the skill that was clicked
-     * @param isChecked If the skill is checked or not
+     * @param idx The index of the value that was clicked
+     * @param isChecked If the value is checked or not
      */
     override fun onClick(dialog: DialogInterface?, idx: Int, isChecked: Boolean) {
         if (selection != null && idx < selection!!.size) {
@@ -62,10 +63,19 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
      */
     override fun performClick(): Boolean {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        val itemNames = arrayOfNulls<String>(skills!!.size)
-        for (i in skills!!.indices) {
-            itemNames[i] = skills!![i].skillName
+        val itemNames = arrayOfNulls<String>(values!!.size)
+
+        for (i in values!!.indices) {
+            if (values!![i] is Skill) {
+                val skill = values!![i] as Skill
+                itemNames[i] = skill.skillName
+            }
+            else if (values!![i] is Task) {
+                val task = values!![i] as Task
+                itemNames[i] = task.taskName
+            }
         }
+
         builder.setMultiChoiceItems(itemNames, selection, this)
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { arg0, arg1 ->
             // Do nothing
@@ -85,9 +95,9 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
     /**
      * Sets the skills that will be shown to the user in the spinner
      */
-    fun setItems(items: ArrayList<Skill>) {
-        this.skills = items
-        selection = BooleanArray(this.skills!!.size)
+    fun setItems(items: ArrayList<Any>) {
+        this.values = items
+        selection = BooleanArray(this.values!!.size)
         adapter.clear()
         Arrays.fill(selection!!, false)
     }
@@ -95,17 +105,36 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
     /**
      * Used to set which options will be initially selected before the user clicks on the spinner
      */
-    fun setSelection(selection: ArrayList<Skill>) {
+    fun setSelection(selection: ArrayList<Any>) {
         for (i in 0 until this.selection!!.size) {
             this.selection!![i] = false
         }
-        for (sel in selection) {
-            for (j in 0 until skills!!.size) {
-                if (skills!!.get(j).skillId.equals(sel.skillId)) {
-                    this.selection!![j] = true
+
+        if (selection.size > 0) {
+            if (selection[0] is Skill) {
+                for (sel in selection) {
+                    val selectedSkill = sel as Skill
+                    for (j in 0 until values!!.size) {
+                        var skill = values!![j] as Skill
+                        if (skill.skillId == selectedSkill.skillId) {
+                            this.selection!![j] = true
+                        }
+                    }
+                }
+            }
+            else if (selection[0] is Task) {
+                for (sel in selection) {
+                    val selectedTask = sel as Task
+                    for (j in 0 until values!!.size) {
+                        val task = values!![j] as Task
+                        if (task.taskId == selectedTask.taskId) {
+                            this.selection!![j] = true
+                        }
+                    }
                 }
             }
         }
+
         adapter.clear()
     }
 
@@ -131,11 +160,11 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
      * Returns a list selected/checked items/skills
      * @return A list of all of the skills the user selected
      */
-    fun getSelectedItems(): ArrayList<Skill> {
-        val selectedItems: ArrayList<Skill> = ArrayList()
-        for (i in 0 until skills!!.size) {
+    fun getSelectedItems(): ArrayList<Any> {
+        val selectedItems: ArrayList<Any> = ArrayList()
+        for (i in 0 until values!!.size) {
             if (selection!![i]) {
-                selectedItems.add(skills!![i])
+                selectedItems.add(values!![i])
             }
         }
         return selectedItems
