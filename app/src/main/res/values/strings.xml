@@ -34,6 +34,7 @@
     <string name="save_skill_set">Save Skill Set</string>
     <string name="skills_already_newLine_added">Skills Already \n Added:</string>
 
+    <string name="hint_text_input_task">Name of Task</string>
 
 
     <string name="fragment_new_skill_card_one_title">Name of the skill:</string>

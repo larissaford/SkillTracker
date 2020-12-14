@@ -3,116 +3,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NewSkillFragment">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1000dp"
-        android:background="@color/color_main_background_newSkill_fragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="76dp"
-        android:id="@+id/cardone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/card_style"
 
-        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/new_task_fragment_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/new_task_fragment_constraint_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
 
-        <TextView
-            android:id="@+id/new_task_name"
-            style="@style/new_skill_set_body_labels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@id/new_task_name_input"
-            android:text="@string/name_semicolon"
-            app:layout_constraintBaseline_toBaselineOf="@id/new_task_name_input"
-            app:layout_constraintEnd_toEndOf="@id/task_completed" />
+                android:id="@+id/cardone"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                app:contentPadding="@dimen/card_padding"
+                style="@style/card_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent">
+                <TextView
+                    android:id="@+id/new_task_name"
+                    style="@style/fragment_new_skill_set_form_text_style2"
+                    android:layout_marginEnd="@dimen/new_skillSet_body_padding"
+                    android:layout_marginStart="@dimen/new_skillSet_body_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:labelFor="@id/new_task_name_input"
+                    android:text="@string/name_semicolon"
+                    />
 
-        <EditText
-            android:id="@+id/new_task_name_input"
-            android:layout_width="183dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_top_padding"
-            android:layout_marginEnd="@dimen/new_skillSet_create_button_padding"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/task_completed_checkbox"
-            app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/new_task_name_input"
+                    style="@style/fragment_new_skill_set_user_form_style3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/new_skillSet_body_padding"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="@dimen/new_skillSet_body_padding"
+                    android:autofillHints="@string/hint_text_input_task"
+                    android:ems="10"
+                    android:hint="@string/hint_text_input_task"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:labelFor="@id/new_task_name" />
+                <TextView
+                    android:id="@+id/new_task_missing_name"
+                    style="@style/missing_field_error_warning"
+                    android:text="@string/name_can_not_be_blank"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/new_skillSet_body_padding"
+                    android:layout_marginStart="@dimen/new_skillSet_body_padding"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="90dp"
+                    android:layout_marginBottom="10dp"
+                    />
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/new_task_missing_name"
-            style="@style/missing_field_error_warning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name_can_not_be_blank"
-            app:layout_constraintEnd_toEndOf="@+id/new_task_name_input"
-            app:layout_constraintStart_toStartOf="@+id/new_task_name_input"
-            app:layout_constraintTop_toBottomOf="@+id/new_task_name_input" />
+            <androidx.cardview.widget.CardView
 
-        <Button
-            android:id="@+id/create_new_task_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/create_task"
-            android:background="@drawable/custom_button_one"
-            android:textColor="@color/fragment_new_skill_set_button_text_color"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_completed_on" />
+                android:layout_marginTop="20dp"
+                android:id="@+id/cardtwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentPadding="@dimen/card_padding"
+                style="@style/card_style"
+                app:layout_constraintTop_toBottomOf="@+id/cardone"
+                tools:layout_editor_absoluteX="16dp">
 
-        <CheckBox
-            android:id="@+id/task_completed_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_body_padding"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/task_date_completed_on"
-            app:layout_constraintTop_toTopOf="@+id/new_task_missing_name" />
+                <CheckBox
+                    android:id="@+id/task_completed_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/task_completed"
-            style="@style/new_skill_set_body_labels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/completed"
-            android:visibility="invisible"
-            app:layout_constraintBaseline_toBaselineOf="@+id/task_completed_checkbox"
-            app:layout_constraintEnd_toEndOf="@+id/task_completed_on"
-            app:layout_constraintStart_toStartOf="@+id/task_completed_on" />
+                <TextView
+                    android:id="@+id/task_completed"
+                    style="@style/fragment_new_skill_set_form_text_style2"
 
-        <TextView
-            android:id="@+id/task_completed_on"
-            style="@style/new_skill_set_body_labels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/new_skillSet_body_padding"
-            android:text="@string/completed_on"
-            android:visibility="invisible"
-            app:layout_constraintBaseline_toBaselineOf="@+id/task_date_completed_on"
-            app:layout_constraintStart_toStartOf="parent" />
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/new_skillSet_body_padding"
 
-        <TextView
-            android:id="@+id/task_date_completed_on"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/new_skillSet_body_padding"
-            android:layout_marginTop="@dimen/new_skillSet_body_padding"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000000"
-            android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/task_completed_on"
-            app:layout_constraintTop_toBottomOf="@+id/task_completed_checkbox" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/completed"
+                    android:visibility="invisible"/>
+            </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-    </FrameLayout>
+            <androidx.cardview.widget.CardView
+
+                android:id="@+id/cardtree"
+                style="@style/card_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:contentPadding="@dimen/card_padding"
+                app:layout_constraintTop_toBottomOf="@+id/cardtwo"
+                tools:layout_editor_absoluteX="16dp">
+
+                <TextView
+                    android:id="@+id/task_completed_on"
+                    style="@style/fragment_new_skill_set_form_text_style2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/new_skillSet_body_padding"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:text="@string/completed_on"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/task_date_completed_on"
+                    style="@style/fragment_new_skill_set_form_text_style2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="180dp"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#000000"
+                    android:visibility="invisible" />
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/create_new_task_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_button_one"
+                android:text="@string/create_task"
+                android:textColor="@color/fragment_new_skill_set_button_text_color"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardtree" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>
