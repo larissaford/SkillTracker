@@ -52,6 +52,8 @@ class NewTaskFragment : Fragment() {
             binding.newTaskNameInput.setText(task!!.taskName)
             binding.taskCompleted.visibility = View.VISIBLE
             binding.taskCompletedCheckbox.visibility = View.VISIBLE
+            binding.cardtwo.visibility = View.VISIBLE
+            binding.cardtree.visibility = View.VISIBLE
             binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
             binding.createNewTaskButton.text = getString(R.string.create_task)
 

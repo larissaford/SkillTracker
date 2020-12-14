@@ -67,10 +67,12 @@
                 android:id="@+id/cardtwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 app:contentPadding="@dimen/card_padding"
                 style="@style/card_style"
                 app:layout_constraintTop_toBottomOf="@+id/cardone"
-                tools:layout_editor_absoluteX="16dp">
+                tools:layout_editor_absoluteX="16dp"
+                >
 
                 <CheckBox
                     android:id="@+id/task_completed_checkbox"
@@ -102,6 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:visibility="invisible"
+
                 app:contentPadding="@dimen/card_padding"
                 app:layout_constraintTop_toBottomOf="@+id/cardtwo"
                 tools:layout_editor_absoluteX="16dp">
