@@ -20,9 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * Used to display all of the user's skill sets
  */
-class SkillSetFragment : Fragment(), FABclicker {
+class SkillSetFragment : Fragment(){
     private lateinit var binding: FragmentSkillSetBinding
     private lateinit var vm: SkillsViewModel
 
@@ -34,22 +34,20 @@ class SkillSetFragment : Fragment(), FABclicker {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_skill_set, container, false)
 
-
         return binding.root
     }
 
+    /**
+     * Gets all of the skill sets and binds them to the page and sets an onClickListener for the FAB
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Ensure the FAB is visible
-        val fab: FloatingActionButton = this.requireActivity().findViewById(R.id.fab)
-        fab.visibility = View.VISIBLE
 
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
         binding.skillSetList.layoutManager = LinearLayoutManager(context)
 
         // fill the recycler view with most recent data from the database
-        vm.getSkillSet().observe(viewLifecycleOwner, Observer {
+        vm.getSkillSet().observe(viewLifecycleOwner, {
             binding.skillSetList.adapter = context?.let {
                 vm.getSkillSet().value?.let { it1 ->
                     SkillSetRecyclerAdapter(it,
@@ -59,31 +57,12 @@ class SkillSetFragment : Fragment(), FABclicker {
             }
         })
 
+        // Set an onClickListener for the FAB
         binding.fab.setOnClickListener {
             // Navigate to the NewSkillSet Fragment
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
             val navController: NavController = navHostFragment.navController
             navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment(null))
-        }
-        //set on click listeners here
-        /*view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }*/
-    }
-
-    /**
-     * Navigates to the NewSkillSetFragment and makes the FAB invisible
-     * @param view: The view displayed when the FAB was clicked
-     */
-    override fun onFABClicked(view: View) {
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            // Navigate to the NewSkillSet Fragment
-            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
-            val navController: NavController = navHostFragment.navController
-            navController.navigate(SkillSetFragmentDirections.actionSkillSetFragmentToNewSkillSetFragment(null))
-
-            //clear the database for testing
-            //vm.nuke()
         }
     }
 }

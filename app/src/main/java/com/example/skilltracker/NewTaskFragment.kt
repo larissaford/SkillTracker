@@ -38,8 +38,6 @@ class NewTaskFragment : Fragment() {
      * @return The view of the fragment's UI or null
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Set the fab visibility to false so it does not display while the user is creating a new skill set
-        //(activity as MainActivity).hideFAB()
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
@@ -71,9 +69,6 @@ class NewTaskFragment : Fragment() {
                 val navController = this.findNavController()
                 navController.navigateUp()
 
-                // Ensure the FAB is visible
-                //(activity as MainActivity).showFAB()
-
                 // Hide the user's keyboard
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
             }
@@ -101,7 +96,7 @@ class NewTaskFragment : Fragment() {
         val name: String = binding.newTaskNameInput.text.toString()
 
         // Ensure a name was provided for the skill
-        if (name == null || name == "") {
+        if (name == "") {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newTaskMissingName.visibility = View.VISIBLE
@@ -113,8 +108,8 @@ class NewTaskFragment : Fragment() {
             if (task == null) {
                 GlobalScope.launch {
                     // Create a new Task, insert into DB, and get returned rowId
-                    var newTask = Task(name, "Description")
-                    var newTaskId = vm.insertTasks(newTask)
+                    val newTask = Task(name, "Description")
+                    val newTaskId = vm.insertTasks(newTask)
 
                     // Set returned rowId to Task's id and insert join
                     newTask.taskId = newTaskId
