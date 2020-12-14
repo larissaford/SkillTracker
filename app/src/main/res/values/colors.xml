@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="fragment_new_skill_set_text_color_of_user_hint">#9E908F</color>
-    <color name="color_main_backgroun_newSkill_fragment">#F3EDED</color>
+    <color name="color_main_background_newSkill_fragment">#F3EDED</color>
     <color name="fragment_new_skill_set">#FFFCFC</color>
     <color name="fragment_new_skill_set_button_text_color">#FFFFFF</color>
     <color name ="purple">#bb86fc</color>

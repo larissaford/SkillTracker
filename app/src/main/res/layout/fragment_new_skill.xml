@@ -8,7 +8,7 @@
         android:id="@+id/new_skill_fragment_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="1000dp"
-        android:background="@color/color_main_backgroun_newSkill_fragment">
+        android:background="@color/color_main_background_newSkill_fragment">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_one_fragment_new_skill"
