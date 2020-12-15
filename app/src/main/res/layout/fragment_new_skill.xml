@@ -53,7 +53,7 @@
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
             app:layout_constraintEnd_toEndOf="@+id/card_one_fragment_new_skill"
@@ -80,11 +80,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_three_fragment_new_skill"
-            android:visibility="invisible"
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
             app:layout_constraintEnd_toEndOf="@+id/card_two_fragment_new_skill"
@@ -96,19 +96,15 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="5dp"
-                android:visibility="invisible" />
+                android:layout_marginStart="230dp"
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:id="@+id/skill_completed"
-
                 style="@style/fragment_new_skill_set_form_text_style2"
-
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="@string/completed"
-                android:visibility="invisible" />
+                android:text="@string/completed" />
 
             <TextView
                 android:id="@+id/skill_completed_on"
@@ -116,9 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
-
-                android:text="@string/completed_on_semicolon"
-                android:visibility="invisible" />
+                android:text="@string/completed_on_semicolon"/>
 
             <TextView
                 android:id="@+id/skill_date_completed_on"
@@ -128,8 +122,7 @@
                 android:layout_marginStart="200dp"
                 android:layout_marginTop="45dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#000000"
-                android:visibility="invisible" />
+                android:textColor="#000000" />
 
         </androidx.cardview.widget.CardView>
 
@@ -137,7 +130,7 @@
             android:id="@+id/create_new_skill_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/new_skillSet_body_padding"
+            android:layout_marginTop="20dp"
             android:background="@drawable/custom_button_one"
             android:text="@string/create_skill"
             android:textColor="@color/fragment_new_skill_set_button_text_color"
@@ -148,17 +141,34 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_four_fragment_new_skill"
-            android:visibility="invisible"
-
             style="@style/card_style"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="@dimen/new_skillSet_body_padding"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
             app:layout_constraintTop_toBottomOf="@+id/create_new_skill_button"
             tools:layout_editor_absoluteX="-28dp">
 
+            <TextView
+                android:id="@+id/tasks_already_added_label"
+                style="@style/fragment_new_skill_set_form_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_already_added"
+                android:textAlignment="center" />
+
+            <ListView
+                android:id="@+id/current_tasks_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="150dp"
+                android:layout_marginBottom="5dp"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical">
+
+            </ListView>
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
