@@ -61,8 +61,6 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
      *  containing the multi-select functionality
      */
     override fun performClick(): Boolean {
-        super.performClick()
-        
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         val itemNames = arrayOfNulls<String>(values!!.size)
 
@@ -108,7 +106,8 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
      */
     fun setSelection(selection: ArrayList<Any>) {
         if (selection.size > 0) {
-            for (i in 0 until this.selection!!.size) {
+            Timber.i("Inside for loop of selection array list")
+            for (i in 0 until (this.selection?.size ?: 0)) {
                 this.selection!![i] = false
             }
 
