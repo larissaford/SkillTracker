@@ -41,5 +41,6 @@
     <string name="update_skill_set">Update Skill Set</string>
     <string name="skill_name_input_hint">Enter a Name for the Skill</string>
     <string name="add_tasks_from_another_skill">Add Tasks from Another Skill:</string>
+    <string name="tasks_already_added">Tasks Already \n Added:</string>
 
 </resources>

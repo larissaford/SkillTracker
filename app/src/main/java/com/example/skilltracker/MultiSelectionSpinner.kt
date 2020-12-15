@@ -1,6 +1,5 @@
 package com.example.skilltracker
 
-import android.R
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -17,7 +16,7 @@ import java.util.*
 /**
  * Custom multi-select spinner class
  *
- * @property skills All of the skills that will be displayed in the spinner
+ * @property values All of the values (skills or tasks) that will be displayed in the spinner
  * @property adapter An ArrayAdapter for the spinner
  * @property selection A boolean array that stores whether each skill in the skills array is checked or not
  */
@@ -29,13 +28,13 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
 
     constructor(context: Context) : super(context) {
         adapter = ArrayAdapter<Any>(context,
-            R.layout.simple_spinner_item)
+            android.R.layout.simple_spinner_item)
         super.setAdapter(adapter)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         adapter = ArrayAdapter<Any>(context,
-            R.layout.simple_spinner_item)
+            android.R.layout.simple_spinner_item)
         super.setAdapter(adapter)
     }
 
@@ -62,6 +61,8 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
      *  containing the multi-select functionality
      */
     override fun performClick(): Boolean {
+        super.performClick()
+        
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         val itemNames = arrayOfNulls<String>(values!!.size)
 
@@ -77,9 +78,9 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
         }
 
         builder.setMultiChoiceItems(itemNames, selection, this)
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { arg0, arg1 ->
+        builder.setPositiveButton("OK") { arg0, arg1 ->
             // Do nothing
-        })
+        }
         builder.show()
         return true
     }
@@ -106,34 +107,36 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
      * Used to set which options will be initially selected before the user clicks on the spinner
      */
     fun setSelection(selection: ArrayList<Any>) {
-        for (i in 0 until this.selection!!.size) {
-            this.selection!![i] = false
-        }
-
         if (selection.size > 0) {
+            for (i in 0 until this.selection!!.size) {
+                this.selection!![i] = false
+            }
+
             if (selection[0] is Skill) {
                 for (sel in selection) {
                     val selectedSkill = sel as Skill
+
                     for (j in 0 until values!!.size) {
-                        var skill = values!![j] as Skill
+                        val skill = values!![j] as Skill
                         if (skill.skillId == selectedSkill.skillId) {
                             this.selection!![j] = true
                         }
-                    }
-                }
+                    } // end nested for loop
+                } // end for loop
             }
             else if (selection[0] is Task) {
                 for (sel in selection) {
                     val selectedTask = sel as Task
+
                     for (j in 0 until values!!.size) {
                         val task = values!![j] as Task
                         if (task.taskId == selectedTask.taskId) {
                             this.selection!![j] = true
                         }
-                    }
-                }
+                    } // end for loop
+                } // end nested for loop
             }
-        }
+        } // end if (selection.size > 0)
 
         adapter.clear()
     }

@@ -41,6 +41,7 @@ import timber.log.Timber
  * @property currentSkillNames A list of all of the skill names already added to the skill set
  */
 
+@Suppress("UNCHECKED_CAST")
 class NewSkillSetFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillSetBinding
     private lateinit var vm: SkillsViewModel
@@ -79,7 +80,7 @@ class NewSkillSetFragment : Fragment() {
 
             // Initialize the multi select spinner and set its items/skills
             spinner = binding.skillMultiSelectList
-            spinner.setItems(allSkills as java.util.ArrayList<Any>)
+            spinner.setItems(allSkills as ArrayList<Any>)
 
             // If the user is editing an existing skill set, get the skill set's current skills and display
             //  them in a list view

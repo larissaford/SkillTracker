@@ -139,7 +139,6 @@
                 style="@style/fragment_new_skill_set_form_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:text="@string/skills_already_newLine_added"
                 android:textAlignment="center"
                 android:visibility="invisible"

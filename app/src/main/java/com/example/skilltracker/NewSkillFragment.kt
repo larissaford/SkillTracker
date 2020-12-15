@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -25,10 +27,13 @@ import org.threeten.bp.LocalDateTime
  * @property binding The binding variable for this fragment
  * @property vm The view model for skills
  */
+@Suppress("UNCHECKED_CAST")
 class NewSkillFragment : Fragment() {
     private lateinit var binding: FragmentNewSkillBinding
     private lateinit var vm: SkillsViewModel
     private lateinit var spinner: MultiSelectionSpinner
+    private lateinit var tasksListView: ListView
+    private lateinit var adapter: ArrayAdapter<String>
     private lateinit var skillName: String
 
     private var skillSet: SkillSet? = null
@@ -55,11 +60,10 @@ class NewSkillFragment : Fragment() {
         skill = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skill }
 
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+        spinner = binding.taskMultiSelectList
 
         vm.getTasks().observe(viewLifecycleOwner, { tasks ->
             allTasks = tasks as ArrayList<Task>
-
-            spinner = binding.taskMultiSelectList
             spinner.setItems(allTasks as ArrayList<Any>)
         })
 
@@ -72,18 +76,17 @@ class NewSkillFragment : Fragment() {
                 for (i in 0 until currentTasks.size) {
                     currentTaskNames.add(currentTasks[i].taskName)
                 }
+
+                tasksListView = binding.currentTasksListView
+                adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentTaskNames)
+                tasksListView.adapter = adapter
             })
 
-            binding.createNewSkillButton.text = getString(R.string.update_skill)
-            binding.newSkillNameInput.setText(skill!!.skillName)
-
-            binding.cardTwoFragmentNewSkill.visibility = View.VISIBLE
             binding.cardThreeFragmentNewSkill.visibility = View.VISIBLE
             binding.cardFourFragmentNewSkill.visibility = View.VISIBLE
 
-            binding.skillCompleted.visibility = View.VISIBLE
-            binding.skillCompletedCheckbox.visibility = View.VISIBLE
-
+            binding.createNewSkillButton.text = getString(R.string.update_skill)
+            binding.newSkillNameInput.setText(skill!!.skillName)
             binding.skillCompletedCheckbox.isChecked = skill!!.completed
             binding.createNewSkillButton.text = getString(R.string.update_skill)
 
@@ -93,9 +96,6 @@ class NewSkillFragment : Fragment() {
                 binding.skillDateCompletedOn.visibility = View.VISIBLE
                 binding.skillDateCompletedOn.text = skill!!.dateCompleted?.toLocalDate().toString()
             }
-        }
-        else {
-            binding.cardThreeFragmentNewSkill.visibility = View.INVISIBLE
         }
 
         binding.createNewSkillButton.setOnClickListener { view: View ->
@@ -168,7 +168,7 @@ class NewSkillFragment : Fragment() {
         }
         else {
             binding.newSkillMissingName.visibility = View.INVISIBLE
-            return true;
+            return true
         }
     }
 
