@@ -96,7 +96,7 @@ class SkillsRepository(app: Application){
      * @return rowId of newly inserted SkillSet
      */
     suspend fun insertSkillSet(skillSet: SkillSet): Long {
-        var skillSetIds = skillsDao.insert(skillSet)
+        val skillSetIds = skillsDao.insert(skillSet)
         return skillSetIds[0]
     }
     /**
@@ -105,7 +105,7 @@ class SkillsRepository(app: Application){
      * @return rowId of newly inserted Skill
      */
     suspend fun insertSkill(skill: Skill): Long {
-        var skillIds = skillsDao.insert(skill)
+        val skillIds = skillsDao.insert(skill)
         return skillIds[0]
     }
 
@@ -115,7 +115,7 @@ class SkillsRepository(app: Application){
      * @return rowId of newly inserted Task
      */
     suspend fun insertTask(task: Task): Long {
-        var taskIds = skillsDao.insert(task)
+        val taskIds = skillsDao.insert(task)
         return taskIds[0]
     }
 
@@ -205,7 +205,8 @@ class SkillsRepository(app: Application){
     /**
      * Prepares deletion for a single SkillSet and Skill.
      * All join rows should have the same SkillSet Id
-     * @param skillSetWithSkills row data to be setup for deletion
+     * @param skillSet The SkillSet we want to delete a skill from
+     * @param skill The Skill we are deleting from the skill set
      */
     suspend fun deleteSkillSetSkillJoin(skillSet: SkillSet, skill: Skill){
         this.deleteSkillSetWithSkills(SkillSetWithSkills(skillSet, listOf(skill)))
@@ -227,6 +228,31 @@ class SkillsRepository(app: Application){
             )
         }
         skillsDao.deleteSkillSetSkillCrossRef(*join)
+    }
+
+    /**
+     * Prepares deletion of a task on a skill
+     * @param skill: The skill that we want to remove the task from
+     * @param task: The task we are removing from the skill
+     */
+    suspend fun deleteSkillTaskJoin(skill: Skill, task: Task) {
+        this.deleteSkillWithTask(SkillWithTasks(skill, listOf(task)))
+    }
+
+    /**
+     * Prepares join(s) for deletion of a task from a skill
+     * @param skillWithTasks The skillWithTask that we are deleting
+     */
+    private suspend fun deleteSkillWithTask(skillWithTasks: SkillWithTasks) {
+        val skillId = skillWithTasks.skill.skillId
+
+        val join = Array(skillWithTasks.tasks.size) { it ->
+            SkillTaskCrossRef (
+                skillId,
+                skillWithTasks.tasks[it].taskId
+            )
+        }
+        skillsDao.deleteSkillTaskCrossRef(*join)
     }
 
     /* UPDATES */

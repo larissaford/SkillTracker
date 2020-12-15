@@ -26,6 +26,15 @@ import org.threeten.bp.LocalDateTime
  * Used to create a new Skill
  * @property binding The binding variable for this fragment
  * @property vm The view model for skills
+ * @property spinner A custom multi-selection spinner to display all skills
+ * @property tasksListView A list view that contains all of the skills already added to the skill set
+ * @property adapter An ArrayAdapter for the tasksListView
+ * @property skillName The name of the skill
+ * @property skillSet The SkillSet that was clicked on to view/add skills
+ * @property skill The skill that is being edited
+ * @property allTasks A list of all of the tasks currently stored in the database
+ * @property currentTasks A list of all of the tasks that are part of the skill initially
+ * @property currentTaskNames A list of all the names of the tasks that are part of the skill initially
  */
 @Suppress("UNCHECKED_CAST")
 class NewSkillFragment : Fragment() {
@@ -56,34 +65,43 @@ class NewSkillFragment : Fragment() {
             inflater, R.layout.fragment_new_skill, container, false
         )
 
+        // Get the skill set and skill (if editing) from the passed in arguments
         skillSet = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skillSet }
         skill = arguments?.let { NewSkillFragmentArgs.fromBundle(it).skill }
 
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
         spinner = binding.taskMultiSelectList
 
+        // Get all of the tasks stored in the database & set them to the multi-select spinner's options
         vm.getTasks().observe(viewLifecycleOwner, { tasks ->
             allTasks = tasks as ArrayList<Task>
             spinner.setItems(allTasks as ArrayList<Any>)
         })
 
-        // If the skill is not null, the user is editing an existing skill
+        // If the skill is not null, the user is editing an existing skill. Otherwise they are making a new skill
         if (skill != null) {
+            // Get all of the tasks already added to the skill
             vm.getSpecificSkillWithTasks(skill!!.skillId).observe(viewLifecycleOwner, { tasksFromJoin: List<SkillWithTasks> ->
                 currentTasks = tasksFromJoin[0].tasks as ArrayList<Task>
+
+                // Make the already added tasks selected initially in the multi-select spinner
                 spinner.setSelection(currentTasks as ArrayList<Any>)
 
                 for (i in 0 until currentTasks.size) {
                     currentTaskNames.add(currentTasks[i].taskName)
                 }
 
+                // Put the already added tasks in the tasksListView
                 tasksListView = binding.currentTasksListView
                 adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentTaskNames)
                 tasksListView.adapter = adapter
             })
 
+            // Make the completed and tasksListView cards visible
             binding.cardThreeFragmentNewSkill.visibility = View.VISIBLE
+            binding.cardFiveFragmentNewSkill.visibility = View.VISIBLE
 
+            // Set the skill's current information to the proper input boxes
             binding.createNewSkillButton.text = getString(R.string.update_skill)
             binding.newSkillNameInput.setText(skill!!.skillName)
             binding.skillCompletedCheckbox.isChecked = skill!!.completed
@@ -94,12 +112,16 @@ class NewSkillFragment : Fragment() {
                 binding.cardFourFragmentNewSkill.visibility = View.VISIBLE
                 binding.skillDateCompletedOn.text = skill!!.dateCompleted?.toLocalDate().toString()
             }
-        }
+        } // end if (skill != null)
 
+        // Create an onClickListener for the createNewSkillButton
         binding.createNewSkillButton.setOnClickListener { view: View ->
+            // Ensure the name is valid before creating/updating the skill
             if (isValidName()) {
+                // Get any of the selected tasks from the multi-select spinner & add them to the skill
                 val selectedTasks: ArrayList<Task> = spinner.getSelectedItems() as ArrayList<Task>
 
+                // Create/update the skill with any selected tasks and store them in the database
                 GlobalScope.launch {
                     withContext(Dispatchers.IO) {
                         if (skill == null) {
@@ -109,18 +131,21 @@ class NewSkillFragment : Fragment() {
 
                             vm.insertNewSkillWithJoin(skillSet!!, skill!!)
 
+                            // Add any selected tasks from the multi-select spinner
                             for (task in selectedTasks) {
                                 vm.insertNewTaskWithJoin(skill!!, task)
                             }
                         }
                         else {
+                            // The user is editing a skill, so remove any tasks from the skill that they un-selected in the multi-select spinner
                             if (spinner.selectionChanged) {
                                 for (task in currentTasks) {
                                     if (selectedTasks.indexOf(task) == -1) {
-                                        //TODO - Make method to remove the skill task cross ref
+                                        vm.deleteSkillTaskCrossRef(skill!!, task)
                                     }
                                 }
 
+                                // Add any tasks that were selected in the multi-select spinner that were not selected previously
                                 for (task in selectedTasks) {
                                     if (currentTasks.indexOf(task) == -1) {
                                         vm.insertNewTaskWithJoin(skill!!, task)
@@ -139,6 +164,7 @@ class NewSkillFragment : Fragment() {
                             vm.updateSkill(skill!!)
                         } // end if(skill == null) else statement
 
+                        // Navigate back the skill fragment
                         withContext(Dispatchers.Main) {
                             val navController = view.findNavController()
                             navController.navigateUp()
@@ -151,11 +177,15 @@ class NewSkillFragment : Fragment() {
             } // end if (isValidName())
         } // end setOnClickListener for createNewSkillButton
 
+        // Create an onClickListener for the addNewTasksButton
         binding.addNewTasksButton.setOnClickListener { view: View ->
+            // Ensure the name is valid before creating/updating the skill
             if (isValidName()) {
+                // Get any of the selected tasks from the multi-select spinner & add them to the skill
                 val selectedTasks: ArrayList<Task> = spinner.getSelectedItems() as ArrayList<Task>
 
                 if (skill == null) {
+                    // Create the skill, add any tasks, and add them to the database
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
                             skill = Skill(skillName, false)
@@ -164,10 +194,12 @@ class NewSkillFragment : Fragment() {
 
                             vm.insertNewSkillWithJoin(skillSet!!, skill!!)
 
+                            // Add any selected tasks from the multi-select spinner
                             for (task in selectedTasks) {
                                 vm.insertNewTaskWithJoin(skill!!, task)
                             }
 
+                            // Navigate to the task fragment
                             withContext(Dispatchers.Main) {
                                 view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!))
                             }
@@ -177,13 +209,15 @@ class NewSkillFragment : Fragment() {
                 else {
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
+                            // The user is editing a skill, so remove any tasks from the skill that they un-selected in the multi-select spinner
                             if (spinner.selectionChanged) {
                                 for (task in currentTasks) {
                                     if (selectedTasks.indexOf(task) == -1) {
-                                        //TODO - Make method to remove the skill task cross ref
+                                        vm.deleteSkillTaskCrossRef(skill!!, task)
                                     }
                                 }
 
+                                // Add any tasks that were selected in the multi-select spinner that were not selected previously
                                 for (task in selectedTasks) {
                                     if (currentTasks.indexOf(task) == -1) {
                                         vm.insertNewTaskWithJoin(skill!!, task)
@@ -201,6 +235,7 @@ class NewSkillFragment : Fragment() {
                             skill!!.completed = binding.skillCompletedCheckbox.isChecked
                             vm.updateSkill(skill!!)
 
+                            // Navigate to the task fragment
                             withContext(Dispatchers.Main) {
                                 view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!))
                             }
@@ -216,6 +251,9 @@ class NewSkillFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Ensures the skill was provided a name
+     */
     private fun isValidName(): Boolean {
         skillName = binding.newSkillNameInput.text.toString()
 
@@ -231,5 +269,4 @@ class NewSkillFragment : Fragment() {
             return true
         }
     }
-
 }

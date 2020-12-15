@@ -156,6 +156,15 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
         repository.deleteSkillSetSkillJoin(skillSet, skill)
     }
 
+    /**
+     * Deletes a join relation between Skill and Task tables
+     * @param skill The skill that we are deleting a task from
+     * @param task The task we want to delete from the skill
+     */
+    fun deleteSkillTaskCrossRef(skill: Skill, task: Task) = viewModelScope.launch {
+        repository.deleteSkillTaskJoin(skill, task)
+    }
+
     /* NUKES */
     /**
      * Deletes all rows in SkillSet table

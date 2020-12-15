@@ -115,7 +115,7 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
                 for (sel in selection) {
                     val selectedSkill = sel as Skill
 
-                    for (j in 0 until values!!.size) {
+                    for (j in 0 until (values?.size ?: 0)) {
                         val skill = values!![j] as Skill
                         if (skill.skillId == selectedSkill.skillId) {
                             this.selection!![j] = true
@@ -127,7 +127,7 @@ class MultiSelectionSpinner : AppCompatSpinner, OnMultiChoiceClickListener {
                 for (sel in selection) {
                     val selectedTask = sel as Task
 
-                    for (j in 0 until values!!.size) {
+                    for (j in 0 until (values?.size ?: 0)) {
                         val task = values!![j] as Task
                         if (task.taskId == selectedTask.taskId) {
                             this.selection!![j] = true

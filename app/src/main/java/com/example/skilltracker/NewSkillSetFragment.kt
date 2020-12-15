@@ -72,50 +72,45 @@ class NewSkillSetFragment : Fragment() {
             inflater, R.layout.fragment_new_skill_set, container, false
         )
 
+        // Get the skill set if it was passed in
+        skillSet = arguments?.let { NewSkillSetFragmentArgs.fromBundle(it).skillSet }
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
+
+        // Initialize the multi select spinner
+        spinner = binding.skillMultiSelectList
 
         // Get all of the skills from the database & add them to the multi-select spinner
         vm.getSkills().observe(viewLifecycleOwner, { skills ->
             allSkills = skills as ArrayList<Skill>
-
-            // Initialize the multi select spinner and set its items/skills
-            spinner = binding.skillMultiSelectList
             spinner.setItems(allSkills as ArrayList<Any>)
-
-            // If the user is editing an existing skill set, get the skill set's current skills and display
-            //  them in a list view
-            if (skillSet != null) {
-                binding.createNewSkillSetButton.text = getString(R.string.update_skill_set)
-                // Get the skills that are currently part of the skill set and set them to selected in the multi-select spinner
-                vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skillsFromJoin: List<Skill> ->
-                    currentSkills = skillsFromJoin as ArrayList<Skill>
-                    Timber.i("Current skills size: %s", currentSkills.size)
-                    spinner.setSelection(currentSkills as ArrayList<Any>)
-
-                    for (i in 0 until currentSkills.size) {
-                        currentSkillNames.add(currentSkills[i].skillName)
-                    }
-
-                    skillsListView = binding.currentSkillsListView
-                    adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
-                    skillsListView.adapter = adapter
-                })
-            }
-            else {
-                binding.cardFour.visibility = View.INVISIBLE
-            }
         })
 
-        // Get the skill set if it was passed in and set its values to the corresponding inputs
-        skillSet = arguments?.let { NewSkillSetFragmentArgs.fromBundle(it).skillSet }
-        if(skillSet != null) {
+        // If the user is editing an existing skill set, get the skill set's current skills and display
+        //  them in a list view
+        if (skillSet != null) {
+            binding.createNewSkillSetButton.text = getString(R.string.update_skill_set)
+            // Get the skills that are currently part of the skill set and set them to selected in the multi-select spinner
+            vm.getSkillsFromJoin(skillSet!!.skillSetId).observe(viewLifecycleOwner, { skillsFromJoin: List<Skill> ->
+                currentSkills = skillsFromJoin as ArrayList<Skill>
+                spinner.setSelection(currentSkills as ArrayList<Any>)
+
+                for (i in 0 until currentSkills.size) {
+                    currentSkillNames.add(currentSkills[i].skillName)
+                }
+
+                skillsListView = binding.currentSkillsListView
+                adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1, currentSkillNames)
+                skillsListView.adapter = adapter
+            })
+
+            // Set the skill set's current information to the proper input boxes & make it all visible
             binding.newSkillSetNameInput.setText(skillSet!!.name)
             binding.newSkillSetDescriptionInput.setText(skillSet!!.description)
+
             binding.cardFour.visibility = View.VISIBLE
             binding.currentSkillsLabel.visibility = View.VISIBLE
             binding.currentSkillsListView.visibility = View.VISIBLE
-
-        }
+        } // end if(skillSet != null)
 
         // Set an onClickListener for the createNewSkillSet button
         binding.createNewSkillSetButton.setOnClickListener { view: View ->
@@ -155,7 +150,7 @@ class NewSkillSetFragment : Fragment() {
                                         vm.insertNewSkillWithJoin(skillSet!!, skill as Skill)
                                     }
                                 }
-                            }
+                            } // end if(spinner.selectionChanged)
 
                             // Update the skill set's information
                             skillSet!!.name = skillSetName
@@ -224,7 +219,7 @@ class NewSkillSetFragment : Fragment() {
                                         vm.insertNewSkillWithJoin(skillSet!!, skill)
                                     }
                                 }
-                            }
+                            }  // end if(spinner.selectionChanged)
 
                             // Update the skill set's information
                             skillSet!!.name = skillSetName

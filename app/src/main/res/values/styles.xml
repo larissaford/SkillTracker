@@ -16,7 +16,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
     <style name="missing_field_error_warning">
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:textColor">#FF0000</item>
@@ -38,12 +37,12 @@
         <item name="android:ems">10</item>
         <item name="android:importantForAutofill">no</item>
         <item name="android:inputType">textPersonName</item>
-        <item name="android:paddingStart">@dimen/fragment_new_skill_set_padding_start_user_input
-        </item>
+        <item name="android:paddingStart">@dimen/fragment_new_skill_set_padding_start_user_input</item>
         <item name="android:paddingEnd">@dimen/fragment_new_skill_set_padding_end_user_input</item>
         <item name="android:textColorHint">@color/fragment_new_skill_set_text_color_of_user_hint
         </item>
     </style>
+
     <style name="new_skill_set_body_labels">
         <item name="android:textAlignment">textEnd</item>
         <item name="android:textColor">#000000</item>
@@ -56,6 +55,7 @@
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:padding">10dp</item>
     </style>
+
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/custom_spinner</item>
     </style>
@@ -77,9 +77,5 @@
         <item name="android:layout_marginTop">75dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingTop">10dp</item>
-    </style>
-
-    <style name="fragment_new_skill_card">
-
     </style>
 </resources>

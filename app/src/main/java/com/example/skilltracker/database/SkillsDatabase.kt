@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
  * them.  Implemented in a singleton pattern.
  */
 @Database(entities = [SkillSet::class, SkillSetSkillCrossRef::class, Skill::class,
-    SkillTaskCrossRef::class, Task::class], version = 10, exportSchema = false)
+    SkillTaskCrossRef::class, Task::class], version = 11, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class SkillsDatabase : RoomDatabase() {
     abstract fun skillDao(): SkillDao

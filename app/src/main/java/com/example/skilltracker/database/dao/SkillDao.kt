@@ -135,10 +135,16 @@ interface SkillDao {
 
     /**
      * Delete SkillSet data from database
-     * @param skillSet SkillSets to be removed from SkillSet table
+     * @param skillSetSkillCrossRef The skill set skill join we want to delete
      */
     @Delete
     suspend fun deleteSkillSetSkillCrossRef(vararg skillSetSkillCrossRef: SkillSetSkillCrossRef)
+
+    /**
+     * Delete a task from a skill
+     */
+    @Delete
+    suspend fun deleteSkillTaskCrossRef(vararg skillTaskCrossRef: SkillTaskCrossRef)
 
     /**
      * Deletes all data in SkillSet table
@@ -187,7 +193,7 @@ interface SkillDao {
 
     /**
      * Update Task data in database
-     * @param tasks Task rows to be updated
+     * @param task Task rows to be updated
      */
     @Update
     suspend fun updateTask(vararg task: Task)
