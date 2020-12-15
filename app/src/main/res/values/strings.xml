@@ -42,5 +42,7 @@
     <string name="skill_name_input_hint">Enter a Name for the Skill</string>
     <string name="add_tasks_from_another_skill">Add Tasks from Another Skill:</string>
     <string name="tasks_already_added">Tasks Already \n Added:</string>
+    <string name="add_new_tasks">Add New Tasks</string>
+    <string name="new_task_name_hint">Enter a Name for the Task</string>
 
 </resources>

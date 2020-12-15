@@ -63,7 +63,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skillsWith
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // Gather and Calculate Data for View
         val skillWithTasks: SkillWithTasks = skillsWithTasks[position]
-        var skill = skillWithTasks.skill
+        val skill = skillWithTasks.skill
         var tasksCompletedPercentage = 0.0 // assume percentage is 0 for no tasks case
         // If there are tasks, count all the completed tasks for % completed
         if(skillWithTasks.tasks.isNotEmpty()) {
@@ -79,11 +79,11 @@ class SkillRecyclerAdapter (private val context: Context, private var skillsWith
 
 
         holder.skillName.text = skill.skillName
-        holder.skillCompleted.text = "${String.format("%.2f",tasksCompletedPercentage)}%"
+        holder.skillCompleted.text = String.format("%.2f", tasksCompletedPercentage) + "%"
 
         // Format date and set it to viewHolder
-        var formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-        holder.dateCreated?.text = skill.dateCreated.format(formatter).toString()
+        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        holder.dateCreated.text = skill.dateCreated.format(formatter).toString()
 
         // Clicking on CardView navigates to Task Fragment
         holder.itemView.setOnClickListener { view: View ->

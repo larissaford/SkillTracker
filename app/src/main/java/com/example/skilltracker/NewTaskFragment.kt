@@ -47,20 +47,18 @@ class NewTaskFragment : Fragment() {
         task = arguments?.let { NewTaskFragmentArgs.fromBundle(it).task }
         skill = arguments?.let { NewTaskFragmentArgs.fromBundle(it).skill }
 
-        // If the skill is not null, the user is editing an existing skill
+        // If the task is not null, the user is editing an existing task
         if (task != null) {
             binding.newTaskNameInput.setText(task!!.taskName)
             binding.taskCompleted.visibility = View.VISIBLE
             binding.taskCompletedCheckbox.visibility = View.VISIBLE
             binding.cardtwo.visibility = View.VISIBLE
-            binding.cardtree.visibility = View.VISIBLE
             binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
             binding.createNewTaskButton.text = getString(R.string.create_task)
 
-            // If the skill is completed, show the date it was completed on
+            // If the task is completed, show the date it was completed on
             if (task!!.taskCompleted) {
-                binding.taskCompletedOn.visibility = View.VISIBLE
-                binding.taskDateCompletedOn.visibility = View.VISIBLE
+                binding.cardtree.visibility = View.VISIBLE
                 binding.taskDateCompletedOn.text = task!!.taskDateCompleted?.toLocalDate().toString()
             }
         }

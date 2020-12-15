@@ -83,7 +83,6 @@ class NewSkillFragment : Fragment() {
             })
 
             binding.cardThreeFragmentNewSkill.visibility = View.VISIBLE
-            binding.cardFourFragmentNewSkill.visibility = View.VISIBLE
 
             binding.createNewSkillButton.text = getString(R.string.update_skill)
             binding.newSkillNameInput.setText(skill!!.skillName)
@@ -92,8 +91,7 @@ class NewSkillFragment : Fragment() {
 
             // If the skill is completed, show the date it was completed on
             if (skill!!.completed) {
-                binding.skillCompletedOn.visibility = View.VISIBLE
-                binding.skillDateCompletedOn.visibility = View.VISIBLE
+                binding.cardFourFragmentNewSkill.visibility = View.VISIBLE
                 binding.skillDateCompletedOn.text = skill!!.dateCompleted?.toLocalDate().toString()
             }
         }
@@ -152,6 +150,68 @@ class NewSkillFragment : Fragment() {
                 (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
             } // end if (isValidName())
         } // end setOnClickListener for createNewSkillButton
+
+        binding.addNewTasksButton.setOnClickListener { view: View ->
+            if (isValidName()) {
+                val selectedTasks: ArrayList<Task> = spinner.getSelectedItems() as ArrayList<Task>
+
+                if (skill == null) {
+                    GlobalScope.launch {
+                        withContext(Dispatchers.IO) {
+                            skill = Skill(skillName, false)
+                            val newSkillId = vm.insertSkill(skill!!)
+                            skill!!.skillId = newSkillId
+
+                            vm.insertNewSkillWithJoin(skillSet!!, skill!!)
+
+                            for (task in selectedTasks) {
+                                vm.insertNewTaskWithJoin(skill!!, task)
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!))
+                            }
+                        }
+                    } // end GlobalScope.Launch Coroutine
+                }
+                else {
+                    GlobalScope.launch {
+                        withContext(Dispatchers.IO) {
+                            if (spinner.selectionChanged) {
+                                for (task in currentTasks) {
+                                    if (selectedTasks.indexOf(task) == -1) {
+                                        //TODO - Make method to remove the skill task cross ref
+                                    }
+                                }
+
+                                for (task in selectedTasks) {
+                                    if (currentTasks.indexOf(task) == -1) {
+                                        vm.insertNewTaskWithJoin(skill!!, task)
+                                    }
+                                }
+                            } // end if(spinner.selectionChanged)
+
+                            // If the skill was marked as completed, set the dateCompleted
+                            if (binding.skillCompletedCheckbox.isChecked && !skill!!.completed) {
+                                skill!!.dateCompleted = LocalDateTime.now()
+                            }
+
+                            // Update the skills information
+                            skill!!.skillName = skillName
+                            skill!!.completed = binding.skillCompletedCheckbox.isChecked
+                            vm.updateSkill(skill!!)
+
+                            withContext(Dispatchers.Main) {
+                                view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!))
+                            }
+                        }
+                    } // end GlobalScope.Launch Coroutine
+                } // end if-else statement
+            } // end if (isValidName())
+
+            // Hide the user's keyboard
+            (activity as MainActivity).closeKeyboardFromFragment(activity as MainActivity, this)
+        }
 
         return binding.root
     }

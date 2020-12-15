@@ -21,7 +21,6 @@ import org.threeten.bp.format.FormatStyle
  * fill in those views within the layout.
  *
  * @param context a private context
- * @param skills a list of previous skills for the SkillSet
  * @property layoutInflater for inflating the recycler view
  */
 class TaskRecyclerAdapter (private val context: Context, private var tasks: List<Task>) :
@@ -65,10 +64,10 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
         holder.taskCompleted.text = if (task.taskCompleted)  "Yes" else "No"
 
         // Format date and set it to the viewHolder
-        var formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-        holder.dateCreated?.text = task.taskDateCreated.format(formatter).toString()
+        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        holder.dateCreated.text = task.taskDateCreated.format(formatter).toString()
 
-        holder.itemView.setOnClickListener { view: View ->
+        holder.itemView.setOnClickListener {
             task.taskCompleted = !task.taskCompleted
 //            notifyItemChanged(position)
         }
