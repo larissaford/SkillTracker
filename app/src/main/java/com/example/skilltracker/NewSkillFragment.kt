@@ -97,21 +97,13 @@ class NewSkillFragment : Fragment() {
                 tasksListView.adapter = adapter
             })
 
-            // Make the completed and tasksListView cards visible
-            binding.cardThreeFragmentNewSkill.visibility = View.VISIBLE
+            // Make the tasksListView card visible
             binding.cardFiveFragmentNewSkill.visibility = View.VISIBLE
 
             // Set the skill's current information to the proper input boxes
             binding.createNewSkillButton.text = getString(R.string.update_skill)
             binding.newSkillNameInput.setText(skill!!.skillName)
-            binding.skillCompletedCheckbox.isChecked = skill!!.completed
             binding.createNewSkillButton.text = getString(R.string.update_skill)
-
-            // If the skill is completed, show the date it was completed on
-            if (skill!!.completed) {
-                binding.cardFourFragmentNewSkill.visibility = View.VISIBLE
-                binding.skillDateCompletedOn.text = skill!!.dateCompleted?.toLocalDate().toString()
-            }
         } // end if (skill != null)
 
         // Create an onClickListener for the createNewSkillButton
@@ -153,14 +145,8 @@ class NewSkillFragment : Fragment() {
                                 }
                             } // end if(spinner.selectionChanged)
 
-                            // If the skill was marked as completed, set the dateCompleted
-                            if (binding.skillCompletedCheckbox.isChecked && !skill!!.completed) {
-                                skill!!.dateCompleted = LocalDateTime.now()
-                            }
-
                             // Update the skills information
                             skill!!.skillName = skillName
-                            skill!!.completed = binding.skillCompletedCheckbox.isChecked
                             vm.updateSkill(skill!!)
                         } // end if(skill == null) else statement
 
@@ -225,14 +211,8 @@ class NewSkillFragment : Fragment() {
                                 }
                             } // end if(spinner.selectionChanged)
 
-                            // If the skill was marked as completed, set the dateCompleted
-                            if (binding.skillCompletedCheckbox.isChecked && !skill!!.completed) {
-                                skill!!.dateCompleted = LocalDateTime.now()
-                            }
-
                             // Update the skills information
                             skill!!.skillName = skillName
-                            skill!!.completed = binding.skillCompletedCheckbox.isChecked
                             vm.updateSkill(skill!!)
 
                             // Navigate to the task fragment

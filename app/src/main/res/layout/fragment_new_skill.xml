@@ -53,7 +53,7 @@
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/new_skillSet_body_padding"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
             app:layout_constraintEnd_toEndOf="@+id/card_one_fragment_new_skill"
@@ -72,77 +72,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginLeft="40sp"
-                android:layout_marginTop="40sp"
+                android:layout_marginTop="45sp"
                 android:layout_marginRight="40sp"
                 android:background="@drawable/custom_spinner"
                 android:spinnerMode="dropdown" />
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_three_fragment_new_skill"
-            style="@style/card_style"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:visibility="invisible"
-            app:cardCornerRadius="10dp"
-            app:contentPadding="@dimen/card_padding"
-            app:layout_constraintEnd_toEndOf="@+id/card_two_fragment_new_skill"
-            app:layout_constraintStart_toStartOf="@+id/card_two_fragment_new_skill"
-            app:layout_constraintTop_toBottomOf="@+id/card_two_fragment_new_skill">
-
-            <CheckBox
-                android:id="@+id/skill_completed_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="230dp"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:id="@+id/skill_completed"
-                style="@style/fragment_new_skill_set_form_text_style2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/completed" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_four_fragment_new_skill"
-            style="@style/card_style"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:visibility="invisible"
-            app:cardCornerRadius="10dp"
-            app:contentPadding="@dimen/card_padding"
-            app:layout_constraintTop_toBottomOf="@+id/card_three_fragment_new_skill"
-            tools:layout_editor_absoluteX="16dp">
-
-            <TextView
-                android:id="@+id/skill_completed_on"
-                style="@style/fragment_new_skill_set_form_text_style2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/completed_on_semicolon" />
-
-            <TextView
-                android:id="@+id/skill_date_completed_on"
-                style="@style/fragment_new_skill_set_form_text_style2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#000000" />
-
-        </androidx.cardview.widget.CardView>
-
         <Button
             android:id="@+id/create_new_skill_button"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginStart="@dimen/new_skillSet_body_padding"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
             android:background="@drawable/custom_button_one"
             android:text="@string/create_skill"
             android:textColor="@color/fragment_new_skill_set_button_text_color"
@@ -150,14 +91,14 @@
             app:layout_constraintEnd_toStartOf="@+id/add_new_tasks_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_four_fragment_new_skill" />
+            app:layout_constraintTop_toBottomOf="@+id/card_two_fragment_new_skill" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_five_fragment_new_skill"
             style="@style/card_style"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
             android:visibility="invisible"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
@@ -187,7 +128,7 @@
         <Button
             android:id="@+id/add_new_tasks_button"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="@dimen/new_skillSet_body_padding"
             android:background="@drawable/custom_button_one"
