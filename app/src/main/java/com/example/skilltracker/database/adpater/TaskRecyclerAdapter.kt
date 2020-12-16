@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -15,6 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
 import com.example.skilltracker.TaskFragmentDirections
 import com.example.skilltracker.database.entity.Task
+import com.example.skilltracker.database.viewmodel.SkillsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -85,7 +92,6 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             holder.taskActive.visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.active_label).visibility = View.GONE
             holder.dateCompleted.text = task.taskDateCompleted!!.format(formatter).toString()
-
             holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         }
         else { // Otherwise hide the date completed on text views
@@ -104,7 +110,11 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
 
         holder.itemView.setOnClickListener {
             task.taskCompleted = !task.taskCompleted
-            notifyItemChanged(position)
+            if(task.taskCompleted) {
+                task.taskDateCompleted = LocalDateTime.now()
+            }
+            notifyDataSetChanged()
+            //val vm = ViewModelProvider().get(SkillsViewModel::class.java)
         }
 
         //Long Clicks allow for editing the Skill
@@ -115,10 +125,6 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             true
         }
 
-
-    }
-
-    private fun makeColored(view: View){
 
     }
 

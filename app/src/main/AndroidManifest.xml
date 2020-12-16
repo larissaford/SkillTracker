@@ -23,6 +23,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <uses-library android:name="android.test.runner"
+            android:required="false" />
     </application>
 
 </manifest>
