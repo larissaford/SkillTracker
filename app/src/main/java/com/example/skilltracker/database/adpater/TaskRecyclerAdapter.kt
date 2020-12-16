@@ -1,7 +1,6 @@
 package com.example.skilltracker.database.adpater
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.example.skilltracker.TaskFragmentDirections
 import com.example.skilltracker.database.entity.Task
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
+import org.threeten.bp.LocalDateTime
 
 /**
  * This is the adaptor to take the views and put them into the layout, and then take the data and
@@ -25,7 +25,7 @@ import org.threeten.bp.format.FormatStyle
  * @param context a private context
  * @property layoutInflater for inflating the recycler view
  */
-class TaskRecyclerAdapter (private val context: Context, private var tasks: List<Task>) :
+class TaskRecyclerAdapter(private val context: Context, private var tasks: List<Task>, val callBack: (task: Task) -> Unit) :
     PagingDataAdapter<Task, TaskRecyclerAdapter.ViewHolder>(TaskDiffCallBack()) {
     private val layoutInflater = LayoutInflater.from(context)
 
@@ -87,7 +87,6 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             holder.taskActive.visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.active_label).visibility = View.GONE
             holder.dateCompleted.text = task.taskDateCompleted!!.format(formatter).toString()
-
             holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         }
         else { // Otherwise hide the date completed on text views
@@ -106,7 +105,8 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
 
         holder.itemView.setOnClickListener {
             task.taskCompleted = !task.taskCompleted
-            notifyItemChanged(position)
+            task.taskDateCompleted = LocalDateTime.now()
+            this.callBack(task)
         }
 
         //Long Clicks allow for editing the Skill
@@ -116,12 +116,6 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             )
             true
         }
-
-
-    }
-
-    private fun makeColored(view: View){
-
     }
 
     /**

@@ -10,12 +10,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
 import com.example.skilltracker.database.adpater.TaskRecyclerAdapter
 import com.example.skilltracker.database.entity.Skill
+import com.example.skilltracker.database.entity.Task
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentTaskBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Displays all of the skills under a skill set
@@ -79,8 +83,9 @@ class TaskFragment : Fragment() {
 //                println("SKILL ID: ${x.skillId}")
 //                println("SKILL NAME: ${x.skillName}")
 //            }
-            binding.taskList.adapter = TaskRecyclerAdapter(this.requireContext(), it[0].tasks)
+            binding.taskList.adapter = TaskRecyclerAdapter(this.requireContext(), it[0].tasks, (this::updateTask))
         })
+
 
         binding.fab.setOnClickListener {
             // Navigate to the NewSkillSet Fragment
@@ -88,5 +93,13 @@ class TaskFragment : Fragment() {
             val navController: NavController = navHostFragment.navController
             navController.navigate(TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(null, skill))
         }
+    }
+
+    fun updateTask(task: Task) {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                vm.updateTasks(task)
+            }
+        } // end GlobalScope.Launch Coroutine
     }
 }
