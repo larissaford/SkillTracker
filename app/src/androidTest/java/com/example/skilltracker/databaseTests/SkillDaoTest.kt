@@ -553,4 +553,16 @@ class SkillDaoTest {
 
         assertEquals(1, skillsWithSkillSet!!.size)
     }
+
+    @Test
+    fun getActiveTasksTest() = runBlocking {
+        val task1 = Task("Task 1", "Description", true)
+        val task2 = Task("Task 2", "Description", true)
+        val task3 = Task("Task 3", "Description", false)
+
+        skillDao.insert(task1, task2, task3)
+        val activeTasks = LiveDataTestUtil.getValue(skillDao.getAllActiveTasks())
+
+        assertEquals(2, activeTasks!!.size)
+    }
 }

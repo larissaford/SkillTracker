@@ -85,7 +85,6 @@ class TaskRecyclerAdapter(private val context: Context, private var tasks: List<
             holder.taskActive.visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.active_label).visibility = View.GONE
             holder.dateCompleted.text = task.taskDateCompleted!!.format(formatter).toString()
-
             holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         }
         else { // Otherwise hide the date completed on text views
@@ -115,10 +114,6 @@ class TaskRecyclerAdapter(private val context: Context, private var tasks: List<
             )
             true
         }
-    }
-
-    private fun makeColored(view: View){
-
     }
 
     /**
