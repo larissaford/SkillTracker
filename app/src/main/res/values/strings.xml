@@ -48,5 +48,6 @@
     <string name="active_semicolon">Active:</string>
     <string name="completed_on">Completed On\u0020</string>
     <string name="update_task">Update Task</string>
+    <string name="skill_list_title">My Skills</string>
 
 </resources>

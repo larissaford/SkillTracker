@@ -1,24 +1,22 @@
 package com.example.skilltracker
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skilltracker.database.adpater.SkillRecyclerAdapter
-import com.example.skilltracker.database.entity.Skill
 import com.example.skilltracker.database.entity.SkillSet
 import com.example.skilltracker.database.viewmodel.SkillsViewModel
 import com.example.skilltracker.databinding.FragmentSkillBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import timber.log.Timber
-import java.lang.Exception
+
 
 /**
  * Displays all of the skills under a skill set
@@ -46,10 +44,18 @@ class SkillFragment : Fragment(){
         )
 
         skillSet = arguments?.let { SkillFragmentArgs.fromBundle(it).skillSet }!!
+
         print("SKILLSET ID: ${skillSet.skillSetId}\n")
+
+
+        //(activity as AppCompatActivity?)!!.supportActionBar!!.title = skillSet.name
 
         vm = ViewModelProvider(this).get(SkillsViewModel::class.java)
         binding.skillList.layoutManager = LinearLayoutManager(context)
+//
+//        val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+//        val navController: NavController = navHostFragment.navController
+//        navController.currentDestination?.label = skillSet.name
 
         return binding.root
     }

@@ -73,7 +73,7 @@ class SkillSetRecyclerAdapter(private val context: Context, private var skillSet
         holder.itemView.setOnClickListener { view: View->
             view.findNavController().navigate(
                 // Pass Long of SkillSet for Skill to find Join data
-                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(skillSet)
+                SkillSetFragmentDirections.actionSkillSetFragmentToSkillFragment(skillSet.name, skillSet)
             )
         }
 

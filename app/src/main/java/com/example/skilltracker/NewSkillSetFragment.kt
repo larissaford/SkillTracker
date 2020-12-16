@@ -194,7 +194,7 @@ class NewSkillSetFragment : Fragment() {
 
                             // Navigate to the SkillFragment
                             withContext(Dispatchers.Main) {
-                                view.findNavController().navigate(NewSkillSetFragmentDirections.actionNewSkillSetFragmentToSkillFragment(skillSet!!))
+                                view.findNavController().navigate(NewSkillSetFragmentDirections.actionNewSkillSetFragmentToSkillFragment(skillSet!!.name, skillSet!!))
                             }
                         }
                     } // end GlobalScope.launch Coroutine
@@ -228,7 +228,7 @@ class NewSkillSetFragment : Fragment() {
 
                             // Navigate to the SkillFragment
                             withContext(Dispatchers.Main) {
-                                view.findNavController().navigate(NewSkillSetFragmentDirections.actionNewSkillSetFragmentToSkillFragment(skillSet!!))
+                                view.findNavController().navigate(NewSkillSetFragmentDirections.actionNewSkillSetFragmentToSkillFragment(skillSet!!.name, skillSet!!))
                             }
                         }
                     } // end GlobalScope.launch Coroutine

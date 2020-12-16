@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_root"
     app:startDestination="@id/skillSetFragment">
+
     <fragment
         android:id="@+id/skillSetFragment"
         android:name="com.example.skilltracker.SkillSetFragment"
@@ -37,12 +38,12 @@
     </fragment>
     <fragment
         android:id="@+id/skillFragment"
-        tools:layout="@layout/fragment_skill"
         android:name="com.example.skilltracker.SkillFragment"
-        android:label="My Skills" >
+        android:label="{skillName}"
+        tools:layout="@layout/fragment_skill">
         <argument
-            android:name="skillSet"
-            app:argType="com.example.skilltracker.database.entity.SkillSet" />
+            android:name="skillName"
+            app:argType="string" />
         <action
             android:id="@+id/action_skillFragment_to_newSkillFragment"
             app:destination="@id/newSkillFragment"
@@ -50,6 +51,9 @@
         <action
             android:id="@+id/action_skillFragment_to_taskFragment"
             app:destination="@id/taskFragment" />
+        <argument
+            android:name="skillSet"
+            app:argType="com.example.skilltracker.database.entity.SkillSet" />
     </fragment>
     <fragment
         android:id="@+id/newSkillFragment"
