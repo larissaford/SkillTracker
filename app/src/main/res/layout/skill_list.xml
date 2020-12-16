@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -10,7 +10,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="4dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
             app:contentPadding="16dp" >
@@ -24,7 +24,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="TextView"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +55,6 @@
                     android:id="@+id/skill_completed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintBaseline_toBaselineOf="@+id/completed_label"
                     app:layout_constraintStart_toEndOf="@+id/completed_label" />
@@ -65,13 +63,10 @@
                     android:id="@+id/skill_date_created"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintBaseline_toBaselineOf="@+id/created_on"
                     app:layout_constraintStart_toEndOf="@+id/created_on" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
-
     </FrameLayout>
 </layout>

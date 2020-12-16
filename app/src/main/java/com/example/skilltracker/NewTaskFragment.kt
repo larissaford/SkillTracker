@@ -50,22 +50,25 @@ class NewTaskFragment : Fragment() {
         // If the task is not null, the user is editing an existing task
         if (task != null) {
             binding.newTaskNameInput.setText(task!!.taskName)
+            binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
+            binding.taskActiveCheckbox.isChecked = task!!.active
+            binding.createNewTaskButton.text = getString(R.string.create_task)
+            binding.newTaskDescriptionInput.setText(task!!.taskDescription)
+
             binding.taskCompleted.visibility = View.VISIBLE
             binding.taskCompletedCheckbox.visibility = View.VISIBLE
-            binding.cardtwo.visibility = View.VISIBLE
-            binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
-            binding.createNewTaskButton.text = getString(R.string.create_task)
+            binding.cardfour.visibility = View.VISIBLE
 
             // If the task is completed, show the date it was completed on
             if (task!!.taskCompleted) {
-                binding.cardtree.visibility = View.VISIBLE
+                binding.cardfive.visibility = View.VISIBLE
                 binding.taskDateCompletedOn.text = task!!.taskDateCompleted?.toLocalDate().toString()
             }
         }
 
         binding.createNewTaskButton.setOnClickListener {
             if (addNewTask()) {
-                // Navigate back to the SkillSet fragment
+                // Navigate back to the Task fragment
                 val navController = this.findNavController()
                 navController.navigateUp()
 
@@ -90,13 +93,22 @@ class NewTaskFragment : Fragment() {
     }
 
     /**
-     * Adds a new skill to the database or updates an existing skill
+     * Adds a new task to the database or updates an existing task
      */
     private fun addNewTask(): Boolean {
-        val name: String = binding.newTaskNameInput.text.toString()
+        var name: String = binding.newTaskNameInput.text.toString()
+        var description: String = binding.newTaskDescriptionInput.text.toString()
+        val active: Boolean = binding.taskActiveCheckbox.isChecked
+
+        if (description.isBlank()) {
+            description = ""
+        }
+
+        name = name.trim()
+        description = description.trim()
 
         // Ensure a name was provided for the skill
-        if (name == "") {
+        if (name.isBlank()) {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newTaskMissingName.visibility = View.VISIBLE
@@ -108,7 +120,7 @@ class NewTaskFragment : Fragment() {
             if (task == null) {
                 GlobalScope.launch {
                     // Create a new Task, insert into DB, and get returned rowId
-                    val newTask = Task(name, "Description")
+                    val newTask = Task(name, description, active)
                     val newTaskId = vm.insertTasks(newTask)
 
                     // Set returned rowId to Task's id and insert join
@@ -132,15 +144,24 @@ class NewTaskFragment : Fragment() {
 //                vm.insertSkillSetWithSkills(skillSetWithSkill) // insert join
             }
             else {
-                // If the skill was marked as completed, set the dateCompleted
+                // If the task was marked as completed & it wasn't before, set the dateCompleted
                 if (binding.taskCompletedCheckbox.isChecked && !task!!.taskCompleted) {
                     task!!.taskDateCompleted = LocalDateTime.now()
+                    task!!.active = false
+                }
+
+                // If the task task is completed, ensure active is false, otherwise set active based on the checkbox's isChecked value
+                if (binding.taskCompletedCheckbox.isChecked) {
+                    task!!.active = false
+                }
+                else {
+                    task!!.active = active
                 }
 
                 task!!.taskName = name
+                task!!.taskDescription = description
                 task!!.taskCompleted = binding.taskCompletedCheckbox.isChecked
                 vm.updateTasks(task!!)
-                print("updated task")
             }
             return true
         }

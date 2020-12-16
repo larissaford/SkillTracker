@@ -238,7 +238,7 @@ class NewSkillFragment : Fragment() {
         skillName = binding.newSkillNameInput.text.toString()
 
         // Ensure a name was provided for the skill
-        if (skillName == "") {
+        if (skillName.isBlank()) {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillMissingName.visibility = View.VISIBLE
@@ -246,6 +246,7 @@ class NewSkillFragment : Fragment() {
         }
         else {
             binding.newSkillMissingName.visibility = View.INVISIBLE
+            skillName = skillName.trim()
             return true
         }
     }

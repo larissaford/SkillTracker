@@ -25,13 +25,13 @@ data class Task(
     @ColumnInfo(name="task_name")
     var taskName: String,
     @ColumnInfo(name="task_description")
-    val taskDescription: String,
+    var taskDescription: String,
     @ColumnInfo(name="task_difficulty_points")
     val difficultyPoints: Int,
     @ColumnInfo(name="task_completed")
     var taskCompleted: Boolean,
     @ColumnInfo(name="task_active")
-    val active: Boolean,
+    var active: Boolean,
     @ColumnInfo(name="task_created")
     val taskDateCreated: LocalDateTime,
     @ColumnInfo(name="task_date_completed")
@@ -43,5 +43,5 @@ data class Task(
 
     constructor(): this("add name", "add description", 0, false, true, LocalDateTime.now(), null)
 
-    constructor(name: String, description: String): this(name, description, 0, false, true, LocalDateTime.now(), null)
+    constructor(name: String, description: String, active: Boolean): this(name, description, 0, false, active, LocalDateTime.now(), null)
 }

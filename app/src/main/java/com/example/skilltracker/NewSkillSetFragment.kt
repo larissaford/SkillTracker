@@ -253,7 +253,7 @@ class NewSkillSetFragment : Fragment() {
         var validDescription = false
 
         // Ensure a name was provided
-        if (skillSetName == "") {
+        if (skillSetName.isBlank()) {
             val toast = Toast.makeText(context, "Please give the new skill set a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillSetMissingName.visibility = View.VISIBLE
@@ -261,10 +261,11 @@ class NewSkillSetFragment : Fragment() {
         else {
             validName = true
             binding.newSkillSetMissingName.visibility = View.INVISIBLE
+            skillSetName = skillSetName.trim()
         }
 
         // Ensure a description was provided
-        if (skillSetDescription == "") {
+        if (skillSetDescription.isBlank()) {
             val toast = Toast.makeText(context, "Please give the new skill set a description", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillSetMissingDescription.visibility = View.VISIBLE
@@ -272,6 +273,7 @@ class NewSkillSetFragment : Fragment() {
         else {
             validDescription = true
             binding.newSkillSetMissingDescription.visibility = View.INVISIBLE
+            skillSetDescription = skillSetDescription.trim()
         }
 
         return validName && validDescription
