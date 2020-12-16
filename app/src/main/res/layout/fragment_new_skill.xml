@@ -94,7 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/card_two_fragment_new_skill" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_five_fragment_new_skill"
+            android:id="@+id/card_three_fragment_new_skill"
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="250dp"
@@ -102,8 +102,9 @@
             android:visibility="invisible"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
-            app:layout_constraintTop_toBottomOf="@+id/create_new_skill_button"
-            tools:layout_editor_absoluteX="-28dp">
+            app:layout_constraintEnd_toEndOf="@+id/card_two_fragment_new_skill"
+            app:layout_constraintStart_toStartOf="@+id/card_two_fragment_new_skill"
+            app:layout_constraintTop_toBottomOf="@+id/create_new_skill_button">
 
             <TextView
                 android:id="@+id/tasks_already_added_label"

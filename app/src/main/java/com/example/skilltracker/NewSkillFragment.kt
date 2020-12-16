@@ -98,7 +98,7 @@ class NewSkillFragment : Fragment() {
             })
 
             // Make the tasksListView card visible
-            binding.cardFiveFragmentNewSkill.visibility = View.VISIBLE
+            binding.cardThreeFragmentNewSkill.visibility = View.VISIBLE
 
             // Set the skill's current information to the proper input boxes
             binding.createNewSkillButton.text = getString(R.string.update_skill)
