@@ -33,6 +33,9 @@ interface SkillDao {
     @Query("SELECT * FROM Task")
     fun getAllTasks(): LiveData<List<Task>>
 
+    @Query("SELECT * FROM Task WHERE task_active=:active")
+    fun getAllActiveTasks(active: Boolean = true): LiveData<List<Task>>
+
     /**
      * Return Join data between SkillSet and Skill tables from database
      * @return LiveData with list of SkillSet with related Skill

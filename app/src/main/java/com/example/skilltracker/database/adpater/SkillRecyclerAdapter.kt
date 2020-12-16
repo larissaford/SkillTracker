@@ -75,8 +75,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skillsWith
                     tasksCompletedCount++
                 }
             }
-            tasksCompletedPercentage =
-                ((tasksCompletedCount/skillWithTasks.tasks.size) * 100).toDouble()
+            tasksCompletedPercentage = (tasksCompletedCount * 100.0) / skillWithTasks.tasks.size
             if(tasksCompletedPercentage == 100.0){
                 holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
             }
@@ -87,6 +86,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skillsWith
 //        }
 
         holder.skillName.text = skill.skillName
+        holder.skillCompleted.text = tasksCompletedPercentage.toString()
         holder.skillCompleted.text = String.format("%.2f", tasksCompletedPercentage) + "%"
 
         // Format date and set it to viewHolder

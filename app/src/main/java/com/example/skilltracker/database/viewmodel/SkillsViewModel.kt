@@ -26,6 +26,7 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
     private val allSkillSets : LiveData<List<SkillSet>> = repository.getSkillSet()
     private val allSkills : LiveData<List<Skill>> = repository.getSkills()
     private val allTasks : LiveData<List<Task>> = repository.getTasks()
+    private val allActiveTasks : LiveData<List<Task>> = repository.getActiveTasks()
 
     /* Queries */
     /**
@@ -50,6 +51,10 @@ class SkillsViewModel(app: Application): AndroidViewModel(app) {
      */
     fun getTasks(): LiveData<List<Task>> {
         return allTasks
+    }
+
+    fun getActiveTasks(): LiveData<List<Task>> {
+        return allActiveTasks
     }
 
     /**
