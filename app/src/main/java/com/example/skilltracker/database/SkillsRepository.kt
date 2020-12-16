@@ -45,6 +45,10 @@ class SkillsRepository(app: Application){
         return skillsDao.getAllTasks()
     }
 
+    fun getActiveTasks(): LiveData<List<Task>> {
+        return skillsDao.getAllActiveTasks()
+    }
+
     /**
      * Uses Dao function to return specific join data between SkillSet and Skill tables in database
      * @param skillSetId the ID of SkillSet to return Skills related to it
