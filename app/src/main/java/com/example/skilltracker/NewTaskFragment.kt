@@ -21,6 +21,8 @@ import org.threeten.bp.LocalDateTime
  * Used to create a new Skill
  * @property binding The binding variable for this fragment
  * @property vm The view model for skills
+ * @property task If not null, the task that is being edited
+ * @property skill The skill that was clicked on to view the tasks
  */
 class NewTaskFragment : Fragment() {
     private lateinit var binding: FragmentNewTaskBinding
