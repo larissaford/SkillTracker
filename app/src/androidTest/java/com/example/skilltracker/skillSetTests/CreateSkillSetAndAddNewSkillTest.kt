@@ -105,7 +105,7 @@ class CreateSkillSetAndAddNewSkillTest {
                         childAtPosition(
                             withId(R.id.myNavHostFragment),
                             0)),
-                    1),
+                    2),
                 isDisplayed()))
         appCompatButton2.perform(click())
 

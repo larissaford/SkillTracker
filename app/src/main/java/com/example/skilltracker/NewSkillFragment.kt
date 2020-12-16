@@ -49,7 +49,7 @@ class NewSkillFragment : Fragment() {
     private var skill: Skill? = null
     private var allTasks: ArrayList<Task> = ArrayList()
     private var currentTasks: ArrayList<Task> = ArrayList()
-    private var currentTaskNames: ArrayList<String?> = ArrayList<String?>()
+    private var currentTaskNames: ArrayList<String?> = ArrayList()
 
     /**
      * Inflates the layout for this fragment and sets an onClickListener for the createNewSkillSet button
@@ -238,16 +238,15 @@ class NewSkillFragment : Fragment() {
         skillName = binding.newSkillNameInput.text.toString()
 
         // Ensure a name was provided for the skill
-        if (skillName.isBlank()) {
+        return if (skillName.isBlank()) {
             val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newSkillMissingName.visibility = View.VISIBLE
-            return false
-        }
-        else {
+            false
+        } else {
             binding.newSkillMissingName.visibility = View.INVISIBLE
             skillName = skillName.trim()
-            return true
+            true
         }
     }
 }

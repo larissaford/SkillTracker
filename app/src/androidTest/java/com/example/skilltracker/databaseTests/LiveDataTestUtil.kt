@@ -1,4 +1,4 @@
-package com.example.skilltracker
+package com.example.skilltracker.databaseTests
 
 import androidx.annotation.Nullable
 import androidx.lifecycle.LiveData
@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit
  * A utility class that is used to get the value of data that is returned as LiveData
  */
 class LiveDataTestUtil {
+    @Suppress("UNCHECKED_CAST")
     companion object {
         @Throws(InterruptedException::class)
         fun <T> getValue(liveData: LiveData<T>): T? {

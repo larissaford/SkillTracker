@@ -1,4 +1,4 @@
-package com.example.skilltracker
+package com.example.skilltracker.databaseTests
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
@@ -102,7 +102,7 @@ class SkillDaoTest {
      */
     @Test
     fun insertAndGet1Task() = runBlocking {
-        val task = Task("Task", "Description")
+        val task = Task("Task", "Description", false)
         skillDao.insert(task)
         assertEquals(task.taskName, LiveDataTestUtil.getValue(skillDao.getAllTasks())!![0].taskName)
     }
@@ -112,9 +112,9 @@ class SkillDaoTest {
      */
     @Test
     fun insertAndGetMultipleTasks() = runBlocking {
-        val task1 = Task("Task 1", "Description")
-        val task2 = Task("Task 2", "Description")
-        val task3 = Task("Task 3", "Description")
+        val task1 = Task("Task 1", "Description", false)
+        val task2 = Task("Task 2", "Description", false)
+        val task3 = Task("Task 3", "Description", false)
 
         skillDao.insert(task1, task2, task3)
         val tasks = LiveDataTestUtil.getValue(skillDao.getAllTasks())
@@ -179,7 +179,7 @@ class SkillDaoTest {
     @Test
     fun insertAndGet1TaskWithSkill() = runBlocking {
         val skill = Skill("Skill 1", false)
-        val task = Task("Task", "Description")
+        val task = Task("Task", "Description", false)
 
         val skillId = skillDao.insert(skill)[0]
         val taskId = skillDao.insert(task)[0]
@@ -199,9 +199,9 @@ class SkillDaoTest {
     @Test
     fun insertAndGetMultipleTasksWithSkill() = runBlocking {
         val skill = Skill("Skill 1", false)
-        val task1 = Task("Task 1", "Description")
-        val task2 = Task("Task 2", "Description")
-        val task3 = Task("Task 3", "Description")
+        val task1 = Task("Task 1", "Description", false)
+        val task2 = Task("Task 2", "Description", false)
+        val task3 = Task("Task 3", "Description", false)
 
         val skillId = skillDao.insert(skill)[0]
         val taskIds = skillDao.insert(task1, task2, task3)
@@ -255,9 +255,9 @@ class SkillDaoTest {
     @Test
     fun getSpecificSkillWithTasks() = runBlocking {
         val skill = Skill("Skill 1", false)
-        val task1 = Task("Task 1", "Description")
-        val task2 = Task("Task 2", "Description")
-        val task3 = Task("Task 3", "Description")
+        val task1 = Task("Task 1", "Description", false)
+        val task2 = Task("Task 2", "Description", false)
+        val task3 = Task("Task 3", "Description", false)
 
         val skillId = skillDao.insert(skill)[0]
         val taskIds = skillDao.insert(task1, task2, task3)
@@ -325,9 +325,9 @@ class SkillDaoTest {
         skillDao.insert(*join1)
         val skills = LiveDataTestUtil.getValue(skillDao.getSkillsFromJoin(skillSetId))
 
-        val task1 = Task("Task 1", "Description")
-        val task2 = Task("Task 2", "Description")
-        val task3 = Task("Task 3", "Description")
+        val task1 = Task("Task 1", "Description", false)
+        val task2 = Task("Task 2", "Description", false)
+        val task3 = Task("Task 3", "Description", false)
 
         val taskIds = skillDao.insert(task1, task2, task3)
 
@@ -434,7 +434,7 @@ class SkillDaoTest {
      */
     @Test
     fun updateTask_ValidTask() = runBlocking {
-        val task = Task("Task Name", "description")
+        val task = Task("Task Name", "description", false)
         val taskId = skillDao.insert(task)[0]
         assertEquals(task.taskName, LiveDataTestUtil.getValue(skillDao.getAllTasks())!![0].taskName)
 
@@ -455,7 +455,7 @@ class SkillDaoTest {
      */
     @Test
     fun updateTask_InvalidTask() = runBlocking {
-        val task = Task("Task Name", "description")
+        val task = Task("Task Name", "description", false)
         skillDao.insert(task)[0]
         assertEquals(task.taskName, LiveDataTestUtil.getValue(skillDao.getAllTasks())!![0].taskName)
 
@@ -517,7 +517,7 @@ class SkillDaoTest {
 
         assertEquals(skillSet.name, skillWithSkillSet!![0].skillSet.name)
         assertEquals(skill.skillName, skillWithSkillSet[0].skills[0].skillName)
-        assertEquals(1, skillWithSkillSet!!.size)
+        assertEquals(1, skillWithSkillSet.size)
 
         skillDao.deleteSkillSetSkillCrossRef(join)
 
