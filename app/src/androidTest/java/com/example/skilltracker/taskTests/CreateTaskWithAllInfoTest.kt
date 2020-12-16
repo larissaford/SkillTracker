@@ -152,7 +152,7 @@ class CreateTaskWithAllInfoTest {
         appCompatCheckBox.perform(click())
 
         val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button), withText("Create Task"),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(

@@ -118,7 +118,7 @@ class CreateTaskAndEnsureNameProvidedTest {
         floatingActionButton3.perform(click())
 
         val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(
@@ -140,7 +140,7 @@ class CreateTaskAndEnsureNameProvidedTest {
         appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
 
         val appCompatButton4 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(

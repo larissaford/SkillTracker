@@ -130,7 +130,7 @@ class MakeCompletedTaskUncompletedTest {
         appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
 
         val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button), withText("Create Task"),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(
@@ -148,7 +148,7 @@ class MakeCompletedTaskUncompletedTest {
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
 
         val appCompatButton4 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(
@@ -177,7 +177,7 @@ class MakeCompletedTaskUncompletedTest {
         appCompatCheckBox3.perform(click())
 
         val appCompatButton5 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(
@@ -206,7 +206,7 @@ class MakeCompletedTaskUncompletedTest {
         appCompatCheckBox6.perform(click())
 
         val appCompatButton6 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(

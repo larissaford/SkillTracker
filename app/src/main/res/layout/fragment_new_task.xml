@@ -134,7 +134,7 @@
                     android:layout_marginTop="5dp" />
 
                 <TextView
-                    android:id="@+id/task_active"
+                    android:id="@+id/task_is_active"
                     style="@style/fragment_new_skill_set_form_text_style2"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"

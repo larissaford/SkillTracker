@@ -27,7 +27,7 @@
     <string name="update_skillSet">Update Skill Set</string>
     <string name="completed_on_semicolon">Completed On:</string>
     <string name="add_skills_from_another_skillSet">Add Skills From Another Skill Set:</string>
-    <string name="create_task">Save Task </string>
+    <string name="create_task">Create Task </string>
     <string name="add_new_skills">Add New Skills</string>
     <string name="fragment_new_skill_set_hint_value_for_user_input">Enter a Name for the Skill Set</string>
     <string name="fragment_new_skill_set_form_hint_desription">Enter a Description for the Skill Set</string>
@@ -46,5 +46,7 @@
     <string name="new_task_name_hint">Enter a Name for the Task</string>
     <string name="enter_a_description_for_the_task">Enter a Description for the Task</string>
     <string name="active_semicolon">Active:</string>
+    <string name="completed_on">Completed On\u0020</string>
+    <string name="update_task">Update Task</string>
 
 </resources>

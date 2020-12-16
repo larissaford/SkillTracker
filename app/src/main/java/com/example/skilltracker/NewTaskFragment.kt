@@ -16,6 +16,8 @@ import com.example.skilltracker.databinding.FragmentNewTaskBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
 
 /**
  * Used to create a new Skill
@@ -51,10 +53,10 @@ class NewTaskFragment : Fragment() {
 
         // If the task is not null, the user is editing an existing task
         if (task != null) {
+            binding.createNewTaskButton.text = getString(R.string.update_task)
             binding.newTaskNameInput.setText(task!!.taskName)
             binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
             binding.taskActiveCheckbox.isChecked = task!!.active
-            binding.createNewTaskButton.text = getString(R.string.create_task)
             binding.newTaskDescriptionInput.setText(task!!.taskDescription)
 
             binding.taskCompleted.visibility = View.VISIBLE
@@ -63,11 +65,14 @@ class NewTaskFragment : Fragment() {
 
             // If the task is completed, show the date it was completed on
             if (task!!.taskCompleted) {
+                // Format date and set it to the taskDateCompletedOn text view's text
+                val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                binding.taskDateCompletedOn.text = task!!.taskDateCompleted?.format(formatter).toString()
                 binding.cardfive.visibility = View.VISIBLE
-                binding.taskDateCompletedOn.text = task!!.taskDateCompleted?.toLocalDate().toString()
             }
         }
 
+        // Set an onClickListener for the createNewTaskButton
         binding.createNewTaskButton.setOnClickListener {
             if (addNewTask()) {
                 // Navigate back to the Task fragment

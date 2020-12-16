@@ -10,7 +10,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skilltracker.R
-import com.example.skilltracker.SkillFragmentDirections
 import com.example.skilltracker.TaskFragmentDirections
 import com.example.skilltracker.database.entity.Task
 import org.threeten.bp.format.DateTimeFormatter
@@ -34,9 +33,12 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
      * @param itemView the inflated previous_order_list layout
      */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val taskName: TextView = itemView.findViewById<TextView?>(R.id.task_name)
-        val taskCompleted: TextView = itemView.findViewById<TextView?>(R.id.task_completed)
-        val dateCreated: TextView = itemView.findViewById<TextView?>(R.id.task_date_created)
+        val taskName: TextView = itemView.findViewById(R.id.task_name)
+        val taskDescription: TextView = itemView.findViewById(R.id.task_description)
+        val taskActive: TextView = itemView.findViewById(R.id.task_is_active)
+        val taskCompleted: TextView = itemView.findViewById(R.id.task_completed)
+        val dateCompleted: TextView = itemView.findViewById(R.id.task_date_completed)
+        val dateCreated: TextView = itemView.findViewById(R.id.task_date_created)
         var task: Task? = null
     }
 
@@ -61,16 +63,43 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
         holder.taskName.text = task.taskName
+        holder.taskDescription.text = task.taskDescription
+        holder.taskActive.text = if (task.active) " Yes" else " No"
         holder.taskCompleted.text = if (task.taskCompleted)  "Yes" else "No"
 
         // Format date and set it to the viewHolder
         val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
         holder.dateCreated.text = task.taskDateCreated.format(formatter).toString()
 
-        holder.itemView.setOnClickListener {
-            task.taskCompleted = !task.taskCompleted
-//            notifyItemChanged(position)
+        // If the task does not have a description, hide the text view
+        if (task.taskDescription.isNullOrBlank()) {
+            holder.taskDescription.visibility = View.GONE
         }
+
+        // If the task is completed, hide the active text views & add the date completed to the view holder. Otherwise,
+        //  hide the date completed on text views
+        if (task.taskCompleted) {
+            holder.taskActive.visibility = View.GONE
+            holder.itemView.findViewById<TextView>(R.id.active_label).visibility = View.GONE
+            holder.dateCompleted.text = task.taskDateCompleted!!.format(formatter).toString()
+        }
+        else {
+            holder.dateCompleted.visibility = View.GONE
+            holder.itemView.findViewById<TextView>(R.id.task_completed_on_label).visibility = View.GONE
+        }
+
+        // If the task is active, it can't be completed, so hide the completed on text views
+        if (task.active) {
+            holder.taskCompleted.visibility = View.GONE
+            holder.itemView.findViewById<TextView>(R.id.completed_label).visibility = View.GONE
+            holder.dateCompleted.visibility = View.GONE
+            holder.itemView.findViewById<TextView>(R.id.task_completed_on_label).visibility = View.GONE
+        }
+
+//        holder.itemView.setOnClickListener {
+//            task.taskCompleted = !task.taskCompleted
+////            notifyItemChanged(position)
+//        }
 
         //Long Clicks allow for editing the Skill
         holder.itemView.setOnLongClickListener { view: View ->
@@ -101,5 +130,4 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             return oldItem == newItem
         }
     }
-
 }

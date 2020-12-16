@@ -130,7 +130,7 @@ class EditTaskInfoTest {
         appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
 
         val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button), withText("Create Task"),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(
@@ -192,7 +192,7 @@ class EditTaskInfoTest {
         appCompatCheckBox.perform(click())
 
         val appCompatButton4 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Save Task"),
+            allOf(withId(R.id.create_new_task_button), withText("Update Task"),
                 childAtPosition(
                     allOf(withId(R.id.new_task_fragment_constraint_layout),
                         childAtPosition(
