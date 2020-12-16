@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
+import timber.log.Timber
 
 /**
  * Used to create a new Skill
@@ -58,6 +59,7 @@ class NewTaskFragment : Fragment() {
             binding.taskCompletedCheckbox.isChecked = task!!.taskCompleted
             binding.taskActiveCheckbox.isChecked = task!!.active
             binding.newTaskDescriptionInput.setText(task!!.taskDescription)
+            binding.difficultyPointsInput.setText(task!!.difficultyPoints.toString())
 
             binding.taskCompleted.visibility = View.VISIBLE
             binding.taskCompletedCheckbox.visibility = View.VISIBLE
@@ -106,6 +108,7 @@ class NewTaskFragment : Fragment() {
         var name: String = binding.newTaskNameInput.text.toString()
         var description: String = binding.newTaskDescriptionInput.text.toString()
         val active: Boolean = binding.taskActiveCheckbox.isChecked
+        val difficultyPointsAsString: String = binding.difficultyPointsInput.text.toString().trim()
 
         if (description.isBlank()) {
             description = ""
@@ -114,63 +117,64 @@ class NewTaskFragment : Fragment() {
         name = name.trim()
         description = description.trim()
 
-        // Ensure a name was provided for the skill
+        // Ensure a name & difficulty points were provided for the task
         if (name.isBlank()) {
-            val toast = Toast.makeText(context, "Please give the new skill a name", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(context, "Please give the  task a name", Toast.LENGTH_SHORT)
             toast.show()
             binding.newTaskMissingName.visibility = View.VISIBLE
             return false
         }
+        else if (difficultyPointsAsString.isBlank()) {
+            val toast = Toast.makeText(context, "Please give the task a difficulty point between 1 and 10", Toast.LENGTH_SHORT)
+            toast.show()
+            //binding.newTaskMissingName.visibility = View.VISIBLE
+            return false
+        }
         else {
-            binding.newTaskMissingName.visibility = View.INVISIBLE
-            // If task is null, the user is adding a new task, otherwise they are updating an existing task
-            if (task == null) {
-                GlobalScope.launch {
-                    // Create a new Task, insert into DB, and get returned rowId
-                    val newTask = Task(name, description, active)
-                    val newTaskId = vm.insertTasks(newTask)
+            val difficultyPoints: Int = difficultyPointsAsString.toInt()
 
-                    // Set returned rowId to Task's id and insert join
-                    newTask.taskId = newTaskId
-                    vm.insertNewTaskWithJoin(skill!!, newTask)
-                }
-//                var result = vm.insertSkill(Skill(name,false))
-//                println("RESULT: $result")
-                //vm.insertNewSkillWithJoin(skillSet!!, Skill(name, false))
-//                var newSkill = Skill(name, false)
-//                var newSkillId = vm.insertSkill(newSkill)
-//                newSkill.skillId = newSkillId
-//
-//                val skillList = listOf<Skill>(newSkill)
-//                val skillSetWithSkill = SkillSetWithSkills(skillSet!!, skillList)
-//                vm.insertSkillSetWithSkills(skillSetWithSkill) // insert join
-////                var newSkillId = vm.insertSkill(Skill(name, false))
-//
-//                val skillList = listOf<Skill>(newSkill)
-//                val skillSetWithSkill = SkillSetWithSkills(skillSet!!, skillList)
-//                vm.insertSkillSetWithSkills(skillSetWithSkill) // insert join
+            if (difficultyPoints < 1 || difficultyPoints > 10) {
+                val toast = Toast.makeText(context, "Please give the task a difficulty point between 1 and 10", Toast.LENGTH_SHORT)
+                toast.show()
+                //binding.newTaskMissingName.visibility = View.VISIBLE
+                return false
             }
             else {
-                // If the task was marked as completed & it wasn't before, set the dateCompleted
-                if (binding.taskCompletedCheckbox.isChecked && !task!!.taskCompleted) {
-                    task!!.taskDateCompleted = LocalDateTime.now()
-                    task!!.active = false
-                }
+                binding.newTaskMissingName.visibility = View.INVISIBLE
+                // If task is null, the user is adding a new task, otherwise they are updating an existing task
+                if (task == null) {
+                    GlobalScope.launch {
+                        // Create a new Task, insert into DB, and get returned rowId
+                        val newTask = Task(name, description, active, difficultyPoints)
+                        val newTaskId = vm.insertTasks(newTask)
 
-                // If the task task is completed, ensure active is false, otherwise set active based on the checkbox's isChecked value
-                if (binding.taskCompletedCheckbox.isChecked) {
-                    task!!.active = false
+                        // Set returned rowId to Task's id and insert join
+                        newTask.taskId = newTaskId
+                        vm.insertNewTaskWithJoin(skill!!, newTask)
+                    }
                 }
                 else {
-                    task!!.active = active
-                }
+                    // If the task was marked as completed & it wasn't before, set the dateCompleted
+                    if (binding.taskCompletedCheckbox.isChecked && !task!!.taskCompleted) {
+                        task!!.taskDateCompleted = LocalDateTime.now()
+                        task!!.active = false
+                    }
 
-                task!!.taskName = name
-                task!!.taskDescription = description
-                task!!.taskCompleted = binding.taskCompletedCheckbox.isChecked
-                vm.updateTasks(task!!)
+                    // If the task task is completed, ensure active is false, otherwise set active based on the checkbox's isChecked value
+                    if (binding.taskCompletedCheckbox.isChecked) {
+                        task!!.active = false
+                    }
+                    else {
+                        task!!.active = active
+                    }
+
+                    task!!.taskName = name
+                    task!!.taskDescription = description
+                    task!!.taskCompleted = binding.taskCompletedCheckbox.isChecked
+                    vm.updateTasks(task!!)
+                }
+                return true
             }
-            return true
         }
     }
 }

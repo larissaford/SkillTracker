@@ -43,5 +43,5 @@ data class Task(
 
     constructor(): this("add name", "add description", 0, false, true, LocalDateTime.now(), null)
 
-    constructor(name: String, description: String, active: Boolean): this(name, description, 0, false, active, LocalDateTime.now(), null)
+    constructor(name: String, description: String, active: Boolean, difficultyPoints: Int): this(name, description, difficultyPoints, false, active, LocalDateTime.now(), null)
 }

@@ -118,27 +118,9 @@ class MakeCompletedTaskUncompletedTest {
                 isDisplayed()))
         floatingActionButton3.perform(click())
 
-        val appCompatEditText4 = onView(
-            allOf(withId(R.id.new_task_name_input),
-                childAtPosition(
-                    allOf(withId(R.id.cardone),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            1)),
-                    1),
-                isDisplayed()))
-        appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
-
-        val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Create Task"),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton3.perform(click())
+        onView(withId(R.id.new_task_name_input)).perform(replaceText("t"))
+        onView(withId(R.id.difficulty_points_input)).perform(replaceText("5"))
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val recyclerView = onView(
             allOf(withId(R.id.task_list),
@@ -146,46 +128,28 @@ class MakeCompletedTaskUncompletedTest {
                     withClassName(`is`("android.widget.LinearLayout")),
                     0)))
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
+//
+//        val appCompatButton4 = onView(
+//            allOf(withId(R.id.create_new_task_button),
+//                childAtPosition(
+//                    allOf(withId(R.id.new_task_fragment_constraint_layout),
+//                        childAtPosition(
+//                            withId(R.id.myNavHostFragment),
+//                            0)),
+//                    5),
+//                isDisplayed()))
+//        appCompatButton4.perform(click())
+//
+//        val recyclerView2 = onView(
+//            allOf(withId(R.id.task_list),
+//                childAtPosition(
+//                    withClassName(`is`("android.widget.LinearLayout")),
+//                    0)))
+//        recyclerView2.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
 
-        val appCompatButton4 = onView(
-            allOf(withId(R.id.create_new_task_button),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton4.perform(click())
 
-        val recyclerView2 = onView(
-            allOf(withId(R.id.task_list),
-                childAtPosition(
-                    withClassName(`is`("android.widget.LinearLayout")),
-                    0)))
-        recyclerView2.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
-
-        val appCompatCheckBox3 = onView(
-            allOf(withId(R.id.task_completed_checkbox),
-                childAtPosition(
-                    allOf(withId(R.id.cardfour),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            0)),
-                    0),
-                isDisplayed()))
-        appCompatCheckBox3.perform(click())
-
-        val appCompatButton5 = onView(
-            allOf(withId(R.id.create_new_task_button),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton5.perform(click())
+        onView(withId(R.id.task_completed_checkbox)).perform(click())
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val recyclerView3 = onView(
             allOf(withId(R.id.task_list),
@@ -194,27 +158,8 @@ class MakeCompletedTaskUncompletedTest {
                     0)))
         recyclerView3.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
 
-        val appCompatCheckBox6 = onView(
-            allOf(withId(R.id.task_completed_checkbox),
-                childAtPosition(
-                    allOf(withId(R.id.cardfour),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            0)),
-                    0),
-                isDisplayed()))
-        appCompatCheckBox6.perform(click())
-
-        val appCompatButton6 = onView(
-            allOf(withId(R.id.create_new_task_button),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton6.perform(click())
+        onView(withId(R.id.task_completed_checkbox)).perform(click())
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val recyclerView4 = onView(
             allOf(withId(R.id.task_list),
@@ -223,7 +168,6 @@ class MakeCompletedTaskUncompletedTest {
                     0)))
         recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
 
-        onView(withId(R.id.new_task_name_input)).check(ViewAssertions.matches(withSubstring("t")))
         onView(withId(R.id.new_task_name_input)).check(ViewAssertions.matches(withSubstring("t")))
         onView(withId(R.id.task_completed_checkbox)).check(ViewAssertions.matches(isNotChecked()))
         onView(withId(R.id.cardfive)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.INVISIBLE)))

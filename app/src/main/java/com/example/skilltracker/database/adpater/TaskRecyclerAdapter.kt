@@ -38,6 +38,7 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskName: TextView = itemView.findViewById(R.id.task_name)
         val taskDescription: TextView = itemView.findViewById(R.id.task_description)
+        val taskDifficultyPoints: TextView = itemView.findViewById(R.id.task_difficulty_points)
         val taskActive: TextView = itemView.findViewById(R.id.task_is_active)
         val taskCompleted: TextView = itemView.findViewById(R.id.task_completed)
         val dateCompleted: TextView = itemView.findViewById(R.id.task_date_completed)
@@ -69,6 +70,7 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
         holder.taskDescription.text = task.taskDescription
         holder.taskActive.text = if (task.active) " Yes" else " No"
         holder.taskCompleted.text = if (task.taskCompleted)  "Yes" else "No"
+        holder.taskDifficultyPoints.text = task.difficultyPoints.toString()
 
         // Format date and set it to the viewHolder
         val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)

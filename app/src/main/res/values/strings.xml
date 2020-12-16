@@ -49,5 +49,6 @@
     <string name="completed_on">Completed On\u0020</string>
     <string name="update_task">Update Task</string>
     <string name="skill_list_title">My Skills</string>
+    <string name="difficulty_points_semicolon">Difficulty Points:\u0020</string>
 
 </resources>

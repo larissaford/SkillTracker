@@ -118,27 +118,9 @@ class BackButtonTest {
                 isDisplayed()))
         floatingActionButton3.perform(click())
 
-        val appCompatEditText4 = onView(
-            allOf(withId(R.id.new_task_name_input),
-                childAtPosition(
-                    allOf(withId(R.id.cardone),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            1)),
-                    1),
-                isDisplayed()))
-        appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
-
-        val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton3.perform(click())
+        onView(withId(R.id.new_task_name_input)).perform(replaceText("t"))
+        onView(withId(R.id.difficulty_points_input)).perform(replaceText("2"))
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val recyclerView = onView(
             allOf(withId(R.id.task_list),

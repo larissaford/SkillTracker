@@ -10,35 +10,6 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardfour"
-                style="@style/card_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:visibility="invisible"
-                app:cardCornerRadius="10dp"
-                app:contentPadding="@dimen/card_padding"
-                app:layout_constraintEnd_toEndOf="@+id/cardone"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/cardone"
-                app:layout_constraintTop_toBottomOf="@+id/cardthree">
-
-                <CheckBox
-                    android:id="@+id/task_completed_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="230dp"
-                    android:layout_marginTop="5dp" />
-
-                <TextView
-                    android:id="@+id/task_completed"
-                    style="@style/fragment_new_skill_set_form_text_style2"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/completed" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
                 android:id="@+id/cardone"
                 style="@style/card_style"
                 android:layout_width="match_parent"
@@ -85,7 +56,7 @@
                 style="@style/card_style"
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 app:cardBackgroundColor="@color/fragment_new_skill_set"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
@@ -111,7 +82,40 @@
                     android:hint="@string/enter_a_description_for_the_task"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine" />
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/difficulty_points_card"
+                style="@style/card_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="@dimen/card_padding"
+                app:layout_constraintEnd_toEndOf="@+id/cardtwo"
+                app:layout_constraintStart_toStartOf="@+id/cardtwo"
+                app:layout_constraintTop_toBottomOf="@+id/cardtwo">
+
+                <TextView
+                    android:id="@+id/task_difficulty_points_label"
+                    style="@style/fragment_new_skill_set_form_text_style2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:labelFor="@id/difficulty_points_input"
+                    android:text="@string/difficulty_points_semicolon"
+                    android:textAlignment="textStart" />
+
+                <EditText
+                    android:id="@+id/difficulty_points_input"
+                    style="@style/fragment_new_skill_set_form_text_style2"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="218dp"
+                    android:layout_marginTop="2dp"
+                    android:ems="10"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:textAlignment="center" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -119,12 +123,12 @@
                 style="@style/card_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
                 app:layout_constraintEnd_toEndOf="@+id/cardtwo"
                 app:layout_constraintStart_toStartOf="@+id/cardtwo"
-                app:layout_constraintTop_toBottomOf="@+id/cardtwo">
+                app:layout_constraintTop_toBottomOf="@+id/difficulty_points_card">
 
                 <CheckBox
                     android:id="@+id/task_active_checkbox"
@@ -142,13 +146,42 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardfive"
+                android:id="@+id/cardfour"
                 style="@style/card_style"
-                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:visibility="invisible"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="@dimen/card_padding"
+                app:layout_constraintEnd_toEndOf="@+id/cardone"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cardone"
+                app:layout_constraintTop_toBottomOf="@+id/cardthree">
+
+                <CheckBox
+                    android:id="@+id/task_completed_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="230dp"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:id="@+id/task_completed"
+                    style="@style/fragment_new_skill_set_form_text_style2"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/completed" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardfive"
+                style="@style/card_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:visibility="invisible"
+                app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
                 app:layout_constraintEnd_toEndOf="@+id/cardfour"
                 app:layout_constraintStart_toStartOf="@+id/cardfour"
@@ -166,7 +199,7 @@
                     style="@style/fragment_new_skill_set_form_text_style2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="200dp"
+                    android:layout_marginStart="195dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#000000" />
             </androidx.cardview.widget.CardView>

@@ -116,27 +116,10 @@ class CreateSkillAndAddNewTaskTest {
                 isDisplayed()))
         floatingActionButton3.perform(click())
 
-        val appCompatEditText4 = onView(
-            allOf(withId(R.id.new_task_name_input),
-                childAtPosition(
-                    allOf(withId(R.id.cardone),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            1)),
-                    1),
-                isDisplayed()))
-        appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
 
-        val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Create Task"),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton3.perform(click())
+        onView(withId(R.id.new_task_name_input)).perform(replaceText("t"))
+        onView(withId(R.id.difficulty_points_input)).perform(replaceText("2"))
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val appCompatImageButton = onView(
             allOf(withContentDescription("Navigate up"),
@@ -149,14 +132,7 @@ class CreateSkillAndAddNewTaskTest {
                 isDisplayed()))
         appCompatImageButton.perform(click())
 
-        val frameLayout = onView(
-            allOf(childAtPosition(
-                childAtPosition(
-                    withId(R.id.skill_list),
-                    0),
-                0),
-                isDisplayed()))
-        frameLayout.check(matches(isDisplayed()))
+        onView(withId(R.id.skill_name)).check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

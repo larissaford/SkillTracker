@@ -118,38 +118,11 @@ class SetTaskAsCompletedTest {
                 isDisplayed()))
         floatingActionButton3.perform(click())
 
-        val appCompatEditText4 = onView(
-            allOf(withId(R.id.new_task_name_input),
-                childAtPosition(
-                    allOf(withId(R.id.cardone),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            1)),
-                    1),
-                isDisplayed()))
-        appCompatEditText4.perform(replaceText("t"), closeSoftKeyboard())
-
-        val appCompatCheckBox = onView(
-            allOf(withId(R.id.task_active_checkbox),
-                childAtPosition(
-                    allOf(withId(R.id.cardthree),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            3)),
-                    0),
-                isDisplayed()))
-        appCompatCheckBox.perform(click())
-
-        val appCompatButton3 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Create Task"),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton3.perform(click())
+        onView(withId(R.id.new_task_name_input)).perform(replaceText("t"))
+        closeSoftKeyboard()
+        onView(withId(R.id.task_active_checkbox)).perform(click())
+        onView(withId(R.id.difficulty_points_input)).perform(replaceText("5"))
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val recyclerView = onView(
             allOf(withId(R.id.task_list),
@@ -158,27 +131,8 @@ class SetTaskAsCompletedTest {
                     0)))
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, longClick()))
 
-        val appCompatCheckBox2 = onView(
-            allOf(withId(R.id.task_completed_checkbox),
-                childAtPosition(
-                    allOf(withId(R.id.cardfour),
-                        childAtPosition(
-                            withId(R.id.new_task_fragment_constraint_layout),
-                            0)),
-                    0),
-                isDisplayed()))
-        appCompatCheckBox2.perform(click())
-
-        val appCompatButton4 = onView(
-            allOf(withId(R.id.create_new_task_button), withText("Update Task"),
-                childAtPosition(
-                    allOf(withId(R.id.new_task_fragment_constraint_layout),
-                        childAtPosition(
-                            withId(R.id.myNavHostFragment),
-                            0)),
-                    5),
-                isDisplayed()))
-        appCompatButton4.perform(click())
+        onView(withId(R.id.task_completed_checkbox)).perform(click())
+        onView(withId(R.id.create_new_task_button)).perform(click())
 
         val recyclerView2 = onView(
             allOf(withId(R.id.task_list),
