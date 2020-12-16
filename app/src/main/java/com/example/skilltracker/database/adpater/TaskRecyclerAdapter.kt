@@ -86,12 +86,12 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             holder.itemView.findViewById<TextView>(R.id.active_label).visibility = View.GONE
             holder.dateCompleted.text = task.taskDateCompleted!!.format(formatter).toString()
 
-            //holder.itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_green_light))
             holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         }
         else { // Otherwise hide the date completed on text views
             holder.dateCompleted.visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.task_completed_on_label).visibility = View.GONE
+            holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
         }
 
         // If the task is active, it can't be completed, so hide the completed on text views
@@ -102,10 +102,10 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             holder.itemView.findViewById<TextView>(R.id.task_completed_on_label).visibility = View.GONE
         }
 
-//        holder.itemView.setOnClickListener {
-//            task.taskCompleted = !task.taskCompleted
-////            notifyItemChanged(position)
-//        }
+        holder.itemView.setOnClickListener {
+            task.taskCompleted = !task.taskCompleted
+            notifyItemChanged(position)
+        }
 
         //Long Clicks allow for editing the Skill
         holder.itemView.setOnLongClickListener { view: View ->
@@ -113,10 +113,6 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
                 TaskFragmentDirections.actionTaskFragmentToNewTaskFragment(task, null)
             )
             true
-        }
-
-        holder.itemView.setOnClickListener{ view: View ->
-            makeColored(view)
         }
 
 
