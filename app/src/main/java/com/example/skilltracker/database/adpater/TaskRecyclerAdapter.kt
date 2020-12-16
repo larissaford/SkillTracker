@@ -1,10 +1,13 @@
 package com.example.skilltracker.database.adpater
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -76,14 +79,17 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             holder.taskDescription.visibility = View.GONE
         }
 
-        // If the task is completed, hide the active text views & add the date completed to the view holder. Otherwise,
-        //  hide the date completed on text views
+        // If the task is completed, hide the active text views & add the date completed to the view holder.
         if (task.taskCompleted) {
+
             holder.taskActive.visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.active_label).visibility = View.GONE
             holder.dateCompleted.text = task.taskDateCompleted!!.format(formatter).toString()
+
+            //holder.itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_green_light))
+            holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         }
-        else {
+        else { // Otherwise hide the date completed on text views
             holder.dateCompleted.visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.task_completed_on_label).visibility = View.GONE
         }
@@ -108,6 +114,16 @@ class TaskRecyclerAdapter (private val context: Context, private var tasks: List
             )
             true
         }
+
+        holder.itemView.setOnClickListener{ view: View ->
+            makeColored(view)
+        }
+
+
+    }
+
+    private fun makeColored(view: View){
+
     }
 
     /**

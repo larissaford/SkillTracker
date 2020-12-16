@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -75,8 +77,14 @@ class SkillRecyclerAdapter (private val context: Context, private var skillsWith
             }
             tasksCompletedPercentage =
                 ((tasksCompletedCount/skillWithTasks.tasks.size) * 100).toDouble()
+            if(tasksCompletedPercentage == 100.0){
+                holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
+            }
         }
 
+//        if(skill.completed){
+//            holder.itemView.findViewById<CardView>(R.id.card_view).setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
+//        }
 
         holder.skillName.text = skill.skillName
         holder.skillCompleted.text = String.format("%.2f", tasksCompletedPercentage) + "%"
