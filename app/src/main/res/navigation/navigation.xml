@@ -39,10 +39,10 @@
     <fragment
         android:id="@+id/skillFragment"
         android:name="com.example.skilltracker.SkillFragment"
-        android:label="{skillName}"
+        android:label="{skillSetName}"
         tools:layout="@layout/fragment_skill">
         <argument
-            android:name="skillName"
+            android:name="skillSetName"
             app:argType="string" />
         <action
             android:id="@+id/action_skillFragment_to_newSkillFragment"
@@ -80,7 +80,7 @@
     <fragment
         android:id="@+id/taskFragment"
         android:name="com.example.skilltracker.TaskFragment"
-        android:label="My Tasks"
+        android:label="{skillName}"
         tools:layout="@layout/fragment_task">
         <action
             android:id="@+id/action_taskFragment_to_newTaskFragment"
@@ -89,6 +89,9 @@
         <argument
             android:name="skill"
             app:argType="com.example.skilltracker.database.entity.Skill" />
+        <argument
+            android:name="skillName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"

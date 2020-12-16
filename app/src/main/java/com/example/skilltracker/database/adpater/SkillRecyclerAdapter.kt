@@ -96,7 +96,7 @@ class SkillRecyclerAdapter (private val context: Context, private var skillsWith
         // Clicking on CardView navigates to Task Fragment
         holder.itemView.setOnClickListener { view: View ->
             view.findNavController().navigate(
-                SkillFragmentDirections.actionSkillFragmentToTaskFragment(skill)
+                SkillFragmentDirections.actionSkillFragmentToTaskFragment(skill, skill.skillName)
             )
         }
 

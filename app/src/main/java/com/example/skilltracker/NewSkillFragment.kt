@@ -187,7 +187,7 @@ class NewSkillFragment : Fragment() {
 
                             // Navigate to the task fragment
                             withContext(Dispatchers.Main) {
-                                view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!))
+                                view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!, skill!!.skillName))
                             }
                         }
                     } // end GlobalScope.Launch Coroutine
@@ -217,7 +217,7 @@ class NewSkillFragment : Fragment() {
 
                             // Navigate to the task fragment
                             withContext(Dispatchers.Main) {
-                                view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!))
+                                view.findNavController().navigate(NewSkillFragmentDirections.actionNewSkillFragmentToTaskFragment(skill!!,  skill!!.skillName))
                             }
                         }
                     } // end GlobalScope.Launch Coroutine
