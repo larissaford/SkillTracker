@@ -14,7 +14,7 @@
             android:id="@+id/card_one_fragment_new_skill"
             style="@style/card_style"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
@@ -43,7 +43,8 @@
                 android:id="@+id/new_skill_missing_name"
                 style="@style/missing_field_error_warningNew"
                 android:layout_width="match_parent"
-                android:text="@string/name_can_not_be_blank" />
+                android:text="@string/name_can_not_be_blank"
+                android:visibility="gone" />
 
 
         </androidx.cardview.widget.CardView>
@@ -97,9 +98,9 @@
             android:id="@+id/card_three_fragment_new_skill"
             style="@style/card_style"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
             app:layout_constraintEnd_toEndOf="@+id/card_two_fragment_new_skill"
