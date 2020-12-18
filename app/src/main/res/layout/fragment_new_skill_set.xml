@@ -16,7 +16,7 @@
             style="@style/card_style"
             android:layout_width="match_parent"
             android:layout_height="125dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="@dimen/new_skillSet_top_padding"
             app:cardBackgroundColor="@color/fragment_new_skill_set"
             app:cardCornerRadius="10dp"
             app:contentPadding="@dimen/card_padding"
@@ -40,9 +40,9 @@
             <EditText
                 android:id="@+id/new_skillSet_name_input"
                 style="@style/fragment_new_skill_set_user_form_style3"
+                android:autofillHints="@string/fragment_new_skill_set_hint_value_for_user_input"
                 android:hint="@string/fragment_new_skill_set_hint_value_for_user_input"
-                android:inputType="text"
-                android:autofillHints="@string/fragment_new_skill_set_hint_value_for_user_input"/>
+                android:inputType="text" />
 
         </androidx.cardview.widget.CardView>
 
@@ -127,7 +127,6 @@
             android:layout_width="match_parent"
             android:layout_height="200sp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/new_skillSet_body_padding"
             android:visibility="invisible"
             app:cardBackgroundColor="@color/fragment_new_skill_set"
             app:cardCornerRadius="10dp"

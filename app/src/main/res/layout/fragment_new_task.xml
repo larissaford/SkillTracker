@@ -13,7 +13,7 @@
                 android:id="@+id/cardone"
                 style="@style/card_style"
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
@@ -47,7 +47,9 @@
                     style="@style/missing_field_error_warningNew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/name_can_not_be_blank" />
+                    android:text="@string/name_can_not_be_blank"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
             </androidx.cardview.widget.CardView>
 
 
@@ -55,7 +57,7 @@
                 android:id="@+id/cardtwo"
                 style="@style/card_style"
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:cardBackgroundColor="@color/fragment_new_skill_set"
                 app:cardCornerRadius="10dp"
@@ -90,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:visibility="visible"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
                 app:layout_constraintEnd_toEndOf="@+id/cardtwo"
@@ -151,13 +154,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
                 app:layout_constraintEnd_toEndOf="@+id/cardone"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/cardone"
-                app:layout_constraintTop_toBottomOf="@+id/cardthree">
+                app:layout_constraintTop_toBottomOf="@+id/cardthree"
+                tools:visibility="visible">
 
                 <CheckBox
                     android:id="@+id/task_completed_checkbox"
@@ -180,12 +184,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="@dimen/card_padding"
                 app:layout_constraintEnd_toEndOf="@+id/cardfour"
                 app:layout_constraintStart_toStartOf="@+id/cardfour"
-                app:layout_constraintTop_toBottomOf="@+id/cardfour">
+                app:layout_constraintTop_toBottomOf="@+id/cardfour"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/task_completed_on"
@@ -207,12 +212,13 @@
             <Button
                 android:id="@+id/create_new_task_button"
                 android:layout_width="175dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="@dimen/new_skillSet_create_button_padding"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/custom_button_one"
                 android:text="@string/create_task"
                 android:textColor="@color/fragment_new_skill_set_button_text_color"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardfive" />

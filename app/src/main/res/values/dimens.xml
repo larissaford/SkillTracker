@@ -20,4 +20,5 @@
     <dimen name="fragment_new_skill_set_padding_end_user_input">10sp</dimen>
     <dimen name="linespaceing">10dp</dimen>
     <dimen name="card_padding">10dp</dimen>
+    <dimen name="title_height">100dp</dimen>
 </resources>
