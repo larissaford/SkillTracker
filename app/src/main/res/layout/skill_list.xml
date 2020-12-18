@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -39,7 +39,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/skill_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/completed_label" />
 
                 <TextView
                     android:id="@+id/completed_label"
@@ -50,7 +50,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/created_on" />
+                    app:layout_constraintTop_toBottomOf="@+id/skill_name" />
 
                 <TextView
                     android:id="@+id/skill_completed"
